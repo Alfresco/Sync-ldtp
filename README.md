@@ -17,11 +17,11 @@ In our open source solution we used the following repositories:
 For MAC you will need:
 * OS X system with Xcode installed (tested on 10.9)
 If you experience any issues, please feel free to open a ticket in the [issue tracker](https://github.com/AlfrescoTestAutomation/alfresco-ldtp/issues).
-* please follow the [Getting Started](https://github.com/pyatom/pyatom#getting-started) section from official page.
+* please also follow the [Getting Started with Pyatom](https://github.com/pyatom/pyatom#getting-started) section from official page.
 
 For Windows you will need:
 * Windows XP/ Windows 7 SP1 / Winows 8 - as a minimum requirement.
-* please follow the [Installation Instruction](https://github.com/ldtp/cobra#download) from official page.
+* please follow the [Installation Instruction of Cobra LDTP](https://github.com/ldtp/cobra#download) from official page.
 
 ## LDTP Documentation
 
