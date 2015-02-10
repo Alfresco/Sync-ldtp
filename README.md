@@ -1,6 +1,9 @@
 # Alfresco LDTP
 * [Introduction](#introduction)
+* [Requirements](#requirements)
+* [LDTP Documentation](#ldtp-documentation)
 * [Getting Started](#getting-started)
+* [Usage](#usage)
 
 ## Introduction
 We are pleased to introduce Alfresco LDTP library (IN Progress): a Java based automation suite that will enable GUI testing (Windows and MAC) of Alfresco dektop applications.
@@ -25,8 +28,6 @@ For Windows you will need:
 Please take a look on [LDTP User Manual](http://ldtp.freedesktop.org/user-doc/)
 
 ## Getting Started
-
-# MAC OS X
 
 * Checkout the code and install all dependencies:
 ```
