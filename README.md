@@ -4,6 +4,7 @@
 * [LDTP Documentation](#ldtp-documentation)
 * [Getting Started](#getting-started)
 * [Usage](#usage)
+* [Wiki](https://github.com/AlfrescoTestAutomation/alfresco-ldtp/wiki)
 
 ## Introduction
 We are pleased to introduce Alfresco LDTP library (IN Progress): a Java based automation suite that will enable GUI testing (Windows and MAC) of Alfresco dektop applications.
@@ -27,6 +28,9 @@ For Windows you will need:
 
 Please take a look on [LDTP User Manual](http://ldtp.freedesktop.org/user-doc/)
 
+## Project Structure
+
+
 ## Getting Started
 
 * Checkout the code and install all dependencies:
@@ -36,12 +40,18 @@ $ mvn clean install -DskipTests
 ```
 * Run MAC OS X related tests:
 ```cmd
-$ mvn clean test -Dgroups=MacOnly
+$ mvn clean test -Dgroups=MacOnly -DexcludedGroups=Office
 ```
+
+If you have Office 2011 installed on your MAC you can run the Office unit tests as well:
+```cmd
+$ mvn clean test -Dtest=org.alfresco.os.mac.app.office.v2011.Excel2011Test
+```
+
 ## Usage
 
 Please take a look on the unit tests already implemented for our classes.
-Bellow you will find alos a snipet of how to create a simple file/folder structure as a end user will do:
+Bellow you will find also a snipet of how to create a simple folder as a End User will do in Finder:
 ```java
 import java.io.File;
 

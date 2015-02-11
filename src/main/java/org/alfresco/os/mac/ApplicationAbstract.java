@@ -22,7 +22,7 @@ import org.alfresco.utilities.LdtpUtils;
 import com.cobra.ldtp.Ldtp;
 
 /**
- * Abstract class that will cover only Windows based application
+ * Abstract class that will cover only MAC OS based application
  * 
  * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */

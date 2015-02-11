@@ -137,7 +137,6 @@ public abstract class ApplicationBaseAbstract
             int endIndex = 0;
             while ((startIndex = value.indexOf(START_DELIMITER, endIndex)) >= 0 && (endIndex = value.indexOf(END_DELIMITER, startIndex)) >= 0)
             {
-
                 String variableName = value.substring(startIndex + START_DELIMITER.length(), endIndex);
                 // now call getProperty recursively to have this looked up
                 String variableValue = null;
@@ -154,7 +153,7 @@ public abstract class ApplicationBaseAbstract
                     variableValue = START_DELIMITER + variableName + END_DELIMITER;
                 }
                 value = value.replace(START_DELIMITER + variableName + END_DELIMITER, variableValue);
-            } // while matches.
+            }
         }
         return value;
     }
