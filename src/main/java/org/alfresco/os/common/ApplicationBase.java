@@ -13,7 +13,7 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.alfresco.os;
+package org.alfresco.os.common;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import com.cobra.ldtp.Ldtp;
  * 
  * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
-public abstract class ApplicationBaseAbstract
+public abstract class ApplicationBase
 {
     protected static Log logger = onThisClass();
     protected Ldtp ldtp;
@@ -47,7 +47,7 @@ public abstract class ApplicationBaseAbstract
 
     public abstract void exitApplication();
 
-    public abstract ApplicationBaseAbstract openApplication() throws Exception;
+    public abstract ApplicationBase openApplication() throws Exception;
 
     public abstract void killProcess();
 
@@ -61,7 +61,7 @@ public abstract class ApplicationBaseAbstract
      * @return
      * @throws Exception
      */
-    protected ApplicationBaseAbstract openApplication(String[] command) throws Exception
+    protected ApplicationBase openApplication(String[] command) throws Exception
     {
         runProcess(command);
         waitForWindow(getWaitWindow());

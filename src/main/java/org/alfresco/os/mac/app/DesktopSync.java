@@ -15,14 +15,14 @@
 
 package org.alfresco.os.mac.app;
 
-import org.alfresco.os.mac.ApplicationAbstract;
+import org.alfresco.os.mac.Application;
 
 /**
  * Handles AlfrescoDesktopSync tool on MAC system
  * 
  * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
-public class DesktopSync extends ApplicationAbstract
+public class DesktopSync extends Application
 {
     public DesktopSync()
     {

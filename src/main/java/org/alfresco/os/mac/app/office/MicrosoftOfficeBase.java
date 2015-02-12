@@ -18,8 +18,8 @@ package org.alfresco.os.mac.app.office;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.alfresco.os.mac.ApplicationAbstract;
-import org.alfresco.os.mac.EditorAbstract;
+import org.alfresco.os.mac.Application;
+import org.alfresco.os.mac.Editor;
 import org.alfresco.os.mac.utils.AppleMenuBar.Menu;
 
 import com.cobra.ldtp.Ldtp;
@@ -30,7 +30,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  * 
  * @author Paul Brodner
  */
-public class MicrosoftOfficeBase extends EditorAbstract
+public class MicrosoftOfficeBase extends Editor
 {
     private MicrosoftDocumentConnection mdc;
 
@@ -139,7 +139,7 @@ public class MicrosoftOfficeBase extends EditorAbstract
     }
 
     @Override
-    protected ApplicationAbstract openApplication(String[] command) throws Exception
+    protected Application openApplication(String[] command) throws Exception
     {
         handleCrash();
         runProcess(command);

@@ -1,13 +1,13 @@
 package org.alfresco.os.mac.utils;
 
-import org.alfresco.os.mac.ApplicationAbstract;
+import org.alfresco.os.mac.Application;
 
 /**
  * Implements the Keyboard shortcuts
  * 
  * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
-public class KeyboardShortcut extends ApplicationAbstract
+public class KeyboardShortcut extends Application
 {
 
     @Override
