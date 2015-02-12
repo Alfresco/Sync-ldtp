@@ -28,7 +28,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.alfresco.os.mac.ApplicationAbstract;
+import org.alfresco.os.mac.Application;
 import org.alfresco.utilities.LdtpUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,7 +43,7 @@ import org.w3c.dom.NodeList;
  * @task QA-981
  * @author Paul Brodner
  */
-public class MicrosoftDocumentConnection extends ApplicationAbstract
+public class MicrosoftDocumentConnection extends Application
 {
 
     public MicrosoftDocumentConnection(String version)

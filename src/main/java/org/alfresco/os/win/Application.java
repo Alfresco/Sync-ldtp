@@ -15,7 +15,7 @@
 
 package org.alfresco.os.win;
 
-import org.alfresco.os.ApplicationBaseAbstract;
+import org.alfresco.os.common.ApplicationBase;
 
 import com.cobra.ldtp.Ldtp;
 
@@ -24,7 +24,7 @@ import com.cobra.ldtp.Ldtp;
  * 
  * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
-public class ApplicationAbstract extends ApplicationBaseAbstract
+public class Application extends ApplicationBase
 {
 
     @Override
@@ -49,7 +49,7 @@ public class ApplicationAbstract extends ApplicationBaseAbstract
     }
 
     @Override
-    public ApplicationAbstract openApplication() throws Exception
+    public Application openApplication() throws Exception
     {
         // TODO Auto-generated method stub
         return null;

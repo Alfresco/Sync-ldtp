@@ -18,7 +18,7 @@ package org.alfresco.os.mac.app;
 import java.io.File;
 import java.io.IOException;
 
-import org.alfresco.os.mac.EditorAbstract;
+import org.alfresco.os.mac.Editor;
 import org.alfresco.os.mac.utils.AppleScript;
 
 import com.cobra.ldtp.LdtpExecutionError;
@@ -29,7 +29,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  * @task QA-1108
  * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
-public class TextEdit extends EditorAbstract
+public class TextEdit extends Editor
 {
     /**
      * @param version

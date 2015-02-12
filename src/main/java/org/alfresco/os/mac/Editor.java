@@ -33,7 +33,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  * 
  * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
-public abstract class EditorAbstract extends ApplicationAbstract
+public abstract class Editor extends Application
 {
     protected String fileName = "NOT DEFINED"; // this is the filename from Editor
     private AppleMenuBar appleMenu;

@@ -15,7 +15,7 @@
 
 package org.alfresco.os.mac.utils;
 
-import org.alfresco.os.mac.ApplicationAbstract;
+import org.alfresco.os.mac.Application;
 import org.alfresco.utilities.LdtpUtils;
 
 import com.cobra.ldtp.Ldtp;
@@ -26,7 +26,7 @@ import com.cobra.ldtp.Ldtp;
  * @task QA-1107
  * @author Paul Brodner
  */
-public class AlertDialog extends ApplicationAbstract
+public class AlertDialog extends Application
 {
 
     private Ldtp alert;

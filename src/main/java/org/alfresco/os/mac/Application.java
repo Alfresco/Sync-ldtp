@@ -15,7 +15,7 @@
 
 package org.alfresco.os.mac;
 
-import org.alfresco.os.ApplicationBaseAbstract;
+import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.mac.utils.AppleScript;
 import org.alfresco.utilities.LdtpUtils;
 
@@ -26,7 +26,7 @@ import com.cobra.ldtp.Ldtp;
  * 
  * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
-public abstract class ApplicationAbstract extends ApplicationBaseAbstract
+public abstract class Application extends ApplicationBase
 {
     public abstract void exitApplication();
 
@@ -71,7 +71,7 @@ public abstract class ApplicationAbstract extends ApplicationBaseAbstract
         return ldtp;
     }
 
-    public ApplicationAbstract openApplication()
+    public Application openApplication()
     {
         try
         {
