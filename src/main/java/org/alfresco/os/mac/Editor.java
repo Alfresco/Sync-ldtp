@@ -37,7 +37,6 @@ public abstract class Editor extends Application
 {
     protected String fileName = "NOT DEFINED"; // this is the filename from Editor
     private AppleMenuBar appleMenu;
-    private String version = "";
 
     protected AppleMenuBar getAppleMenu()
     {
@@ -263,15 +262,7 @@ public abstract class Editor extends Application
         return tmp_;
     }
 
-    public String getApplicationVersion()
-    {
-        return version;
-    }
-
-    protected void setApplicationVersion(String version)
-    {
-        this.version = version;
-    }
+   
 
     /**
      * This will wait for a file, until it exist on disk or a retry count is reached.

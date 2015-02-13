@@ -38,6 +38,18 @@ public abstract class ApplicationBase
     protected Ldtp ldtp;
     protected String applicationPath;
     protected String applicationName;
+    protected String applicationVersion;
+    
+    public String getApplicationVersion()
+    {
+        return applicationVersion;
+    }
+
+    public void setApplicationVersion(String applicationVersion)
+    {
+        this.applicationVersion = applicationVersion;
+    }
+
     protected Properties properties = null;
     protected String waitWindow;
 
@@ -65,7 +77,7 @@ public abstract class ApplicationBase
     {
         runProcess(command);
         waitForWindow(getWaitWindow());
-        return null;
+        return this;
     }
 
     /**
@@ -215,7 +227,7 @@ public abstract class ApplicationBase
             {
                 logger.error("Error Initializing LDTP: " + e.getMessage());
             }
-            ldtp = new Ldtp(getWaitWindow());
+            ldtp = new Ldtp("dummy");
             LdtpUtils.logDebug("Initialized LDTP with default wait window: " + getWaitWindow());
         }
         return ldtp;
@@ -269,7 +281,9 @@ public abstract class ApplicationBase
 
                 if (window.contains(windowName))
                 {
-                    return new Ldtp(window);
+                    setWaitWindow(window);
+                    setLdtp(new Ldtp(window));
+                    return getLdtp();
                 }
             }
             Thread.sleep(1000);

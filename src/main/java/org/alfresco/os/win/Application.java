@@ -16,8 +16,10 @@
 package org.alfresco.os.win;
 
 import org.alfresco.os.common.ApplicationBase;
+import org.alfresco.utilities.LdtpUtils;
 
 import com.cobra.ldtp.Ldtp;
+import com.cobra.ldtp.LdtpExecutionError;
 
 /**
  * Abstract class that will cover only Windows based application
@@ -27,32 +29,89 @@ import com.cobra.ldtp.Ldtp;
 public class Application extends ApplicationBase
 {
 
+    /**
+     * Enums to hold all the applications name.
+     * 
+     * @author Subashni Prasanna
+     */
+    public enum OfficeApplication
+    {
+        WORD("Microsoft Word Document", "Word", "WINWORD.EXE"), 
+        EXCEL("Microsoft Excel Worksheet", "Excel", "EXCEL.EXE"), 
+        POWERPOINT(
+                "Microsoft PowerPoint Presentation",
+                "PowerPoint",
+                "POWERPNT.EXE"), 
+        OUTLOOK("Outlook", "Outlook", "OUTLOOK.exe");
+
+        private String application;
+        private String waitWindow;
+        private String exeName;
+
+        private OfficeApplication(String type, String waitWindow, String exeName)
+        {
+            this.application = type;
+            this.waitWindow = waitWindow;
+            this.exeName = exeName;
+        }
+
+        public String getName()
+        {
+            return application;
+        }
+
+        public String getWaitWindow()
+        {
+            return waitWindow;
+        }
+
+        public String getExeName()
+        {
+            return exeName;
+        }
+    }
+
     @Override
     public void exitApplication()
     {
-        // TODO Auto-generated method stub
+        killProcess();
 
     }
 
     @Override
     public void killProcess()
     {
-        // TODO Auto-generated method stub
+        LdtpUtils.execute(new String[] { "taskkill", "/IM", getApplicationName() });
 
     }
 
     @Override
     protected Ldtp initializeLdtp()
     {
-        // TODO Auto-generated method stub
-        return null;
+        Ldtp ldtp = null;
+        try
+        {
+            ldtp = new Ldtp("a");
+        }
+        catch (LdtpExecutionError e) // it seem LDTP is not initialisez so we need to run a python script on MAC
+        {
+            logger.error("Could not instantiate LDTP on Windows. Please run CorbaWinLDTP.exe as administrator first", e);
+        }
+        return ldtp;
     }
 
     @Override
-    public Application openApplication() throws Exception
+    public ApplicationBase openApplication()
     {
-        // TODO Auto-generated method stub
-        return null;
+        try
+        {
+            return openApplication(new String[] { getApplicationName() });
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not open Application " + getApplicationName() + "Error: " + e);
+        }
+        return this;
     }
 
 }

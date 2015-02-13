@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.cobra.ldtp.Ldtp;
+import com.google.common.io.Files;
 
 /**
  * LDTP Utility class.
@@ -387,12 +388,12 @@ public class LdtpUtils
             String line;
             while ((line = bufferReader.readLine()) != null)
             {
-                if(line.toLowerCase().contains(processName))
+                if (line.toLowerCase().contains(processName))
                     return true;
             }
-           inputStream.close();
-           inputStreamReader.close();
-           bufferReader.close();
+            inputStream.close();
+            inputStreamReader.close();
+            bufferReader.close();
         }
         catch (Exception err)
         {
@@ -418,4 +419,34 @@ public class LdtpUtils
             isRunning = isProcessRunning(processName);
         }
     }
+
+    /*
+     * Return a File using a random name
+     * The path will point to current user documents folder
+     */
+    public static File getRandomFileName(String extension)
+    {
+        return new File(LdtpUtils.getDocumentsFolder(), System.currentTimeMillis() + "." + extension);
+    }
+
+    /*
+     * Return a copy of <resourceFileName> that should exist on Resource
+     * The copied file is save on current user's Documents folder
+     */
+    public static File getNewRandomFileFromResource(String resourceFileName)
+    {
+        File tmpFile = new File(Thread.currentThread().getContextClassLoader().getResource(resourceFileName).getPath());
+        File randomFile = getRandomFileName(Files.getFileExtension(resourceFileName));
+        try
+        {
+            Files.copy(tmpFile, randomFile);
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return randomFile;
+    }
+
 }
