@@ -15,6 +15,7 @@
 
 package org.alfresco.os.common;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,12 +35,13 @@ import com.cobra.ldtp.Ldtp;
  */
 public abstract class ApplicationBase
 {
+    private Ldtp ldtp;
+    
     protected static Log logger = onThisClass();
-    protected Ldtp ldtp;
     protected String applicationPath;
     protected String applicationName;
     protected String applicationVersion;
-    
+
     public String getApplicationVersion()
     {
         return applicationVersion;
@@ -76,7 +78,7 @@ public abstract class ApplicationBase
     protected ApplicationBase openApplication(String[] command) throws Exception
     {
         runProcess(command);
-        waitForWindow(getWaitWindow());
+        waitForApplicationWindow(getWaitWindow(),true);
         return this;
     }
 
@@ -132,6 +134,15 @@ public abstract class ApplicationBase
         if (properties == null)
         {
             properties = new Properties();
+
+            File propertiesFile = new File(this.getClass().getClassLoader().getResourceAsStream(LdtpUtils.PROPERTIES_FILE).toString());
+
+            if (!propertiesFile.exists())
+            {
+                logger.error("Propertie file: " + propertiesFile.getPath() + " does NOT exists");
+                return null;
+            }
+
             try
             {
                 properties.load(this.getClass().getClassLoader().getResourceAsStream(LdtpUtils.PROPERTIES_FILE));
@@ -259,7 +270,8 @@ public abstract class ApplicationBase
     }
 
     /**
-     * Wait for a Window
+     * Wait for a Application main window
+     * If you want to wait to specific dialogs, use waitForWindow
      * 
      * @author Paul Brodner
      * @param windowName
@@ -267,7 +279,7 @@ public abstract class ApplicationBase
      * @throws InterruptedException
      * @throws IOException
      */
-    public Ldtp waitForWindow(String windowName) throws Exception
+    public Ldtp waitForApplicationWindow(String windowName, boolean defineGetLDTP) throws Exception
     {
         Ldtp _ldtp = initializeLdtp();
         int retries = 0;
@@ -281,15 +293,35 @@ public abstract class ApplicationBase
 
                 if (window.contains(windowName))
                 {
-                    setWaitWindow(window);
-                    setLdtp(new Ldtp(window));
-                    return getLdtp();
+                   
+                    _ldtp = new Ldtp(window);
+                    if (defineGetLDTP)
+                    {
+                        setWaitWindow(window);
+                        setLdtp(_ldtp);
+                        return getLdtp();
+                    }
+                   return _ldtp;
                 }
             }
             Thread.sleep(1000);
             retries += 1;
         }
         return null;
+    }
+
+    /**
+     * Wait for a Window
+     * 
+     * @author Paul Brodner
+     * @param windowName
+     * @return
+     * @throws InterruptedException
+     * @throws IOException
+     */
+    public Ldtp waitForWindow(String windowName) throws Exception
+    {
+        return waitForApplicationWindow(windowName, false);
     }
 
     /**
@@ -330,7 +362,7 @@ public abstract class ApplicationBase
     {
         String[] windows = null;
         windows = getLdtp().getWindowList();
-        return Arrays.asList(windows).contains("frm" + windowName);
+        return Arrays.asList(windows).contains(windowName);
     }
 
     /**

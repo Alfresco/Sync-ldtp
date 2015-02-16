@@ -449,4 +449,32 @@ public class LdtpUtils
         return randomFile;
     }
 
+    /**
+     * Return the full name of the window list based on a partial value
+     * 
+     * @param ldtp
+     * @param partialWindowList
+     * @return
+     */
+    public static String getFullWindowList(Ldtp ldtp, String partialWindowList)
+    {
+        int retries = 0;
+        while (retries <= LdtpUtils.RETRY_COUNT)
+        {
+            String[] windowList = ldtp.getWindowList();
+            for (String window : windowList)
+            {
+
+                if (window.contains(partialWindowList))
+                {
+
+                    return window;
+                }
+            }
+            waitToLoopTime(1);
+            retries += 1;
+        }
+        return null;
+    }
+
 }
