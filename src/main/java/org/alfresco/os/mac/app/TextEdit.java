@@ -57,7 +57,7 @@ public class TextEdit extends Editor
         goToLocation(location);
         focus();
         getLdtp().generateKeyEvent("<command>s");
-        waitForFileOnDisk(location);
+        waitForFileOnDisk(new File(location));
     }
 
     /**

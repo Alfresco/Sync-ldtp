@@ -26,13 +26,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.cobra.ldtp.Ldtp;
+import com.google.common.io.Files;
 
 /**
  * LDTP Utility class.
  * This class should have only static methods added.
  * 
  * @author Subashni Prasanna
- * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
+ * @author Paul Brodner
  */
 public class LdtpUtils
 {
@@ -54,7 +55,6 @@ public class LdtpUtils
         if (isInfoEnabled)
         {
             logger.info(message);
-
         }
     }
 
@@ -73,16 +73,22 @@ public class LdtpUtils
 
     /**
      * This will kill a process based on windowsName - works on linux/mac OS
+     * Fow windows application, just pass the exe name of the application as <windowName> e.g. "notepad.exe"
      * 
      * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
      * @param windowName
      */
     public static void killProcessByWindowName(String windowName)
     {
-        // TODO Add code for window in order to use the same method
+
         if (SystemUtils.IS_OS_MAC)
         {
             executeOnUnix("kill `ps ax | grep \"" + windowName + "\" | awk '{print $1}'`");
+        }
+
+        if (SystemUtils.IS_OS_WINDOWS)
+        {
+            execute(new String[] { "taskkill", "/F", "/IM", windowName });
         }
     }
 
@@ -181,7 +187,7 @@ public class LdtpUtils
     }
 
     /**
-     * Execute a commad
+     * Execute a command
      * 
      * @example: execute(new String[] { "killall", getApplicationName() }) for MAC
      * @param command
@@ -294,7 +300,6 @@ public class LdtpUtils
         else if (SystemUtils.IS_OS_WINDOWS)
         {
             return new File(getHomeFolder(), "My Documents");
-
         }
         return null;
     }
@@ -342,22 +347,13 @@ public class LdtpUtils
      * 
      * @param filePath
      */
-    public static void waitUntilFileExistsOnDisk(String filePath)
+    public static void waitUntilFileExistsOnDisk(File filePath)
     {
-        File file = new File(filePath);
-
         int retries = 1;
-        while (retries <= LdtpUtils.RETRY_COUNT && !file.exists())
+        while (retries <= LdtpUtils.RETRY_COUNT && !filePath.exists())
         {
             retries++;
-            try
-            {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException e)
-            {
-
-            }
+            waitToLoopTime(2);
         }
     }
 
@@ -387,12 +383,12 @@ public class LdtpUtils
             String line;
             while ((line = bufferReader.readLine()) != null)
             {
-                if(line.toLowerCase().contains(processName))
+                if (line.toLowerCase().contains(processName))
                     return true;
             }
-           inputStream.close();
-           inputStreamReader.close();
-           bufferReader.close();
+            inputStream.close();
+            inputStreamReader.close();
+            bufferReader.close();
         }
         catch (Exception err)
         {
@@ -418,4 +414,107 @@ public class LdtpUtils
             isRunning = isProcessRunning(processName);
         }
     }
+
+    /*
+     * Return a File using a random name
+     * The path will point to current user documents folder
+     */
+    public static File getRandomFileName(String extension)
+    {
+        return new File(LdtpUtils.getDocumentsFolder(), System.currentTimeMillis() + "." + extension);
+    }
+
+    /*
+     * Return a copy of <resourceFileName> that should exist on Resource
+     * The copied file is save on current user's Documents folder
+     */
+    public static File getNewRandomFileFromResource(String resourceFileName)
+    {
+        File tmpFile = new File(Thread.currentThread().getContextClassLoader().getResource(resourceFileName).getPath());
+        File randomFile = getRandomFileName(Files.getFileExtension(resourceFileName));
+        try
+        {
+            Files.copy(tmpFile, randomFile);
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return randomFile;
+    }
+
+    /**
+     * Return the full name of the window list based on a partial value
+     * 
+     * @param ldtp
+     * @param partialWindowList
+     * @return
+     */
+    public static String getFullWindowList(Ldtp ldtp, String partialWindowList)
+    {
+        int retries = 0;
+        while (retries <= LdtpUtils.RETRY_COUNT)
+        {
+            String[] windowList = ldtp.getWindowList();
+            for (String window : windowList)
+            {
+                if (window.contains(partialWindowList))
+                {
+                    return window;
+                }
+            }
+            waitToLoopTime(1);
+            retries += 1;
+        }
+        return null;
+    }
+
+    /**
+     * Return the full name of the LDTP object
+     * 
+     * @param ldtp
+     * @param partialObjectName
+     * @return
+     */
+    public static String getFullObjectList(Ldtp ldtp, String partialObjectName)
+    {
+        String fullObjectName = "";
+        String[] allObjectsWindow = ldtp.getObjectList();
+        partialObjectName = partialObjectName.toLowerCase();
+
+        for (String objectWindow : allObjectsWindow)
+        {
+            if (objectWindow.substring(3).toLowerCase().contains(partialObjectName))
+            {
+                fullObjectName = objectWindow;
+            }
+        }
+        return fullObjectName;
+    }
+
+    /**
+     * Waits for an object to have a certain value
+     *
+     * @param ldtp
+     * @param objectName
+     * @param valueToWait
+     */
+    public static void waitObjectHasValue(Ldtp ldtp, String objectName, String valueToWait)
+    {
+        int waitInSeconds = 2;
+        int counter = 0;
+        while (counter < LdtpUtils.RETRY_COUNT)
+        {
+            String fileNameContent = ldtp.getTextValue(objectName);
+            if (fileNameContent.equals(valueToWait))
+                break;
+            else
+            {
+                ldtp.waitTime(waitInSeconds);
+                waitInSeconds = (waitInSeconds * 2);
+            }
+        }
+    }
+
 }
