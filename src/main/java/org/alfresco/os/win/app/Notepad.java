@@ -13,21 +13,21 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * This class has all the method involved in using the actions in Notepad application 2013
- * 
- * @author sprasanna
- */
-
 package org.alfresco.os.win.app;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.alfresco.os.win.Application;
+import org.alfresco.utilities.LdtpUtils;
 
 import com.cobra.ldtp.LdtpExecutionError;
 
+/**
+ * This class has all the method involved in using the actions in Notepad application 2013
+ * 
+ * @author Subashni Prasanna
+ * @author Paul Brodner
+ */
 public class Notepad extends Application
 {
 
@@ -61,35 +61,24 @@ public class Notepad extends Application
     /**
      * Save As notepad in a particular location
      * 
-     * @throws IOException
-     * @throws LdtpExecutionError
+     * @throws Exception
      */
-    public void saveAsNotpad(File destinationFile) throws LdtpExecutionError, IOException
+    public void saveAsNotpad(File destinationFile) throws Exception
     {
         getLdtp().doubleClick("File");
         getLdtp().click("Save As");
-        getLdtp().activateWindow("Save As");
+        waitForWindow("Save As");
         getLdtp().enterString("txtFilename", destinationFile.getPath());
         getLdtp().click("btnSave");
-    }
-
-    /**
-     * Save a notepad in a particular location
-     * 
-     * @throws IOException
-     * @throws LdtpExecutionError
-     */
-    public void saveNotpadOnClose() throws LdtpExecutionError, IOException
-    {
-        getLdtp().click("Save");
+        LdtpUtils.waitToLoopTime(1);
     }
 
     /**
      * Close the notepad application after the save
      */
-    public void closeNotepad(String fileName) throws LdtpExecutionError
+    public void closeNotepad(File fileName) throws LdtpExecutionError
     {
-        setNotepadWindow(fileName);
+        focus(fileName);
         getLdtp().doubleClick("File");
         getLdtp().click("Exit");
     }
@@ -104,17 +93,21 @@ public class Notepad extends Application
     }
 
     /**
-     * Private method to find the note pad window
+     * Focus Notepad - bring to top, based on filename parameter
+     * 
+     * @param filename
      */
-    public void setNotepadWindow(String windowNameToFind)
+    public void focus(File partialFileName)
     {
+        String fullName = LdtpUtils.getFullWindowList(getLdtp(), partialFileName.getName());
         try
         {
-            waitForWindow(windowNameToFind);
+            waitForApplicationWindow(fullName, true);
+            getLdtp().activateWindow(fullName);
         }
         catch (Exception e)
         {
-            logger.error("Could not SET Notepad Window to: " + windowNameToFind, e);
+            logger.error("Could not find Notepad file:" + fullName, e);
         }
     }
 }

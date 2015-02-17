@@ -21,6 +21,7 @@ import java.util.Arrays;
 import org.alfresco.os.mac.Application;
 import org.alfresco.os.mac.Editor;
 import org.alfresco.os.mac.utils.AppleMenuBar.Menu;
+import org.alfresco.utilities.LdtpUtils;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
@@ -133,7 +134,7 @@ public class MicrosoftOfficeBase extends Editor
         }
         catch (Exception e)
         {
-            // no need for handling this exteption
+            // no need to handle this exception, function will always return a boolean value bellow
         }
         return Arrays.asList(getLdtp().getWindowList()).contains("frm" + filename);
     }
@@ -159,19 +160,13 @@ public class MicrosoftOfficeBase extends Editor
         }
     }
 
-    // TODO: Paul for Paul = need to find a better way of saving files (remove Thread)
     public void save(String location) throws Exception
     {
         closeFile(getFileName());
-
-        Thread.sleep(1000);
-
+        LdtpUtils.waitToLoopTime(2);
         getLdtp().generateKeyEvent("<enter>");
-
-        Thread.sleep(2000);
-
+        LdtpUtils.waitToLoopTime(2);
         getLdtp().generateKeyEvent(location);
-
         getLdtp().generateKeyEvent("<enter>");
     }
 }

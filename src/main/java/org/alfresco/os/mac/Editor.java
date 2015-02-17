@@ -269,7 +269,7 @@ public abstract class Editor extends Application
      * 
      * @param filePath
      */
-    protected void waitForFileOnDisk(String filePath)
+    protected void waitForFileOnDisk(File filePath)
     {
         LdtpUtils.waitUntilFileExistsOnDisk(filePath);
     }

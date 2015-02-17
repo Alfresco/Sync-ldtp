@@ -29,60 +29,16 @@ import com.cobra.ldtp.LdtpExecutionError;
 public class Application extends ApplicationBase
 {
 
-    /**
-     * Enums to hold all the applications name.
-     * 
-     * @author Subashni Prasanna
-     */
-    public enum OfficeApplication
-    {
-        WORD("Microsoft Word Document", "Word", "WINWORD.EXE"), 
-        EXCEL("Microsoft Excel Worksheet", "Excel", "EXCEL.EXE"), 
-        POWERPOINT(
-                "Microsoft PowerPoint Presentation",
-                "PowerPoint",
-                "POWERPNT.EXE"), 
-        OUTLOOK("Outlook", "Outlook", "OUTLOOK.exe");
-
-        private String application;
-        private String waitWindow;
-        private String exeName;
-
-        private OfficeApplication(String type, String waitWindow, String exeName)
-        {
-            this.application = type;
-            this.waitWindow = waitWindow;
-            this.exeName = exeName;
-        }
-
-        public String getName()
-        {
-            return application;
-        }
-
-        public String getWaitWindow()
-        {
-            return waitWindow;
-        }
-
-        public String getExeName()
-        {
-            return exeName;
-        }
-    }
-
     @Override
     public void exitApplication()
     {
         killProcess();
-
     }
 
     @Override
     public void killProcess()
     {
-        LdtpUtils.execute(new String[] { "taskkill", "/IM", getApplicationName() });
-
+        LdtpUtils.execute(new String[] { "taskkill", "/F", "/IM", getApplicationName() });
     }
 
     @Override
@@ -91,7 +47,7 @@ public class Application extends ApplicationBase
         Ldtp ldtp = null;
         try
         {
-            ldtp = new Ldtp("a");
+            ldtp = new Ldtp(getWaitWindow());
         }
         catch (LdtpExecutionError e) // it seem LDTP is not initialisez so we need to run a python script on MAC
         {

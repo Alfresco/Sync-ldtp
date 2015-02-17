@@ -15,20 +15,25 @@
 package org.alfresco.os.win.app;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.alfresco.os.AbstractTestClass;
 import org.alfresco.utilities.LdtpUtils;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import com.cobra.ldtp.LdtpExecutionError;
 
 public class NotepadTest extends AbstractTestClass
 {
     Notepad notepad = new Notepad();
     File testOne;
 
+    @AfterClass
+    public void tearDown()
+    {
+        super.tearDown();
+        notepad.exitApplication();
+    }
+    
     @BeforeMethod
     private void setupFile()
     {
@@ -37,24 +42,12 @@ public class NotepadTest extends AbstractTestClass
     }
 
     @Test
-    public void testNotePadEdit() throws LdtpExecutionError, IOException, InterruptedException
+    public void testEditing() throws Exception
     {
         notepad.openApplication();
-        notepad.editNotepad("hello world test");
+        notepad.editNotepad("1st line");
+        notepad.appendTextToNotepad("2nLine");
         notepad.saveAsNotpad(testOne);
-        notepad.closeNotepad("Notepad");
-    }
-
-    @Test
-    public void testEditing() throws LdtpExecutionError, IOException, InterruptedException
-    {
-        notepad.openApplication();
-        notepad.saveAsNotpad(testOne);
-        notepad.editNotepad("first create in client");
-        notepad.ctrlSSave();
-        notepad.setNotepadWindow("Notepad");
-        notepad.appendTextToNotepad("adding another line of text");
-        notepad.ctrlSSave();
-        notepad.closeNotepad("Notepad");
+        notepad.closeNotepad(testOne);
     }
 }

@@ -33,7 +33,7 @@ import com.google.common.io.Files;
  * This class should have only static methods added.
  * 
  * @author Subashni Prasanna
- * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
+ * @author Paul Brodner
  */
 public class LdtpUtils
 {
@@ -55,7 +55,6 @@ public class LdtpUtils
         if (isInfoEnabled)
         {
             logger.info(message);
-
         }
     }
 
@@ -74,16 +73,22 @@ public class LdtpUtils
 
     /**
      * This will kill a process based on windowsName - works on linux/mac OS
+     * Fow windows application, just pass the exe name of the application as <windowName> e.g. "notepad.exe"
      * 
      * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
      * @param windowName
      */
     public static void killProcessByWindowName(String windowName)
     {
-        // TODO Add code for window in order to use the same method
+
         if (SystemUtils.IS_OS_MAC)
         {
             executeOnUnix("kill `ps ax | grep \"" + windowName + "\" | awk '{print $1}'`");
+        }
+
+        if (SystemUtils.IS_OS_WINDOWS)
+        {
+            execute(new String[] { "taskkill", "/F", "/IM", windowName });
         }
     }
 
@@ -182,7 +187,7 @@ public class LdtpUtils
     }
 
     /**
-     * Execute a commad
+     * Execute a command
      * 
      * @example: execute(new String[] { "killall", getApplicationName() }) for MAC
      * @param command
@@ -295,7 +300,6 @@ public class LdtpUtils
         else if (SystemUtils.IS_OS_WINDOWS)
         {
             return new File(getHomeFolder(), "My Documents");
-
         }
         return null;
     }
@@ -343,22 +347,13 @@ public class LdtpUtils
      * 
      * @param filePath
      */
-    public static void waitUntilFileExistsOnDisk(String filePath)
+    public static void waitUntilFileExistsOnDisk(File filePath)
     {
-        File file = new File(filePath);
-
         int retries = 1;
-        while (retries <= LdtpUtils.RETRY_COUNT && !file.exists())
+        while (retries <= LdtpUtils.RETRY_COUNT && !filePath.exists())
         {
             retries++;
-            try
-            {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException e)
-            {
-
-            }
+            waitToLoopTime(2);
         }
     }
 
@@ -464,10 +459,8 @@ public class LdtpUtils
             String[] windowList = ldtp.getWindowList();
             for (String window : windowList)
             {
-
                 if (window.contains(partialWindowList))
                 {
-
                     return window;
                 }
             }
@@ -475,6 +468,53 @@ public class LdtpUtils
             retries += 1;
         }
         return null;
+    }
+
+    /**
+     * Return the full name of the LDTP object
+     * 
+     * @param ldtp
+     * @param partialObjectName
+     * @return
+     */
+    public static String getFullObjectList(Ldtp ldtp, String partialObjectName)
+    {
+        String fullObjectName = "";
+        String[] allObjectsWindow = ldtp.getObjectList();
+        partialObjectName = partialObjectName.toLowerCase();
+
+        for (String objectWindow : allObjectsWindow)
+        {
+            if (objectWindow.substring(3).toLowerCase().contains(partialObjectName))
+            {
+                fullObjectName = objectWindow;
+            }
+        }
+        return fullObjectName;
+    }
+
+    /**
+     * Waits for an object to have a certain value
+     *
+     * @param ldtp
+     * @param objectName
+     * @param valueToWait
+     */
+    public static void waitObjectHasValue(Ldtp ldtp, String objectName, String valueToWait)
+    {
+        int waitInSeconds = 2;
+        int counter = 0;
+        while (counter < LdtpUtils.RETRY_COUNT)
+        {
+            String fileNameContent = ldtp.getTextValue(objectName);
+            if (fileNameContent.equals(valueToWait))
+                break;
+            else
+            {
+                ldtp.waitTime(waitInSeconds);
+                waitInSeconds = (waitInSeconds * 2);
+            }
+        }
     }
 
 }

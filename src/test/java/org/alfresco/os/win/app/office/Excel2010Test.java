@@ -19,15 +19,28 @@ import java.io.File;
 import java.io.IOException;
 
 import org.alfresco.os.AbstractTestClass;
-import org.alfresco.os.win.Application.OfficeApplication;
+import org.alfresco.os.win.app.office.MicrosoftOfficeBase.VersionDetails;
 import org.alfresco.utilities.LdtpUtils;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class Excel2010Test extends AbstractTestClass
 {
-    MicrosoftOffice2010 excel = new MicrosoftOffice2010(OfficeApplication.EXCEL);
+    MicrosoftOffice2010 excel = new MicrosoftOffice2010(VersionDetails.EXCEL);
     public File fileName;
+
+    @AfterClass
+    public void tearDown()
+    {
+        super.tearDown();
+    }
+    
+    @AfterMethod
+    private void cleanUp(){
+        fileName.delete();
+    }
 
     /**
      * Steps
@@ -44,49 +57,26 @@ public class Excel2010Test extends AbstractTestClass
     {
         fileName = LdtpUtils.getRandomFileName("xlsx");
         randomFiles.add(fileName);
-        fileName.delete();
         excel.openApplication();
         excel.editOffice("hello world");
         excel.saveOffice(fileName.getPath());
         Assert.assertTrue(fileName.exists(), "File was successuly saved from Excel");
+
+        excel.closeApplication(fileName);
+
     }
 
     @Test
     public void testGoToFile()
     {
         excel.openApplication();
-        excel.getLdtp().generateKeyEvent("<esc>");
         excel.goToFile();
         Assert.assertTrue(excel.getLdtp().objectExist("Info") == 1, "Check Info label is diaplyed on File Tab");
-        excel.exitApplication();
+        excel.closeApplication();
     }
 
     @Test
-    public void testOperateOnConfirmSaveAs()
-    {
-        fileName = LdtpUtils.getRandomFileName("xlsx");
-        randomFiles.add(fileName);
-        fileName.delete();
-
-        excel.openApplication();
-        excel.getLdtp().generateKeyEvent("<esc>");
-        try
-        {
-            excel.saveAsOffice(fileName.getPath());
-            LdtpUtils.waitToLoopTime(3);
-            excel.saveAsOffice(fileName.getPath());
-            excel.operateOnConfirmSaveAs();
-
-            Assert.assertTrue(fileName.exists(), "File was successfully replaced.");
-        }
-        catch (Exception e)
-        {
-            Assert.fail("Could not replace file, confirming dialog window", e);
-        }
-    }
-
-    @Test
-    public void testOpenOfficeFromFileMenu() throws Exception
+    public void testOperateOnConfirmSaveAs() throws Exception
     {
         fileName = LdtpUtils.getRandomFileName("xlsx");
         randomFiles.add(fileName);
@@ -94,9 +84,21 @@ public class Excel2010Test extends AbstractTestClass
 
         excel.openApplication();
         excel.saveAsOffice(fileName.getPath());
-        excel.exitApplication();
 
-        Assert.assertTrue(fileName.exists(), "File was successuly saved from Excel");
+        Assert.assertTrue(fileName.exists(), "File was successfully replaced.");
+        excel.closeApplication(fileName);
+    }
+
+    @Test
+    public void testOpenOfficeFromFileMenu() throws Exception
+    {
+        fileName = LdtpUtils.getNewRandomFileFromResource("testFile.xlsx");
+        fileName.createNewFile();
+        randomFiles.add(fileName);
+
+        excel.openApplication();
+        excel.openOfficeFromFileMenu(fileName.getPath());
+        excel.closeApplication(fileName);
     }
 
     @Test
@@ -104,14 +106,14 @@ public class Excel2010Test extends AbstractTestClass
     {
         excel.openApplication();
 
-        boolean isOpened = LdtpUtils.isProcessRunning("EXCEL.exe");
+        boolean isOpened = LdtpUtils.isProcessRunning(VersionDetails.EXCEL.getExeName());
         Assert.assertTrue(isOpened, "Excel application is opened");
 
         LdtpUtils.waitToLoopTime(4);
 
         excel.exitApplication();
         LdtpUtils.waitToLoopTime(6);
-        isOpened = LdtpUtils.isProcessRunning("EXCEL.exe");
+        isOpened = LdtpUtils.isProcessRunning(VersionDetails.EXCEL.getExeName());
         Assert.assertFalse(isOpened, "Excel application is closed");
     }
 }

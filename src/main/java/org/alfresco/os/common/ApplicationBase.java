@@ -18,7 +18,6 @@ package org.alfresco.os.common;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -36,7 +35,7 @@ import com.cobra.ldtp.Ldtp;
 public abstract class ApplicationBase
 {
     private Ldtp ldtp;
-    
+
     protected static Log logger = onThisClass();
     protected String applicationPath;
     protected String applicationName;
@@ -78,7 +77,8 @@ public abstract class ApplicationBase
     protected ApplicationBase openApplication(String[] command) throws Exception
     {
         runProcess(command);
-        waitForApplicationWindow(getWaitWindow(),true);
+        LdtpUtils.waitToLoopTime(2);
+        waitForApplicationWindow(getWaitWindow(), true);
         return this;
     }
 
@@ -293,7 +293,6 @@ public abstract class ApplicationBase
 
                 if (window.contains(windowName))
                 {
-                   
                     _ldtp = new Ldtp(window);
                     if (defineGetLDTP)
                     {
@@ -301,7 +300,7 @@ public abstract class ApplicationBase
                         setLdtp(_ldtp);
                         return getLdtp();
                     }
-                   return _ldtp;
+                    return _ldtp;
                 }
             }
             Thread.sleep(1000);
@@ -361,8 +360,15 @@ public abstract class ApplicationBase
     public boolean isWindowOpened(String windowName)
     {
         String[] windows = null;
+        boolean isOpened = false;
         windows = getLdtp().getWindowList();
-        return Arrays.asList(windows).contains(windowName);
+        windowName = windowName.toLowerCase();
+        for (int i = 0; i < windows.length; i++)
+        {
+            if (windows[i].toLowerCase().contains(windowName))
+                {isOpened =true; break;}
+        }
+        return isOpened;
     }
 
     /**
