@@ -214,7 +214,17 @@ public class WindowsExplorer extends Application
         openFolder(fileToDelete.getParentFile());
         getLdtp().mouseRightClick(fileToDelete.getName());
         onContextMenuPerform("Delete");
-        deleteFileConfirmation(confirmationOption);
+        alertConfirmation("Delete File", confirmationOption);
+    }
+
+    /**
+     * Delete a file or folder in a given path
+     * 
+     * @throws Exception
+     */
+    public void deleteFile(File fileToDelete) throws Exception
+    {
+        deleteFile(fileToDelete, true);
     }
 
     /**
@@ -228,7 +238,18 @@ public class WindowsExplorer extends Application
         rightClickOn(folderName);
         getLdtp().click("Delete");
         LdtpUtils.waitToLoopTime(3);
-        deleteFileConfirmation(areYouSure);
+        alertConfirmation("Delete Folder", areYouSure);
+    }
+
+    /**
+     * Delete a folder
+     * 
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void deleteFolder(String folderName)
+    {
+        deleteFolder(folderName, true);
     }
 
     /**
@@ -252,13 +273,23 @@ public class WindowsExplorer extends Application
     }
 
     /**
+     * Just go back in Windows Explorer based on <folder>
+     * 
+     * @param file
+     */
+    public void goBack(String folder)
+    {
+        getLdtp().click("Back to " + folder);
+        focus(folder);
+    }
+
+    /**
      * Delete Confirmation dialog options
      */
-    private void deleteFileConfirmation(boolean areYouSure) throws LdtpExecutionError
+    private void alertConfirmation(String window, boolean areYouSure) throws LdtpExecutionError
     {
         String oldWindow = getLdtp().getWindowName();
-        String idDelete = "Delete File";
-        getLdtp().setWindowName(idDelete);
+        getLdtp().setWindowName(window);
         if (areYouSure)
         {
             getLdtp().click("Yes");
@@ -267,7 +298,7 @@ public class WindowsExplorer extends Application
         {
             getLdtp().click("No");
         }
-        getLdtp().waitTillGuiNotExist(idDelete);
+        getLdtp().waitTillGuiNotExist(window);
         getLdtp().setWindowName(oldWindow);
     }
 

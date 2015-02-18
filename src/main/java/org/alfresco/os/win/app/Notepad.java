@@ -45,7 +45,7 @@ public class Notepad extends Application
     /**
      * Edit a content in notepad
      */
-    public void editNotepad(String data)
+    public void edit(String data)
     {
         getLdtp().enterString("txt0", data);
     }
@@ -53,7 +53,7 @@ public class Notepad extends Application
     /**
      * Edit a content in notepad
      */
-    public void appendTextToNotepad(String data)
+    public void appendData(String data)
     {
         getLdtp().appendText("txt0", data);
     }
@@ -63,7 +63,7 @@ public class Notepad extends Application
      * 
      * @throws Exception
      */
-    public void saveAsNotpad(File destinationFile) throws Exception
+    public void saveAs(File destinationFile) throws Exception
     {
         getLdtp().doubleClick("File");
         getLdtp().click("Save As");
@@ -76,7 +76,7 @@ public class Notepad extends Application
     /**
      * Close the notepad application after the save
      */
-    public void closeNotepad(File fileName) throws LdtpExecutionError
+    public void close(File fileName) throws LdtpExecutionError
     {
         focus(fileName);
         getLdtp().doubleClick("File");
@@ -86,7 +86,7 @@ public class Notepad extends Application
     /**
      * Ctrl - S and save the file
      */
-    public void ctrlSSave()
+    public void save()
     {
         getLdtp().keyPress("<ctrl>S");
         getLdtp().keyRelease("<ctrl>S");

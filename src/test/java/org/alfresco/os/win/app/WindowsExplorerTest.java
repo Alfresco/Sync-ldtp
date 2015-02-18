@@ -22,6 +22,15 @@ public class WindowsExplorerTest extends AbstractTestClass
     }
 
     @Test
+    public void testGoBack() throws Exception
+    {
+        File myDocs = LdtpUtils.getHomeFolder();
+        app.openApplication();
+        app.openFolder(myDocs);
+        app.goBack("Documents");
+        app.exitApplication();
+    }
+    @Test
     public void testCreateNewFolderMenu()
     {
         File createFolder = new File(app.getApplicationPath(), "TestCreateNewFolder");

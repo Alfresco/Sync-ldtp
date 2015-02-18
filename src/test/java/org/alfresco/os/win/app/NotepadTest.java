@@ -45,9 +45,9 @@ public class NotepadTest extends AbstractTestClass
     public void testEditing() throws Exception
     {
         notepad.openApplication();
-        notepad.editNotepad("1st line");
-        notepad.appendTextToNotepad("2nLine");
-        notepad.saveAsNotpad(testOne);
-        notepad.closeNotepad(testOne);
+        notepad.edit("1st line");
+        notepad.appendData("2nLine");
+        notepad.saveAs(testOne);
+        notepad.close(testOne);
     }
 }
