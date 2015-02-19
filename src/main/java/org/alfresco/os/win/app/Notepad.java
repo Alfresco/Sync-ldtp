@@ -99,7 +99,7 @@ public class Notepad extends Application
      */
     public void focus(File partialFileName)
     {
-        String fullName = LdtpUtils.getFullWindowList(getLdtp(), partialFileName.getName());
+        String fullName = partialFileName.getName();
         try
         {
             waitForApplicationWindow(fullName, true);
