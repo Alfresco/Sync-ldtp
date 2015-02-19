@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
@@ -430,12 +431,17 @@ public class LdtpUtils
      */
     public static File getNewRandomFileFromResource(String resourceFileName)
     {
-        File tmpFile = new File(Thread.currentThread().getContextClassLoader().getResource(resourceFileName).getPath());
+        URL fileURL = Thread.currentThread().getContextClassLoader().getResource(resourceFileName);
+        if(fileURL==null)
+        {
+            logger.error("No resource file with name: " + resourceFileName + " was found in RESOURCES folder.");
+            return null;
+        }
+        File tmpFile = new File(fileURL.getPath());
         File randomFile = getRandomFileName(Files.getFileExtension(resourceFileName));
         try
         {
             Files.copy(tmpFile, randomFile);
-
         }
         catch (IOException e)
         {
@@ -481,13 +487,14 @@ public class LdtpUtils
     {
         String fullObjectName = "";
         String[] allObjectsWindow = ldtp.getObjectList();
-        partialObjectName = partialObjectName.toLowerCase();
+        partialObjectName = partialObjectName.toLowerCase().replace(".", "");
 
         for (String objectWindow : allObjectsWindow)
         {
             if (objectWindow.substring(3).toLowerCase().contains(partialObjectName))
             {
                 fullObjectName = objectWindow;
+                return fullObjectName;
             }
         }
         return fullObjectName;

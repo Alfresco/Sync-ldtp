@@ -30,6 +30,7 @@ public class WindowsExplorerTest extends AbstractTestClass
         app.goBack("Documents");
         app.exitApplication();
     }
+
     @Test
     public void testCreateNewFolderMenu()
     {
@@ -86,6 +87,24 @@ public class WindowsExplorerTest extends AbstractTestClass
     }
 
     @Test
+    public void testRenameFile() throws Exception
+    {
+        File fileTest = getRandomTestFile("testFile.txt");
+        String renameFileName = "renamed" + System.currentTimeMillis() + ".txt";
+        fileTest.createNewFile();
+
+        app.openApplication();
+        app.openFolder(fileTest.getParentFile());
+        app.rename(fileTest.getName(), renameFileName);
+
+        File renamedFile = new File(fileTest.getParentFile(), renameFileName);
+        Assert.assertTrue(renamedFile.exists(), "File was successfuly renamed");
+        renamedFile.delete();
+        fileTest.delete();
+        app.exitApplication();
+    }
+
+    @Test
     public void testOpenFileInCurrentFolder() throws IOException
     {
         File file = new File(LdtpUtils.getDocumentsFolder(), "testOpenFileInCurrentFolder.txt");
@@ -93,11 +112,11 @@ public class WindowsExplorerTest extends AbstractTestClass
 
         app.openApplication();
         app.openFileInCurrentFolder(file);
-        
+
         LdtpUtils.waitToLoopTime(1);
         boolean isFileOpen = app.isWindowOpened(file.getName());
         Assert.assertTrue(isFileOpen, "File was successfuly opened");
-        
+
         LdtpUtils.killProcessByWindowName("notepad.exe");
         app.exitApplication();
     }

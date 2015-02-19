@@ -284,6 +284,37 @@ public class WindowsExplorer extends Application
     }
 
     /**
+     * Rename a file <fileName> using <renamedFileName> parameter
+     * Is assumed that we are already on the folder path of the <fileName>
+     * 
+     * @param fileName
+     * @param renamedFileName
+     */
+    public void rename(String fileName, String renamedFileName)
+    {
+        String oldWindow = getLdtp().getWindowName();
+        rightClickOn(fileName);
+        onContextMenuPerform("Rename");
+        getLdtp().generateKeyEvent("<ctrl>a");
+        getLdtp().generateKeyEvent(renamedFileName);
+        getLdtp().generateKeyEvent("<enter>");
+        LdtpUtils.waitToLoopTime(1);
+        getLdtp().setWindowName(oldWindow);
+    }
+
+    /**
+     * Rename a file <fileName> using <renamedFileName> parameter
+     * Is assumed that we are already on the folder path of the <fileName>
+     * 
+     * @param fileName
+     * @param renamedFileName
+     */
+    public void rename(File fileName, File renamedFileName)
+    {
+        rename(fileName.getName(), renamedFileName.getName());
+    }
+
+    /**
      * Delete Confirmation dialog options
      */
     private void alertConfirmation(String window, boolean areYouSure) throws LdtpExecutionError
@@ -311,7 +342,6 @@ public class WindowsExplorer extends Application
     private boolean rightClickOn(String folderOrFile)
     {
         String deleteObject = LdtpUtils.getFullObjectList(getLdtp(), folderOrFile);
-
         if (!deleteObject.isEmpty())
         {
             getLdtp().mouseRightClick(deleteObject);

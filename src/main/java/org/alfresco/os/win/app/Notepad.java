@@ -103,8 +103,7 @@ public class Notepad extends Application
         try
         {
             waitForApplicationWindow(winName, true);
-            
-            String fullName= LdtpUtils.getFullWindowList(getLdtp(), partialFileName.getName());
+            String fullName = LdtpUtils.getFullWindowList(getLdtp(), partialFileName.getName());
             getLdtp().activateWindow(fullName);
         }
         catch (Exception e)
