@@ -303,7 +303,7 @@ public abstract class ApplicationBase
                     return _ldtp;
                 }
             }
-            Thread.sleep(1000);
+            LdtpUtils.waitToLoopTime(1);
             retries += 1;
         }
         return null;

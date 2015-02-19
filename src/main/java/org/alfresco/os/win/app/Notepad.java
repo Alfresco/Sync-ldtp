@@ -99,15 +99,17 @@ public class Notepad extends Application
      */
     public void focus(File partialFileName)
     {
-        String fullName = partialFileName.getName();
+        String winName = partialFileName.getName();
         try
         {
-            waitForApplicationWindow(fullName, true);
+            waitForApplicationWindow(winName, true);
+            
+            String fullName= LdtpUtils.getFullWindowList(getLdtp(), partialFileName.getName());
             getLdtp().activateWindow(fullName);
         }
         catch (Exception e)
         {
-            logger.error("Could not find Notepad file:" + fullName, e);
+            logger.error("Could not find Notepad file:" + winName, e);
         }
     }
 }
