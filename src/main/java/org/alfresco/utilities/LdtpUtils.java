@@ -465,7 +465,7 @@ public class LdtpUtils
             String[] windowList = ldtp.getWindowList();
             for (String window : windowList)
             {
-                if (window.contains(partialWindowList))
+                if (window.toLowerCase().contains(partialWindowList.toLowerCase()))
                 {
                     return window;
                 }
