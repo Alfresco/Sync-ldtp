@@ -284,6 +284,7 @@ public abstract class ApplicationBase
         Ldtp _ldtp = initializeLdtp();
         int retries = 0;
         // here we will wait until the window is visible
+        LdtpUtils.logInfo("WaitForApplicationWindow '" + windowName + "' between all windows...");
         while (retries <= LdtpUtils.RETRY_COUNT)
         {
             String[] windowList = _ldtp.getWindowList();

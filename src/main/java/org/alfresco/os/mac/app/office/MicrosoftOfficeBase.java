@@ -162,11 +162,26 @@ public class MicrosoftOfficeBase extends Editor
 
     public void save(String location) throws Exception
     {
-        closeFile(getFileName());
+        close(getFileName());
         LdtpUtils.waitToLoopTime(2);
         getLdtp().generateKeyEvent("<enter>");
         LdtpUtils.waitToLoopTime(2);
         getLdtp().generateKeyEvent(location);
         getLdtp().generateKeyEvent("<enter>");
+    }
+
+    public void exitApplication()
+    {
+        try
+        {
+            logger.debug("Exiting Application and all processes: " + getApplicationName());
+            handleCrash();
+            destroyProcesses();
+            killProcess();
+        }
+        catch (Exception e)
+        {
+            logger.error("Exception on exitApplication: " + e.getMessage());
+        }
     }
 }

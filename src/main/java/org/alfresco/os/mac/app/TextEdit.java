@@ -52,12 +52,22 @@ public class TextEdit extends Editor
      */
     public void save(String location)
     {
+        focus();
+        getLdtp().generateKeyEvent("<command>s");
         // paul.brodner: "/" char cannot be added to TextEditor via LDTP
         // we used an alternative: with AppleScript
         goToLocation(location);
-        focus();
-        getLdtp().generateKeyEvent("<command>s");
         waitForFileOnDisk(new File(location));
+    }
+
+    /**
+     * Helper for saving file using File object
+     * 
+     * @param file
+     */
+    public void save(File file)
+    {
+        save(file.getPath());
     }
 
     /**
@@ -68,17 +78,19 @@ public class TextEdit extends Editor
      * @param folder
      */
     private void goToLocation(String location)
-    {
+    {   
         logger.info("Using Location: " + location);
         AppleScript appleScript = getAppleScript();
         appleScript.clean();
         appleScript.addCommandScript("tell app \"TextEdit\" to activate");
         appleScript.addCommandScript("delay 2");
         appleScript.addCommandScript("tell application \"System Events\"");
+        appleScript.addCommandScript("keystroke \"a\" using {command down}");
+        appleScript.addCommandScript("delay 0.5");
         appleScript.addCommandScript("keystroke \"" + location + "\"");
-        appleScript.addCommandScript("delay 1");
+        appleScript.addCommandScript("delay 0.5");
         appleScript.addCommandScript("keystroke return");
-        appleScript.addCommandScript("delay 1");
+        appleScript.addCommandScript("delay 0.5");
         appleScript.addCommandScript("keystroke return");
         appleScript.addCommandScript("end tell");
         appleScript.run();
@@ -91,7 +103,7 @@ public class TextEdit extends Editor
     public void saveAndClose()
     {
         getLdtp().generateKeyEvent("<command>s");
-        closeFile(getFileName());
+        close(getFileName());
     }
 
     public void saveAs(File file)

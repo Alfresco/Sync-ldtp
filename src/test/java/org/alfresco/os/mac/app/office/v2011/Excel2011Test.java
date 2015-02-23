@@ -124,7 +124,7 @@ public class Excel2011Test extends AbstractTestClass
     {
         excel.openFromFileMenu(tmpFile);
         excel.setFileName(tmpFile.getName());
-        excel.closeFile(tmpFile.getName());
+        excel.close(tmpFile.getName());
         Assert.assertFalse(excel.isFileOpened(tmpFile.getName()));
     }
 

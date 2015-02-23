@@ -271,7 +271,7 @@ public class LdtpUtils
      */
     public static void waitToLoopTime(int seconds)
     {
-        logInfo("Waiting (in loops) for: " + seconds + " seconds.");
+        logInfo("Waiting (in loops) for: " + seconds + " second(s).");
         long currentTime;
         long endTime;
         currentTime = System.currentTimeMillis();

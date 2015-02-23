@@ -50,7 +50,7 @@ public class FinderExplorer extends KeyboardShortcut
         // set the root path of the Finder Window to the current user Documents folder
         setApplicationPath(startUpFolder);
         // each finder has the window name set to the current folder name
-        setWaitWindow(new File(startUpFolder).getName());
+        setWaitWindow("frmDocuments");
     }
 
     /**
@@ -104,6 +104,11 @@ public class FinderExplorer extends KeyboardShortcut
         killPython();
     }
 
+    public void closeExplorer()
+    {
+        getLdtp().generateKeyEvent("<command>w");
+    }
+
     /**
      * Define a default Layout on the Finder Window
      * 
@@ -121,12 +126,25 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void openFolder(File folderPath)
     {
-        focus();
         getLdtp().generateKeyEvent("<shift><command>g");
         getLdtp().generateKeyEvent(folderPath.getPath());
         // getLdtp().click("btnGo");
         getLdtp().generateKeyEvent("<enter>");
         LdtpUtils.waitToLoopTime(1);
+        focus(folderPath);
+    }
+
+    /**
+     * Activate window folder
+     * 
+     * @param folder
+     */
+    public void focus(File folder)
+    {
+        if (folder.isDirectory())
+        {
+            getLdtp().activateWindow(folder.getName());
+        }
     }
 
     /**
@@ -136,11 +154,21 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void createFolder(File folderPath)
     {
-        focus();
         openFolder(folderPath.getParentFile());
         getLdtp().generateKeyEvent("<shift><command>n");
         getLdtp().generateKeyEvent(folderPath.getName());
         getLdtp().generateKeyEvent("<enter>");
+    }
+
+    /**
+     * Create and open a folder
+     * 
+     * @param folderName
+     */
+    public void createAndOpenFolder(File folder)
+    {
+        createFolder(folder);
+        openFolder(folder);
     }
 
     /**

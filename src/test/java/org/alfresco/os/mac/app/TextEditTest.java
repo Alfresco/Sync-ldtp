@@ -72,7 +72,7 @@ public class TextEditTest
         }
     }
 
-    @Test(dependsOnMethods = { "testEdit" }, groups = { "MacOnly" })
+    @Test( groups = { "MacOnly" })
     public void testSave() throws Exception
     {
         app.openApplication();

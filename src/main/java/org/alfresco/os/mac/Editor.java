@@ -66,18 +66,27 @@ public abstract class Editor extends Application
     }
 
     /**
-     * Method to close Application (sending ALT + f4)
+     * Method to close Application
      */
-    public void closeFile(String filename)
+    public void close(String filename)
     {
         focus();
         getLdtp().closeWindow(filename);
+    }
+    
+    /**
+     * Method to close Application 
+     */
+    public void close(File filename)
+    {
+        focus();
+        getLdtp().closeWindow(filename.getName());
     }
 
     public void closeDontSave(String filename)
     {
         focus();
-        closeFile(filename);
+        close(filename);
         getLdtp().waitTime(1);
         getLdtp().click("*.btnDon.*");
     }
@@ -116,7 +125,7 @@ public abstract class Editor extends Application
      */
     public void saveAndClose()
     {
-        closeFile(getFileName());
+        close(getFileName());
         try
         {
             Thread.sleep(1000);
@@ -131,7 +140,7 @@ public abstract class Editor extends Application
 
     public void save(String location) throws Exception
     {
-        closeFile(getFileName());
+        close(getFileName());
         LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<command>a");
         LdtpUtils.waitToLoopTime(1);
@@ -187,8 +196,6 @@ public abstract class Editor extends Application
         try
         {
             logger.debug("Exiting Application and all processes: " + getApplicationName());
-            handleCrash();
-            destroyProcesses();
             killProcess();
         }
 
