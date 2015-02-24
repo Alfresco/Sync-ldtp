@@ -78,9 +78,17 @@ public class Notepad extends Application
      */
     public void close(File fileName) throws LdtpExecutionError
     {
-        focus(fileName);
         getLdtp().doubleClick("File");
         getLdtp().click("Exit");
+    }
+    
+    /**
+     * Just close the Notepad application
+     * Be aware that first you will need to have a focus on the application
+     * use {@link focus} method 
+     */
+    public void close(){
+        getLdtp().click("Close");
     }
 
     /**

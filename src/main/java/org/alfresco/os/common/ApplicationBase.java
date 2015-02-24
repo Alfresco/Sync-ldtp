@@ -76,6 +76,7 @@ public abstract class ApplicationBase
      */
     protected ApplicationBase openApplication(String[] command) throws Exception
     {
+        LdtpUtils.logInfo("Opening Application: " + command.toString());
         runProcess(command);
         LdtpUtils.waitToLoopTime(2);
         waitForApplicationWindow(getWaitWindow(), true);
@@ -367,7 +368,10 @@ public abstract class ApplicationBase
         for (int i = 0; i < windows.length; i++)
         {
             if (windows[i].toLowerCase().contains(windowName))
-                {isOpened =true; break;}
+            {
+                isOpened = true;
+                break;
+            }
         }
         return isOpened;
     }
