@@ -69,5 +69,32 @@ public class Application extends ApplicationBase
         }
         return this;
     }
+    /**
+     * Enum for all the application that can be used in windows
+     * @author sprasanna
+     *
+     */
+    public enum type
+    {
+        WORD("Microsoft Word Document"),
+        EXCEL("Microsoft Excel Worksheet"),
+        POWERPOINT("Microsoft PowerPoint Presentation"),
+        OUTLOOK("Outlook"),
+        FOLDER("Folder"),
+        TEXTFILE("Text Document"),
+        NOTEPAD("Notepad");
+ 
+        private String application;
+ 
+        private type(String type)
+        {
+            application = type;
+        }
+ 
+        public String getType()
+        {
+            return application;
+        }
+    }
 
 }

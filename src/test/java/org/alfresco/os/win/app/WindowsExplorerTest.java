@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.alfresco.os.AbstractTestClass;
+import org.alfresco.os.win.Application.type;
 import org.alfresco.utilities.LdtpUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -18,6 +19,7 @@ public class WindowsExplorerTest extends AbstractTestClass
         File myDocs = LdtpUtils.getHomeFolder();
         app.openApplication();
         app.openFolder(myDocs);
+        app.rightClickCreate(myDocs.getName(), "test", type.TEXTFILE);
         app.exitApplication();
     }
 

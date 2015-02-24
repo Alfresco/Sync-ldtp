@@ -368,4 +368,25 @@ public class WindowsExplorer extends Application
         getLdtp().click(action);
         getLdtp().setWindowName(oldWindowName);
     }
+
+    /**
+     * Right click and Perform actions to create Different  application 
+     * @author sprasanna
+     * @param - folderorFile to right click on
+     * @param - name of the file
+     * @param - file type
+     * 
+     */
+    public void rightClickCreate(String folderorFile, String name , type app)
+    {
+        rightClickOn("Items View");
+        getLdtp().setWindowName("Context");
+        getLdtp().click("New");
+        getLdtp().setWindowName(folderorFile);
+        getLdtp().mouseMove(app.getType());
+        getLdtp().click(app.getType());
+        getLdtp().waitTime(5);
+        getLdtp().keyPress(name);
+        getLdtp().keyPress("<enter>");
+    }
 }
