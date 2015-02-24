@@ -78,6 +78,7 @@ public class Notepad extends Application
      */
     public void close(File fileName) throws LdtpExecutionError
     {
+        focus(fileName);
         getLdtp().doubleClick("File");
         getLdtp().click("Exit");
     }
