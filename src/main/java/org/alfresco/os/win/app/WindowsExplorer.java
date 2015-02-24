@@ -76,7 +76,7 @@ public class WindowsExplorer extends Application
     /**
      * Method to open a particular folder in windows explorer
      * 
-     * @param Full path of the folder as String
+     * @param folderPath path of the folder as String
      * @throws Exception
      * @throws InterruptedException
      */
@@ -107,10 +107,10 @@ public class WindowsExplorer extends Application
     public void createNewFolderMenu(String folderName)
     {
         getLdtp().click("New folder");
-        LdtpUtils.waitToLoopTime(3);
+        LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent(folderName);
         getLdtp().keyPress("<enter>");
-        LdtpUtils.waitToLoopTime(3);
+        LdtpUtils.waitToLoopTime(1);
     }
 
     /**
@@ -235,9 +235,9 @@ public class WindowsExplorer extends Application
      */
     public void deleteFolder(String folderName, boolean areYouSure)
     {
-        rightClickOn(folderName);
-        getLdtp().click("Delete");
-        LdtpUtils.waitToLoopTime(3);
+        getLdtp().mouseRightClick(folderName);
+        onContextMenuPerform("Delete");
+        LdtpUtils.waitToLoopTime(1);
         alertConfirmation("Delete Folder", areYouSure);
     }
 
@@ -275,10 +275,11 @@ public class WindowsExplorer extends Application
     /**
      * Just go back in Windows Explorer based on <folder>
      * 
-     * @param file
+     * @param folder
      */
     public void goBack(String folder)
     {
+        folder = folder.toLowerCase();
         getLdtp().click("Back to " + folder);
         focus(folder);
     }
@@ -293,7 +294,7 @@ public class WindowsExplorer extends Application
     public void rename(String fileName, String renamedFileName)
     {
         String oldWindow = getLdtp().getWindowName();
-        rightClickOn(fileName);
+        getLdtp().mouseRightClick(fileName);
         onContextMenuPerform("Rename");
         getLdtp().generateKeyEvent("<ctrl>a");
         getLdtp().generateKeyEvent(renamedFileName);
@@ -336,21 +337,20 @@ public class WindowsExplorer extends Application
     /**
      * Open context menu for a specific folderOrFile
      * 
-     * @param contentToCheck
+     * @param folderOrFile
      * @return
      */
     private boolean rightClickOn(String folderOrFile)
     {
-        String deleteObject = LdtpUtils.getFullObjectList(getLdtp(), folderOrFile);
-        if (!deleteObject.isEmpty())
+        try
         {
-            getLdtp().mouseRightClick(deleteObject);
+            getLdtp().mouseRightClick(folderOrFile);
             getLdtp().setWindowName("Context");
             return true;
         }
-        else
+        catch (Exception e)
         {
-            logger.error(String.format("Context [%s] was not found on rightClickOn method", folderOrFile));
+            logger.error(String.format("Context [%s] was not found on rightClickOn method: [%s]", folderOrFile,e.getCause()));
             return false;
         }
     }
