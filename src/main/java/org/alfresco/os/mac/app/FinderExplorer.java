@@ -107,6 +107,7 @@ public class FinderExplorer extends KeyboardShortcut
     public void closeExplorer()
     {
         getLdtp().generateKeyEvent("<command>w");
+        setWaitWindow("frmDocuments");
     }
 
     /**
@@ -179,6 +180,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void deleteFolder(File folderPath)
     {
+        logger.info("Deleting folder:" + folderPath.getPath());
         openFolder(folderPath);
         goToEnclosingFolder();
         cmdDelete();
@@ -192,6 +194,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void moveFolder(File source, File destination)
     {
+        logger.info("Move Folder[" + source.getPath() + "] to:" + destination.getPath());
         openFolder(source);
         goToEnclosingFolder();
         cmdCopy();
@@ -201,6 +204,7 @@ public class FinderExplorer extends KeyboardShortcut
 
     public void copyFolder(File source, File destination)
     {
+        logger.info(String.format("Copy folder {%s} to {%}", source.getPath(), destination.getPath()));
         openFolder(source);
         goToEnclosingFolder();
         cmdCopy();
@@ -216,6 +220,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void renameFolder(File folder, String newName)
     {
+        logger.info(String.format("Rename folder {%s} to {%s}", folder.getPath(), newName));
         openFolder(folder);
         goToEnclosingFolder();
         getLdtp().generateKeyEvent("<enter>");
@@ -252,6 +257,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void selectFile(File file)
     {
+        logger.info("Select File: " + file.getPath());
         openFolder(file);
     }
 
@@ -262,6 +268,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void deleteFile(File file)
     {
+        logger.info("Delete File: " + file.getPath());
         selectFile(file);
         cmdDelete();
     }
@@ -274,6 +281,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void moveFile(File source, File destinationFolder)
     {
+        logger.info("Move File[" + source.getPath() + "] to folder:" + destinationFolder.getPath());
         selectFile(source);
         cmdCopy();
         openFolder(destinationFolder);

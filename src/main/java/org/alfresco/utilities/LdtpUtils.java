@@ -44,7 +44,7 @@ public class LdtpUtils
 
     // CONSTANTS
     public static final int RETRY_COUNT = 15;
-    public static final String PROPERTIES_FILE = "office-application.properties";
+    public static final String PROPERTIES_FILE = "alfresco-ldtp.properties";
 
     /**
      * Show info message

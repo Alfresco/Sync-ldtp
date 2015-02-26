@@ -17,6 +17,7 @@ package org.alfresco.os.common;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
@@ -135,8 +136,13 @@ public abstract class ApplicationBase
         if (properties == null)
         {
             properties = new Properties();
-
-            File propertiesFile = new File(this.getClass().getClassLoader().getResourceAsStream(LdtpUtils.PROPERTIES_FILE).toString());
+            URL propertyURI = this.getClass().getClassLoader().getResource(LdtpUtils.PROPERTIES_FILE);
+            if (propertyURI == null)
+            {
+                logger.error("Could not find property file: " + LdtpUtils.PROPERTIES_FILE);
+                return null;
+            }
+            File propertiesFile = new File(propertyURI.getPath());
 
             if (!propertiesFile.exists())
             {

@@ -26,10 +26,10 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class MicrosoftOffice2013 extends MicrosoftOfficeBase
 {
-    public String OFFICE_PATH = "C:\\Program Files (x86)\\Microsoft Office\\Office15";
+    public String OFFICE_PATH = "C:\\Program Files\\Microsoft Office\\Office15";
     
 
-    public MicrosoftOffice2013(VersionDetails officeApplication, String version)
+    public MicrosoftOffice2013(VersionDetails officeApplication)
     {
         super(officeApplication, "2013");
     }

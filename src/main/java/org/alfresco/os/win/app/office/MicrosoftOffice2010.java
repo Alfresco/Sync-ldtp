@@ -23,7 +23,7 @@ package org.alfresco.os.win.app.office;
  */
 public class MicrosoftOffice2010 extends MicrosoftOfficeBase
 {
-    public String OFFICE_PATH = "C:\\Program Files (x86)\\Microsoft Office\\Office14";
+    public String OFFICE_PATH = "C:\\Program Files\\Microsoft Office\\Office14";
    
     public MicrosoftOffice2010(VersionDetails officeApplication)
     {

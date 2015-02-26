@@ -649,7 +649,7 @@ public class MicrosoftOfficeBase extends Application
      */
     protected String getOfficePath()
     {
-        String val = getProperty("office" + getApplicationVersion() + ".path");
+        String val = getProperty("win.office" + getApplicationVersion() + ".path");
         return ((val == null) ? OFFICE_PATH : val);
     }
 
