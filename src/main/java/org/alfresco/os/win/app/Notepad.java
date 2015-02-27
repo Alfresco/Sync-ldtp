@@ -81,6 +81,7 @@ public class Notepad extends Application
         focus(fileName);
         getLdtp().doubleClick("File");
         getLdtp().click("Exit");
+        setWaitWindow("Notepad");
     }
     
     /**
@@ -90,6 +91,7 @@ public class Notepad extends Application
      */
     public void close(){
         getLdtp().click("Close");
+        setWaitWindow("Notepad");
     }
 
     /**
@@ -104,7 +106,7 @@ public class Notepad extends Application
     /**
      * Focus Notepad - bring to top, based on filename parameter
      * 
-     * @param filename
+     * @param partialFileName
      */
     public void focus(File partialFileName)
     {
