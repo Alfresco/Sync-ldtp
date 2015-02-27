@@ -54,6 +54,7 @@ public abstract class Editor extends Application
      */
     public void edit(String data) throws LdtpExecutionError
     {
+        logger.info("Editing document:" + data);
         getLdtp().enterString(data);
     }
 
@@ -62,6 +63,7 @@ public abstract class Editor extends Application
      */
     public void save()
     {
+        logger.info("Save document.");
         getLdtp().generateKeyEvent("<command>s");
     }
 
@@ -70,21 +72,24 @@ public abstract class Editor extends Application
      */
     public void close(String filename)
     {
+        logger.info("Closing filename:" + filename);
         focus();
         getLdtp().closeWindow(filename);
     }
-    
+
     /**
-     * Method to close Application 
+     * Method to close Application
      */
     public void close(File filename)
     {
+        logger.info("Closing filename:" + filename.getName());
         focus();
         getLdtp().closeWindow(filename.getName());
     }
 
     public void closeDontSave(String filename)
     {
+        logger.info("Close editor and not save the docuemnt.");
         focus();
         close(filename);
         getLdtp().waitTime(1);
@@ -99,6 +104,7 @@ public abstract class Editor extends Application
      */
     public void focus(String filename)
     {
+        logger.info("Focus: " + filename);
         getLdtp().activateWindow(filename);
     }
 
@@ -125,6 +131,7 @@ public abstract class Editor extends Application
      */
     public void saveAndClose()
     {
+        logger.info("Start a Save and Close.");
         close(getFileName());
         try
         {
@@ -140,6 +147,7 @@ public abstract class Editor extends Application
 
     public void save(String location) throws Exception
     {
+        logger.info("Save document to: " + location);
         close(getFileName());
         LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<command>a");
@@ -150,6 +158,7 @@ public abstract class Editor extends Application
 
     public void saveAs(File file)
     {
+        logger.info("Save document as: " + file.getPath());
         getLdtp().generateKeyEvent("<command><shift>s");
 
         // add folder based on location
@@ -164,6 +173,7 @@ public abstract class Editor extends Application
 
     public void openFromFileMenu(File file) throws LdtpExecutionError
     {
+        logger.info("Open file from Menu: " + file.getPath());
         focus();
         setFileName(file.getName());
         getLdtp().generateKeyEvent("<command>o");
@@ -180,12 +190,14 @@ public abstract class Editor extends Application
      */
     public void goToFile()
     {
+        logger.info("Go to File");
         getAppleMenu().activate();
         getAppleMenu().open(AppleMenuBar.Menu.FILE);
     }
 
     public void closeFile()
     {
+        logger.info("Just close the current file.");
         focus();
         getLdtp().generateKeyEvent("<command>q");
     }
@@ -254,6 +266,7 @@ public abstract class Editor extends Application
      */
     public void waitUntilFileCloses(String filename)
     {
+        logger.info("Wait until the file: " + filename + " is closed.");
         int retries = 1;
         while (retries <= LdtpUtils.RETRY_COUNT && isFileOpened(filename))
         {
@@ -268,8 +281,6 @@ public abstract class Editor extends Application
         setFileName(windowName);
         return tmp_;
     }
-
-   
 
     /**
      * This will wait for a file, until it exist on disk or a retry count is reached.

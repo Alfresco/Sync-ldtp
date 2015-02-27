@@ -75,6 +75,7 @@ public abstract class Application extends ApplicationBase
     {
         try
         {
+            logger.info("Opening Application:" + getApplicationName());
             openApplication(new String[] { "open", getApplicationPath() });
         }
         catch (Exception e)

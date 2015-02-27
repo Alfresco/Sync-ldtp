@@ -106,6 +106,7 @@ public class FinderExplorer extends KeyboardShortcut
 
     public void closeExplorer()
     {
+        logger.info("Close Explorer Window.");
         getLdtp().generateKeyEvent("<command>w");
         setWaitWindow("frmDocuments");
     }
@@ -117,6 +118,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void setViewLayout(LayoutView layoutView)
     {
+        logger.info("Set view layout to:" + layoutView.name());
         getLdtp().click(layoutView.getIdentifiler());
     }
 
@@ -127,6 +129,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void openFolder(File folderPath)
     {
+        logger.info("Open Folder: " + folderPath.getPath());
         getLdtp().generateKeyEvent("<shift><command>g");
         getLdtp().generateKeyEvent(folderPath.getPath());
         // getLdtp().click("btnGo");
@@ -155,6 +158,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void createFolder(File folderPath)
     {
+        logger.info("Creating Folder: " + folderPath.getPath());
         openFolder(folderPath.getParentFile());
         getLdtp().generateKeyEvent("<shift><command>n");
         getLdtp().generateKeyEvent(folderPath.getName());
@@ -168,6 +172,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void createAndOpenFolder(File folder)
     {
+        logger.info("Create and Open Folder:" + folder.getPath());
         createFolder(folder);
         openFolder(folder);
     }
@@ -235,6 +240,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void restoreDeletedFolder(File folder)
     {
+        logger.info("Restore Delted Folder from Trash: " + folder.getName());
         File deletedFolder = new File(LdtpUtils.getTrashFolderLocation(), folder.getName());
         deleteFolder(deletedFolder); // on MAC: cmd+bkspace will do the trick and restore the file
     }
@@ -246,6 +252,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void openFile(File file)
     {
+        logger.info("Open File:" + file.getPath());
         selectFile(file);
         goActivate();
     }
@@ -296,6 +303,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void copyFile(File source, File destinationFolder)
     {
+        logger.info(String.format("Copy file {%s} to {%s}.", source.getPath(), destinationFolder.getPath()));
         selectFile(source);
         cmdCopy();
         openFolder(destinationFolder);
@@ -310,6 +318,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void renameFile(File file, String newName)
     {
+        logger.info(String.format("Rename file {%s} to {%s}.", file.getPath(), newName));
         openFolder(file);
         getLdtp().generateKeyEvent("<enter>");
         cmdAll();
@@ -324,6 +333,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void restoreDeletedFile(File filename)
     {
+        logger.info("Restore File from Trash:" + filename.getName());
         File deletedFile = new File(LdtpUtils.getTrashFolderLocation(), filename.getName());
         deleteFile(deletedFile); // on MAC: cmd+bkspace will do the trick and restore the file
     }
@@ -336,6 +346,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void emptyTrash() throws Exception
     {
+        logger.info("Empty Trash!");
         String trashWin = "Trash";
         openFolder(LdtpUtils.getTrashFolderLocation());
         if (isWindowOpened(trashWin))
