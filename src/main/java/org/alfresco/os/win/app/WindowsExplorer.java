@@ -17,6 +17,7 @@ package org.alfresco.os.win.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
@@ -36,8 +37,9 @@ public class WindowsExplorer extends Application
 
     public WindowsExplorer()
     {
+        logger.info("open windows explorer");
         setApplicationName("explorer.exe");
-        setApplicationPath(LdtpUtils.getDocumentsFolder().getPath());
+        setApplicationPath(LdtpUtils.getDocumentsFolder().getParentFile().getPath());
         setWaitWindow("Libraries");
     }
 
@@ -60,16 +62,6 @@ public class WindowsExplorer extends Application
     public ApplicationBase openApplication()
     {
         super.openApplication();
-
-        getLdtp().doubleClick("tblcDocuments");
-        // after we open the explorer on applicationPath, we open "Documents" folder
-        try
-        {
-            waitForApplicationWindow("Documents", true);
-        }
-        catch (Exception e)
-        {
-        }
         return this;
     }
 
@@ -80,10 +72,9 @@ public class WindowsExplorer extends Application
      * @throws Exception
      * @throws InterruptedException
      */
-    public String openFolder(File folderPath) throws Exception
+    public void openFolder(File folderPath) throws Exception
     {
-        String windowName = "";
-
+        LdtpUtils.logInfo("open folder in the " + folderPath.getPath());
         if (!folderPath.isDirectory())
         {
             throw new IOException("Please provide a folder");
@@ -91,10 +82,7 @@ public class WindowsExplorer extends Application
         getLdtp().mouseLeftClick("pane2");
         getLdtp().enterString("uknLibraries", folderPath.getPath());
         getLdtp().keyPress("<enter>");
-
-        windowName = LdtpUtils.getFullWindowList(getLdtp(), folderPath.getName());
-        getLdtp().setWindowName(windowName);
-        return windowName;
+        getLdtp().setWindowName(folderPath.getName());
     }
 
     /**
@@ -106,6 +94,7 @@ public class WindowsExplorer extends Application
      */
     public void createNewFolderMenu(String folderName)
     {
+        logger.info("click on new folder and enter the folder name");
         getLdtp().click("New folder");
         LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent(folderName);
@@ -133,6 +122,7 @@ public class WindowsExplorer extends Application
      */
     public String openFolderFromCurrent(String folderName) throws LdtpExecutionError
     {
+        logger.info("open the folder in the current location " + folderName);
         String _folderName = LdtpUtils.getFullObjectList(getLdtp(), folderName);
         getLdtp().doubleClick(_folderName);
         getLdtp().setWindowName(folderName);
@@ -185,7 +175,10 @@ public class WindowsExplorer extends Application
      */
     public void closeExplorer()
     {
+        logger.info("close the explorer");
         getLdtp().click("Close");
+        setLdtp(null);
+        
     }
 
     @Override
@@ -201,6 +194,7 @@ public class WindowsExplorer extends Application
      */
     public void openFileInCurrentFolder(File file) throws LdtpExecutionError
     {
+       logger.info("open the file present in the current folder " + file.getName());
         getLdtp().doubleClick(file.getName());
     }
 
@@ -211,6 +205,7 @@ public class WindowsExplorer extends Application
      */
     public void deleteFile(File fileToDelete, boolean confirmationOption) throws Exception
     {
+        logger.info("open a particular folder to delete " + fileToDelete.getAbsolutePath());
         openFolder(fileToDelete.getParentFile());
         getLdtp().mouseRightClick(fileToDelete.getName());
         onContextMenuPerform("Delete");
@@ -235,6 +230,7 @@ public class WindowsExplorer extends Application
      */
     public void deleteFolder(String folderName, boolean areYouSure)
     {
+        logger.info("delete folder-name " + folderName);
         getLdtp().mouseRightClick(folderName);
         onContextMenuPerform("Delete");
         LdtpUtils.waitToLoopTime(1);
@@ -259,6 +255,7 @@ public class WindowsExplorer extends Application
      */
     public File moveFolder(File sourceFolder, File destinationLocation) throws Exception
     {
+        logger.info("move source folder " + sourceFolder.getAbsolutePath() + " destination location " + destinationLocation.getAbsolutePath());
         getLdtp().mouseRightClick(sourceFolder.getName());
         onContextMenuPerform("Cut");
 
@@ -377,8 +374,9 @@ public class WindowsExplorer extends Application
      * @param - file type
      * 
      */
-    public void rightClickCreate(String folderorFile, String name , type app)
+    public void rightClickCreate(String folderorFile, String name , type app) throws LdtpExecutionError
     {
+        logger.info("right click and create file type " + app.getType());
         rightClickOn("Items View");
         getLdtp().setWindowName("Context");
         getLdtp().click("New");
@@ -386,7 +384,8 @@ public class WindowsExplorer extends Application
         getLdtp().mouseMove(app.getType());
         getLdtp().click(app.getType());
         getLdtp().waitTime(5);
-        getLdtp().keyPress(name);
-        getLdtp().keyPress("<enter>");
+        getLdtp().generateKeyEvent("<ctrl>a");
+        getLdtp().generateKeyEvent(name);
+        getLdtp().generateKeyEvent("<enter>");
     }
 }
