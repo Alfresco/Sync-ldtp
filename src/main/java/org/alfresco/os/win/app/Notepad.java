@@ -21,6 +21,7 @@ import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
 
 import com.cobra.ldtp.LdtpExecutionError;
+import com.google.common.io.Files;
 
 /**
  * This class has all the method involved in using the actions in Notepad application 2013
@@ -111,10 +112,11 @@ public class Notepad extends Application
     public void focus(File partialFileName)
     {
         String winName = partialFileName.getName();
+        String fileName =  Files.getNameWithoutExtension(winName);
         try
         {
-            waitForApplicationWindow(winName, true);
-            String fullName = LdtpUtils.getFullWindowList(getLdtp(), partialFileName.getName());
+            waitForApplicationWindow(fileName, true);
+            String fullName = LdtpUtils.getFullWindowList(getLdtp(), fileName);
             getLdtp().activateWindow(fullName);
         }
         catch (Exception e)
