@@ -73,7 +73,6 @@ public abstract class Editor extends Application
     public void close(String filename)
     {
         logger.info("Closing filename:" + filename);
-        focus();
         getLdtp().closeWindow(filename);
     }
 
@@ -83,7 +82,6 @@ public abstract class Editor extends Application
     public void close(File filename)
     {
         logger.info("Closing filename:" + filename.getName());
-        focus();
         getLdtp().closeWindow(filename.getName());
     }
 

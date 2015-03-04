@@ -267,6 +267,7 @@ public abstract class ApplicationBase
 
     public void focus()
     {
+        logger.info("Focusing: " + getWaitWindow());
         getLdtp().activateWindow(getWaitWindow());
     }
 

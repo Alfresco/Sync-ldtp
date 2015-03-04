@@ -319,7 +319,7 @@ public class FinderExplorer extends KeyboardShortcut
     public void renameFile(File file, String newName)
     {
         logger.info(String.format("Rename file {%s} to {%s}.", file.getPath(), newName));
-        openFolder(file);
+        selectFile(file);
         getLdtp().generateKeyEvent("<enter>");
         cmdAll();
         getLdtp().generateKeyEvent(newName);

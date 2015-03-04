@@ -7,7 +7,7 @@
 * [Wiki](https://github.com/AlfrescoTestAutomation/alfresco-ldtp/wiki)
 
 ## Introduction
-We are pleased to introduce Alfresco LDTP library (IN Progress): a Java based automation suite that will enable GUI testing (Windows and MAC) of Alfresco dektop applications.
+We are pleased to introduce Alfresco LDTP library (IN Progress): a Java based automation suite that will enable GUI testing (Windows and MAC) of Alfresco desktop applications.
 
 In our open source solution we used the following repositories:
 * [Windows LDTP](https://github.com/ldtp/cobra)

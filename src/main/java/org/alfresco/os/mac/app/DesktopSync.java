@@ -36,7 +36,7 @@ public class DesktopSync extends Application
     }
 
     /**
-     * Try to Sync the folder based on the
+     * Try to Sync the folder using the command in SysTray
      */
     public void synchNow()
     {

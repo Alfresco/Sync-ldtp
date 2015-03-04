@@ -53,8 +53,6 @@ public class TextEdit extends Editor
     public void save(String location)
     {
         logger.info("Save document to: " + location);
-        focus();
-        getLdtp().generateKeyEvent("<command>s");
         // paul.brodner: "/" char cannot be added to TextEditor via LDTP
         // we used an alternative: with AppleScript
         goToLocation(location);
@@ -68,7 +66,6 @@ public class TextEdit extends Editor
      */
     public void save(File file)
     {
-        logger.info("Save document to: " + file.getPath());
         save(file.getPath());
     }
 
@@ -81,16 +78,17 @@ public class TextEdit extends Editor
      */
     private void goToLocation(String location)
     {
-        logger.info("Go to Location: " + location);
         AppleScript appleScript = getAppleScript();
         appleScript.clean();
         appleScript.addCommandScript("tell app \"TextEdit\" to activate");
         appleScript.addCommandScript("delay 2");
         appleScript.addCommandScript("tell application \"System Events\"");
+        appleScript.addCommandScript("keystroke \"s\" using {command down}");
+        appleScript.addCommandScript("delay 1.5");
         appleScript.addCommandScript("keystroke \"a\" using {command down}");
         appleScript.addCommandScript("delay 1");
         appleScript.addCommandScript("keystroke \"" + location + "\"");
-        appleScript.addCommandScript("delay 0.5");
+        appleScript.addCommandScript("delay 1");
         appleScript.addCommandScript("keystroke return");
         appleScript.addCommandScript("delay 1");
         appleScript.addCommandScript("keystroke return");
