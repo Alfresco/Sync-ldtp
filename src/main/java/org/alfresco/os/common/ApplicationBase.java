@@ -298,8 +298,7 @@ public abstract class ApplicationBase
             String[] windowList = _ldtp.getWindowList();
             for (String window : windowList)
             {
-                LdtpUtils.logDebug(String.format("Window [%s] expected, but found: %s. Waiting...", windowName, window));
-
+                LdtpUtils.logInfo(String.format("Window [%s] expected, but found: %s. Waiting...", windowName, window));
                 if (window.contains(windowName))
                 {
                     _ldtp = new Ldtp(window);
