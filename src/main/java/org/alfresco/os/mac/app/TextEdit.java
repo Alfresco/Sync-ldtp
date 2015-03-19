@@ -86,6 +86,8 @@ public class TextEdit extends Editor
         appleScript.addCommandScript("keystroke \"s\" using {command down}");
         appleScript.addCommandScript("delay 1.5");
         appleScript.addCommandScript("keystroke \"a\" using {command down}");
+        appleScript.addCommandScript("delay 0.5");
+        appleScript.addCommandScript("keystroke \"a\" using {command down}");
         appleScript.addCommandScript("delay 1");
         appleScript.addCommandScript("keystroke \"" + location + "\"");
         appleScript.addCommandScript("delay 1");
