@@ -17,7 +17,6 @@ package org.alfresco.os.win.app;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;

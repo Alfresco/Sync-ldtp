@@ -27,6 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.cobra.ldtp.Ldtp;
+import com.cobra.ldtp.LdtpExecutionError;
 import com.google.common.io.Files;
 
 /**
@@ -432,7 +433,7 @@ public class LdtpUtils
     public static File getNewRandomFileFromResource(String resourceFileName)
     {
         URL fileURL = Thread.currentThread().getContextClassLoader().getResource(resourceFileName);
-        if(fileURL==null)
+        if (fileURL == null)
         {
             logger.error("No resource file with name: " + resourceFileName + " was found in RESOURCES folder.");
             return null;
@@ -524,4 +525,22 @@ public class LdtpUtils
         }
     }
 
+    /**
+     * Capture screenshot
+     * @return
+     */
+    public static File getScreenShot()
+    {
+        File screen = null;
+        try
+        {
+            Ldtp ldtp = new Ldtp("*");
+            screen = new File(ldtp.imageCapture());
+        }
+        catch (LdtpExecutionError e)
+        {
+            logger.error(e);
+        }
+        return screen;
+    }
 }

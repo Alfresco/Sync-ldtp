@@ -93,6 +93,9 @@ public class TextEdit extends Editor
         appleScript.addCommandScript("delay 1");
         appleScript.addCommandScript("keystroke return");
         appleScript.addCommandScript("delay 1");
+        File fileName = new File(location);
+        appleScript.addCommandScript("keystroke \"" + fileName.getName() + "\"");
+        appleScript.addCommandScript("delay 2");
         appleScript.addCommandScript("keystroke return");
         appleScript.addCommandScript("end tell");
         appleScript.run();
