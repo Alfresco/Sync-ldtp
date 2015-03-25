@@ -18,6 +18,7 @@ package org.alfresco.os.mac;
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.mac.utils.AppleScript;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 
@@ -28,7 +29,8 @@ import com.cobra.ldtp.Ldtp;
  */
 public abstract class Application extends ApplicationBase
 {
-    public abstract void exitApplication();
+	private static Logger logger = Logger.getLogger(Application.class);
+	public abstract void exitApplication();
 
     private AppleScript appleScript;
 

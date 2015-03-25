@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.alfresco.os.mac.Editor;
 import org.alfresco.os.mac.utils.AppleScript;
+import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.LdtpExecutionError;
 
@@ -31,7 +32,8 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class TextEdit extends Editor
 {
-    /**
+	private static Logger logger = Logger.getLogger(TextEdit.class);
+	/**
      * @param version
      * @param application 'Microsoft Word.app' or 'Microsoft Outlook.app'
      * @return Ldtp

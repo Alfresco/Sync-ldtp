@@ -21,8 +21,11 @@ import java.io.IOException;
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.log4j.Logger;
 
+import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
+import com.google.common.io.Files;
 
 /**
  * * This class will handle Windows based operation over Windows Explorer
@@ -33,7 +36,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class WindowsExplorer extends Application
 {
-
+	private static Logger logger = Logger.getLogger(WindowsExplorer.class);
     public WindowsExplorer()
     {
         logger.info("open windows explorer");
@@ -387,4 +390,20 @@ public class WindowsExplorer extends Application
         getLdtp().generateKeyEvent(name);
         getLdtp().generateKeyEvent("<enter>");
     }
+    
+    /*
+	 * Return the temporary file with image captured
+	 */
+	public File getIconImage(File fileOrFolder) throws Exception {
+
+		Ldtp app = new Ldtp(fileOrFolder.getParentFile().getName());
+		logger.info("Get Icon Image of: " + fileOrFolder.getPath());
+		Integer[] a = app.getObjectSize(Files
+				.getNameWithoutExtension(fileOrFolder.getName()));
+
+		String img = app.imageCapture(a[0], a[1], 20, a[3]);
+		logger.info("Saved image in tmp location:" + img);
+		File actualImage = new File(img);
+		return actualImage;
+	}
 }

@@ -23,8 +23,7 @@ import java.util.Iterator;
 import java.util.Properties;
 
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 
@@ -37,7 +36,7 @@ public abstract class ApplicationBase
 {
     private Ldtp ldtp;
 
-    protected static Log logger = onThisClass();
+    private static Logger logger = Logger.getLogger(ApplicationBase.class);
     protected String applicationPath;
     protected String applicationName;
     protected String applicationVersion;
@@ -82,17 +81,6 @@ public abstract class ApplicationBase
         LdtpUtils.waitToLoopTime(2);
         waitForApplicationWindow(getWaitWindow(), true);
         return this;
-    }
-
-    /**
-     * This will return the logger of the caller
-     * 
-     * @return logger of the class name
-     */
-    protected static Log onThisClass()
-    {
-        StackTraceElement thisCaller = Thread.currentThread().getStackTrace()[2];
-        return LogFactory.getLog(thisCaller.getClassName());
     }
 
     /**

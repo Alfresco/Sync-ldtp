@@ -21,6 +21,7 @@ import org.alfresco.exceptions.WindowNotOpenedException;
 import org.alfresco.os.mac.utils.AlertDialog;
 import org.alfresco.os.mac.utils.KeyboardShortcut;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.log4j.Logger;
 
 /**
  * This class will handle Finder based action over Files (CRUD) and Folder (CRUD).
@@ -30,7 +31,8 @@ import org.alfresco.utilities.LdtpUtils;
  */
 public class FinderExplorer extends KeyboardShortcut
 {
-    /**
+	private static Logger logger = Logger.getLogger(FinderExplorer.class);
+	/**
      * Initialize the FinderExplorer window for Mac
      * Opening first the Documents folder of the current user
      */

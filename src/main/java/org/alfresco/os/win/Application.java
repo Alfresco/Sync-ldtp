@@ -17,6 +17,7 @@ package org.alfresco.os.win;
 
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
@@ -28,7 +29,8 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class Application extends ApplicationBase
 {
-
+	private static Logger logger = Logger.getLogger(Application.class);
+	
     @Override
     public void exitApplication()
     {

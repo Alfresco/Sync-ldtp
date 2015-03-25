@@ -22,6 +22,7 @@ import org.alfresco.os.mac.Application;
 import org.alfresco.os.mac.Editor;
 import org.alfresco.os.mac.utils.AppleMenuBar.Menu;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
@@ -33,7 +34,8 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class MicrosoftOfficeBase extends Editor
 {
-    private MicrosoftDocumentConnection mdc;
+	private static Logger logger = Logger.getLogger(MicrosoftOfficeBase.class);
+	private MicrosoftDocumentConnection mdc;
 
     /**
      * @param version

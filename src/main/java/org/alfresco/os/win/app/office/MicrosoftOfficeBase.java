@@ -20,6 +20,7 @@ import java.io.File;
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
@@ -36,7 +37,8 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class MicrosoftOfficeBase extends Application
 {
-    public String OFFICE_PATH = "C:\\Program Files (x86)\\Microsoft Office\\Office14";
+	private static Logger logger = Logger.getLogger(MicrosoftOfficeBase.class);
+	public String OFFICE_PATH = "C:\\Program Files (x86)\\Microsoft Office\\Office14";
     protected VersionDetails applicationDetails;
 
     protected String fileMenuPage = "File";

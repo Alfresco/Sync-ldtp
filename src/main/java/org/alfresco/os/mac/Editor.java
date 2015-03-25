@@ -22,6 +22,7 @@ import java.util.Arrays;
 import org.alfresco.exceptions.OfficeCrashException;
 import org.alfresco.os.mac.utils.AppleMenuBar;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
@@ -35,7 +36,8 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public abstract class Editor extends Application
 {
-    protected String fileName = "NOT DEFINED"; // this is the filename from Editor
+	private static Logger logger = Logger.getLogger(Editor.class);
+	protected String fileName = "NOT DEFINED"; // this is the filename from Editor
     private AppleMenuBar appleMenu;
 
     protected AppleMenuBar getAppleMenu()
