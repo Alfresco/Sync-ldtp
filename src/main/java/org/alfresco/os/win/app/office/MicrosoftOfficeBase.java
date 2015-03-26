@@ -20,14 +20,14 @@ import java.io.File;
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
+import org.apache.log4j.Logger;
 
 /**
  * This class has all the method involved in using the actions in Office application
- * 
+ *
  * @author Subashni Prasanna
  * @author Paul Brodner
  */
@@ -37,10 +37,9 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class MicrosoftOfficeBase extends Application
 {
-	private static Logger logger = Logger.getLogger(MicrosoftOfficeBase.class);
-	public String OFFICE_PATH = "C:\\Program Files (x86)\\Microsoft Office\\Office14";
+    private static Logger logger = Logger.getLogger(MicrosoftOfficeBase.class);
+    public String OFFICE_PATH = "C:\\Program Files (x86)\\Microsoft Office\\Office14";
     protected VersionDetails applicationDetails;
-
     protected String fileMenuPage = "File";
     protected String userName;
     protected String userPassword;
@@ -56,7 +55,7 @@ public class MicrosoftOfficeBase extends Application
 
     /**
      * Enums to hold all the applications name.
-     * 
+     *
      * @author Subashni Prasanna
      * @author Paul Brodner
      */
@@ -122,6 +121,7 @@ public class MicrosoftOfficeBase extends Application
     {
         getLdtp().generateKeyEvent("<esc>");
         getLdtp().click("Close");
+        setWaitWindow(applicationDetails.getWaitWindow());
     }
 
     /**
@@ -131,13 +131,17 @@ public class MicrosoftOfficeBase extends Application
     public void closeApplication(File file)
     {
         focus(file);
-        closeApplication();
+        getLdtp().click("btnFileTab");
+        getLdtp().waitTillGuiExist("File", LdtpUtils.RETRY_COUNT);
+        getLdtp().click("Exit");
+        setWaitWindow(applicationDetails.getWaitWindow());
+//        closeApplication();
     }
 
     /**
      * Focus application based on Filename
      * You can pass as arguments just Files or Strings
-     * 
+     *
      * @param excelFileTitle
      */
     public void focus(Object fileName)
@@ -153,7 +157,7 @@ public class MicrosoftOfficeBase extends Application
             {
                 _waitFor = fileName.toString();
             }
-             waitForApplicationWindow(_waitFor, true);
+            waitForApplicationWindow(_waitFor, true);
             getLdtp().activateWindow(getWaitWindow());
         }
         catch (Exception e)
