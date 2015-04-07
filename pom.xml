@@ -1,7 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>org.alfresco</groupId>
 	<artifactId>ldtp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -32,6 +30,12 @@
 			<url>https://artifacts.alfresco.com/nexus/content/repositories/internal-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>thirdparty</id>
+			<url>https://nexus.alfresco.com/nexus/content/repositories/thirdparty</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>com.googlecode.cobra-winldtp</groupId>
