@@ -40,7 +40,7 @@ public abstract class ApplicationBase
     protected String applicationPath;
     protected String applicationName;
     protected String applicationVersion;
-    private boolean useWindowFullName = true; //this is the window full name that we will find on {@link waitForApplicationWindow }
+    private boolean useDefinedWindowFullName = false; //this is the window full name that we will find on {@link waitForApplicationWindow }
 
     public String getApplicationVersion()
     {
@@ -291,12 +291,13 @@ public abstract class ApplicationBase
                 LdtpUtils.logInfo(String.format("Window [%s] expected, but found: %s. Waiting...", windowName, window));
                 if (window.contains(windowName))
                 {
+                	if (isDefinedWindowFullName()){
+                		return _ldtp;
+                	}
                     _ldtp = new Ldtp(window);
                     if (defineGetLDTP)
                     {
-                    	if (isUseWindowFullName()){
-                    		setWaitWindow(window);	
-                    	}
+                    	setWaitWindow(window);	
                         setLdtp(_ldtp);
                         return getLdtp();
                     }
@@ -449,14 +450,14 @@ public abstract class ApplicationBase
 	/**
 	 * @return the useWindowFullName
 	 */
-	public boolean isUseWindowFullName() {
-		return useWindowFullName;
+	public boolean isDefinedWindowFullName() {
+		return useDefinedWindowFullName;
 	}
 
 	/**
 	 * @param useWindowFullName the useWindowFullName to set
 	 */
-	public void setUseWindowFullName(boolean useWindowFullName) {
-		this.useWindowFullName = useWindowFullName;
+	public void setUseDefinedWindowFullName(boolean useWindowFullName) {
+		this.useDefinedWindowFullName = useWindowFullName;
 	}
 }
