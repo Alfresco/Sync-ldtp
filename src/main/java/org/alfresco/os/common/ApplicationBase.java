@@ -40,6 +40,7 @@ public abstract class ApplicationBase
     protected String applicationPath;
     protected String applicationName;
     protected String applicationVersion;
+    private boolean useWindowFullName = true; //this is the window full name that we will find on {@link waitForApplicationWindow }
 
     public String getApplicationVersion()
     {
@@ -279,6 +280,7 @@ public abstract class ApplicationBase
     {
         Ldtp _ldtp = initializeLdtp();
         int retries = 0;
+        windowName = windowName.replaceAll("\\*", "");
         // here we will wait until the window is visible
         LdtpUtils.logInfo("WaitForApplicationWindow '" + windowName + "' between all windows...");
         while (retries <= LdtpUtils.RETRY_COUNT)
@@ -292,7 +294,9 @@ public abstract class ApplicationBase
                     _ldtp = new Ldtp(window);
                     if (defineGetLDTP)
                     {
-                        setWaitWindow(window);
+                    	if (isUseWindowFullName()){
+                    		setWaitWindow(window);	
+                    	}
                         setLdtp(_ldtp);
                         return getLdtp();
                     }
@@ -441,4 +445,18 @@ public abstract class ApplicationBase
         }
         getLdtp().click(name);
     }
+
+	/**
+	 * @return the useWindowFullName
+	 */
+	public boolean isUseWindowFullName() {
+		return useWindowFullName;
+	}
+
+	/**
+	 * @param useWindowFullName the useWindowFullName to set
+	 */
+	public void setUseWindowFullName(boolean useWindowFullName) {
+		this.useWindowFullName = useWindowFullName;
+	}
 }
