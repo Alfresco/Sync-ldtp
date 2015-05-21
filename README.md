@@ -31,7 +31,7 @@ Please take a look on [LDTP User Manual](http://ldtp.freedesktop.org/user-doc/)
 ## Project Structure
 
 The class diagram with just some basic class for win and mac.
-![class_diagram](https://raw.githubusercontent.com/Alfresco/Sync-ldtp/master/uml/class_diagram.png)
+![class diag](https://github.com/Alfresco/Sync-ldtp/raw/master/uml/class_diagram.png)
 
 ## Getting Started
 
