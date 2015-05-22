@@ -61,7 +61,7 @@ public class FinderExplorerTest
         for (LayoutView layout : LayoutView.values())
         {
             f.setViewLayout(layout);
-            Assert.assertTrue(f.isBtnEnabled(layout.getIdentifiler()), "Layout " + layout.name() + " is enabled");
+            Assert.assertTrue(f.isLayoutViewEnabled(layout), "Layout " + layout.name() + " is enabled");
         }
         f.setViewLayout(LayoutView.LIST);
     }

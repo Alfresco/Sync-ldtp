@@ -54,6 +54,11 @@ public class FinderExplorer extends KeyboardShortcut
         // each finder has the window name set to the current folder name
         setWaitWindow("frmDocuments");
     }
+    
+    public boolean isLayoutViewEnabled(LayoutView layout)
+    {
+        return isBtnEnabled(layout.getIdentifiler());
+    }
 
     /**
      * use the AlertDialog class

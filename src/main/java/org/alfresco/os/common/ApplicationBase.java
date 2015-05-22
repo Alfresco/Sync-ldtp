@@ -381,7 +381,7 @@ public abstract class ApplicationBase
      * @param buttonName
      * @return boolean value
      */
-    public boolean isBtnEnabled(String buttonName)
+    protected boolean isBtnEnabled(String buttonName)
     {
         return getLdtp().stateEnabled(buttonName) == 1;
     }
