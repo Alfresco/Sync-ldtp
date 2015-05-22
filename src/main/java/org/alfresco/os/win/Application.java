@@ -71,6 +71,11 @@ public class Application extends ApplicationBase
         }
         return this;
     }
+    
+    public void closeWindow(){
+        getLdtp().click("Close");
+    }
+    
     /**
      * Enum for all the application that can be used in windows
      * @author sprasanna

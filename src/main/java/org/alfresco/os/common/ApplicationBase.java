@@ -62,6 +62,8 @@ public abstract class ApplicationBase
     public abstract void exitApplication();
 
     public abstract ApplicationBase openApplication() throws Exception;
+    
+    public abstract void closeWindow();
 
     public abstract void killProcess();
 

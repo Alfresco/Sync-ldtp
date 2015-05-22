@@ -86,5 +86,9 @@ public abstract class Application extends ApplicationBase
         }
         return this;
     }
+    
+    public void closeWindow(){
+        getLdtp().click("btnclosebutton");
+    }
 
 }
