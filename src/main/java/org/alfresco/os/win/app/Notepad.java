@@ -76,6 +76,23 @@ public class Notepad extends Application
     }
 
     /**
+     * Save As notepad in a particular location
+     * by overwriting existing file
+     *
+     * @throws Exception
+     */
+    public void saveAsWithOverwrite(File destinationFile) throws Exception
+    {
+        getLdtp().doubleClick("File");
+        getLdtp().click("Save As");
+        waitForWindow("Save As");
+        getLdtp().enterString("txtFilename", destinationFile.getPath());
+        getLdtp().click("btnSave");
+        LdtpUtils.waitToLoopTime(1);
+        getLdtp().click("Yes");
+    }
+
+    /**
      * Close the notepad application after the save
      */
     public void close(File fileName) throws LdtpExecutionError
@@ -124,5 +141,19 @@ public class Notepad extends Application
         {
             logger.error("Could not find Notepad file:" + winName, e);
         }
+    }
+
+    public boolean isFileReadOnly()
+    {
+        try
+        {
+            String readOnlyText = getLdtp().getObjectProperty("lbl*This file*", "label");
+            if (readOnlyText.contains("This file is set to read-only"))
+                return true;
+        }
+        catch (Exception e)
+        {
+        }
+        return false;
     }
 }
