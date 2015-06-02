@@ -147,6 +147,38 @@ public class LdtpUtils
             }
         }
     }
+    
+    /**
+     * Wait for a partial ldtp object
+     * Example:
+     * if the object searched is something like: lblFailedtoconnecttoserverhttp
+     * then you can use just the partial name to wait for it: lblFailed
+     * 
+     * @param ldtp
+     * @param partialObjectName
+     */
+    public static void waitForPartialObject(Ldtp ldtp, String partialObjectName)
+    {
+        int counter = 0;
+        logger.info("Waiting for partial object: " + partialObjectName);
+        
+        while (counter < RETRY_COUNT)
+        {
+            if (getFullObjectList(ldtp, partialObjectName) !="")
+                break;
+            else
+            {
+                counter++;
+                try
+                {
+                    ldtp.wait(1);
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        }
+    }
 
     /**
      * Execute any Terminal commands
