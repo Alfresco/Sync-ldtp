@@ -66,7 +66,8 @@ public abstract class Application extends ApplicationBase
         }
         catch (Exception e) // it seem LDTP is not initialisez so we need to run a python script on MAC
         {
-            runProcess("python", "-i", this.getClass().getClassLoader().getResource("startLdtp.py").getPath());
+            String setupScript = this.getClass().getClassLoader().getResource("startLdtp.py").getPath();
+            LdtpUtils.execute(new String[]{"python", "-i", setupScript});
             LdtpUtils.waitUntilProcessIsRunning("python");
             ldtp = new Ldtp(getWaitWindow());
         }
