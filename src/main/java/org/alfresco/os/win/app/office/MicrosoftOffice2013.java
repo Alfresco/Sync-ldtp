@@ -17,6 +17,9 @@ package org.alfresco.os.win.app.office;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
+import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
 
 /**
@@ -26,8 +29,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class MicrosoftOffice2013 extends MicrosoftOfficeBase
 {
-    public String OFFICE_PATH = "C:\\Program Files\\Microsoft Office\\Office15";
-    
+    private static Logger logger = Logger.getLogger(MicrosoftOffice2013.class);
 
     public MicrosoftOffice2013(VersionDetails officeApplication)
     {
@@ -54,5 +56,68 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
         }
         getLdtp().click("OK");
         getLdtp().closeWindow(getWaitWindow());
+    }
+
+    /**
+     * Click in File
+     * 
+     * @param ldtp
+     */
+    public void goToFile(Ldtp ldtp)
+    {
+        logger.info("Go to file");
+
+        ldtp.click("File Tab");
+        ldtp.waitTillGuiExist(fileMenuPage, 2);
+
+    }
+
+    /*
+     * Method to implement Opening a file inside the office application
+     */
+    @Override
+    public void openOfficeFromFileMenu(String location) throws Exception
+    {
+        Ldtp ldtp = getLdtp();
+        goToFile(ldtp);
+        ldtp.click("Open");
+        ldtp.click("Computer");
+        ldtp.click("Browse");
+        ldtp =  waitForWindow("dlgOpen");
+        ldtp.enterString("txtFilename", location);
+        ldtp.mouseLeftClick("uknOpen");
+    }
+
+    /**
+     * Operates on Save As dialog
+     * 
+     * @param ldtp1
+     * @param path
+     * @throws Exception 
+     */
+    public void saveAs(String path) throws Exception
+    {
+        logger.info("Operate on 'Save As'");
+        Ldtp ldtp = waitForWindow("Save As");
+        ldtp.enterString("txtFilename", path);
+        ldtp.mouseLeftClick("btnSave");
+    }
+
+    /*
+     * Method to implement SaveAs of office application
+     */
+    @Override
+    public void saveAsOffice(String location) throws Exception
+    {
+
+        goToFile();
+        getLdtp().click("SaveAs");
+
+        getLdtp().click("Browse");
+        waitForWindow("Save As");
+        getLdtp().deleteText("txtFilename", 0);
+        getLdtp().enterString("txtFilename", location);
+        getLdtp().click("btnSave");
+        getLdtp().waitTillGuiNotExist("Save As");
     }
 }
