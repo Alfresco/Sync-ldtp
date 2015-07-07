@@ -168,6 +168,7 @@ public class MicrosoftOfficeBase extends Application
 
     public ApplicationBase openApplication()
     {
+    	logger.info("Try to open application: " + getApplicationPath());
         try
         {
             openApplication(new String[] { getApplicationPath() });
