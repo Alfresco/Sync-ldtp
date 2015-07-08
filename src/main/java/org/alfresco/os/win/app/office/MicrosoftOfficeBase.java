@@ -62,7 +62,7 @@ public class MicrosoftOfficeBase extends Application
     public enum VersionDetails
     {
 
-        WORD("Microsoft Word Document", "Microsoft Word", "WINWORD.EXE", "Blank document"), EXCEL(
+        WORD("Microsoft Word Document", "frmWord", "WINWORD.EXE", "Blank document"), EXCEL(
                 "Microsoft Excel Worksheet",
                 "Microsoft Excel",
                 "EXCEL.EXE",
@@ -609,7 +609,7 @@ public class MicrosoftOfficeBase extends Application
     {
         try
         {
-            runProcess(new File(OFFICE_PATH, applicationDetails.getExeName()).getPath() + " " + docPath);
+            runProcess(new File(getOfficePath(), applicationDetails.getExeName()).getPath() + " " + docPath);
             if (checkSecurityWindow)
                 operateOnSecurity(userName, password);
 
