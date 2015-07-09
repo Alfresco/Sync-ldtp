@@ -103,5 +103,13 @@ public class Application extends ApplicationBase
             return application;
         }
     }
-
+    /*
+     * Maximize the window
+     */
+    public void maximize(){
+    	String idMaximize = "btnMaximize";
+    	if (getLdtp().objectExist(idMaximize)==1){
+    		clickButton(idMaximize);
+    	} 	 	
+    }
 }

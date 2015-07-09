@@ -64,6 +64,7 @@ public class WindowsExplorer extends Application
     public ApplicationBase openApplication()
     {
         super.openApplication();
+        maximize();
         return this;
     }
 
