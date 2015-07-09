@@ -114,6 +114,7 @@ public class WindowsExplorer extends Application
     public String createAndOpenFolder(String folderName)
     {
         createNewFolderMenu(folderName);
+        LdtpUtils.waitToLoopTime(2);
         return openFolderFromCurrent(folderName);
     }
 
