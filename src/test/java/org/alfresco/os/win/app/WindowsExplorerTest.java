@@ -19,7 +19,7 @@ public class WindowsExplorerTest extends AbstractTestClass
         File myDocs = LdtpUtils.getHomeFolder();
         app.openApplication();
         app.openFolder(myDocs);
-        app.rightClickCreate(myDocs.getName(), "test", type.TEXTFILE);
+        app.rightClickCreate(myDocs.getName(), "test.txt", type.TEXTFILE);
         app.exitApplication();
     }
 
