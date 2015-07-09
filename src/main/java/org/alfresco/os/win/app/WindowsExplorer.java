@@ -99,10 +99,10 @@ public class WindowsExplorer extends Application
     {
         logger.info("click on new folder and enter the folder name");
         getLdtp().click("New folder");
-        LdtpUtils.waitToLoopTime(1);
+        getLdtp().waitTime(1);
         getLdtp().generateKeyEvent(folderName);
         getLdtp().keyPress("<enter>");
-        LdtpUtils.waitToLoopTime(1);
+        getLdtp().waitTime(1);
     }
 
     /**
@@ -115,7 +115,7 @@ public class WindowsExplorer extends Application
     public String createAndOpenFolder(String folderName)
     {
         createNewFolderMenu(folderName);
-        LdtpUtils.waitToLoopTime(2);
+        getLdtp().waitTime(2);
         return openFolderFromCurrent(folderName);
     }
 
@@ -237,7 +237,7 @@ public class WindowsExplorer extends Application
         logger.info("delete folder-name " + folderName);
         getLdtp().mouseRightClick(folderName);
         onContextMenuPerform("Delete");
-        LdtpUtils.waitToLoopTime(1);
+        getLdtp().waitTime(2);
         alertConfirmation("Delete Folder", areYouSure);
     }
 
@@ -300,7 +300,7 @@ public class WindowsExplorer extends Application
         getLdtp().generateKeyEvent("<ctrl>a");
         getLdtp().generateKeyEvent(renamedFileName);
         getLdtp().generateKeyEvent("<enter>");
-        LdtpUtils.waitToLoopTime(1);
+        getLdtp().waitTime(1);
         getLdtp().setWindowName(oldWindow);
     }
 
