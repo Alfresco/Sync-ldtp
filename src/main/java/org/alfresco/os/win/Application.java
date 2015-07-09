@@ -63,6 +63,7 @@ public class Application extends ApplicationBase
     {
         try
         {
+        	exitApplication();
             return openApplication(new String[] { getApplicationName() });
         }
         catch (Exception e)
