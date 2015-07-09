@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 public class MicrosoftOfficeBase extends Application
 {
     private static Logger logger = Logger.getLogger(MicrosoftOfficeBase.class);
+    public String OFFICE_PATH = "C:\\Program Files (x86)\\Microsoft Office\\Office14";
     protected VersionDetails applicationDetails;
     protected String fileMenuPage = "File";
     protected String userName;
@@ -61,7 +62,7 @@ public class MicrosoftOfficeBase extends Application
     public enum VersionDetails
     {
 
-        WORD("Microsoft Word Document", "Microsoft Word", "WINWORD.EXE", "Blank document"), EXCEL(
+        WORD("Microsoft Word Document", "frmWord", "WINWORD.EXE", "Blank document"), EXCEL(
                 "Microsoft Excel Worksheet",
                 "Microsoft Excel",
                 "EXCEL.EXE",
@@ -167,6 +168,7 @@ public class MicrosoftOfficeBase extends Application
 
     public ApplicationBase openApplication()
     {
+    	logger.info("Try to open application: " + getApplicationPath());
         try
         {
             openApplication(new String[] { getApplicationPath() });
