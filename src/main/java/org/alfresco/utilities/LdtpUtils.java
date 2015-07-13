@@ -337,6 +337,14 @@ public class LdtpUtils
         }
         return null;
     }
+    
+    /**
+     * @return System32 file path
+     */
+    public static File getSystem32()
+    {
+    	return new File(System.getenv("SystemRoot"),"system32");
+    }
 
     /**
      * TODO add getTrashFolderLocation for Windows
