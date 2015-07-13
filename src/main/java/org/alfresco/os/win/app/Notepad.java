@@ -39,7 +39,8 @@ public class Notepad extends Application
     {
         setApplicationName("notepad.exe");
         // set the root path of the Finder Window to the current user Documents folder
-        setApplicationPath("");
+        setApplicationPath(new File(LdtpUtils.getSystem32(),getApplicationName()).getPath()); 
+       
         // each finder has the window name set to the current folder name
         setWaitWindow("Notepad");
     }
