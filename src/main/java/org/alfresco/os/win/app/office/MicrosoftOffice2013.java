@@ -17,6 +17,7 @@ package org.alfresco.os.win.app.office;
 
 import java.io.IOException;
 
+import org.alfresco.os.common.ApplicationBase;
 import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
@@ -119,5 +120,20 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
         getLdtp().enterString("txtFilename", location);
         getLdtp().click("btnSave");
         getLdtp().waitTillGuiNotExist("Save As");
+    }
+
+    public ApplicationBase openApplication()
+    {
+        logger.info("Try to open application: " + getApplicationPath());
+        try
+        {
+            openApplication(new String[] { getApplicationPath() });
+            getLdtp().generateKeyEvent("<enter>");
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not open Application " + getApplicationName() + "Error: " + e);
+        }
+        return this;
     }
 }
