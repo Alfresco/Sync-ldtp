@@ -157,4 +157,18 @@ public class Notepad extends Application
         }
         return false;
     }
+    
+    
+	/**
+	 * Save the file using shortcut keys
+	 * @param fileName
+	 * @throws Exception
+	 */
+	public void saveAsWithShortcutKeys(File fileName) throws Exception {
+		save();
+		waitForWindow("Save As");
+	    getLdtp().enterString("txtFilename", fileName.getPath());
+	    getLdtp().click("btnSave");
+	    LdtpUtils.waitToLoopTime(1);
+	}
 }
