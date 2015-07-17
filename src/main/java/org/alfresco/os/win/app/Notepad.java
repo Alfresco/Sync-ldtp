@@ -171,4 +171,16 @@ public class Notepad extends Application
 	    getLdtp().click("btnSave");
 	    LdtpUtils.waitToLoopTime(1);
 	}
+
+	/**
+	 * Create file on notepad.
+	 * @param fileToRename
+	 * @throws Exception
+	 */
+	public void createFile(File fileToRename) throws Exception {
+		openApplication();
+		edit("data");
+		saveAs(fileToRename);
+		exitApplication();	
+	}
 }
