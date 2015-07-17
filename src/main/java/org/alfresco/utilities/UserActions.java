@@ -1,9 +1,13 @@
 package org.alfresco.utilities;
 
+import org.alfresco.os.win.Application;
+import org.alfresco.os.win.Application.type;
+import org.alfresco.os.win.app.Notepad;
 import org.alfresco.os.win.app.WindowsExplorer;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.ObjectInputStream.GetField;
 
 /**
  * Created by rdorobantu on 7/13/2015.
@@ -42,4 +46,30 @@ public class UserActions
             e.printStackTrace();
         }
     }
-}
+
+    /**
+     * method to create a folder and file inside
+     * 
+     * @throws Exception
+     */
+    public  void createFolderAndFile(File folderName, String fileName) throws Exception
+    {
+        WindowsExplorer explorer = openFolder(folderName.getParentFile());
+        explorer.createAndOpenFolder(folderName.getName());
+        explorer.rightClickCreate(folderName.getName(), fileName, type.TEXTFILE);
+        explorer.closeExplorer();
+        
+    }
+    /**
+     * open explorer and open folder    
+     * @throws Exception 
+     */
+    
+    public WindowsExplorer openFolder(File folderName) throws Exception
+    {
+        WindowsExplorer explorer = new WindowsExplorer();
+        explorer.openApplication();
+        explorer.openFolder(folderName);
+        return explorer;
+    }
+} 

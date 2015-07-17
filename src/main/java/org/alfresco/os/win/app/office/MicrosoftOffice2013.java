@@ -18,6 +18,7 @@ package org.alfresco.os.win.app.office;
 import java.io.IOException;
 
 import org.alfresco.os.common.ApplicationBase;
+import org.alfresco.utilities.LdtpUtils;
 import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
@@ -112,7 +113,7 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
     {
 
         goToFile();
-        getLdtp().click("SaveAs");
+        getLdtp().click("Save");
 
         getLdtp().click("Browse");
         waitForWindow("Save As");
@@ -136,4 +137,13 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
         }
         return this;
     }
+    
+   public void  goToFile()
+   {
+       LdtpUtils.logInfo("Go to File");
+       getLdtp().click("File Tab");
+       getLdtp().waitTillGuiExist("File", LdtpUtils.RETRY_COUNT);
+   }
+
+
 }
