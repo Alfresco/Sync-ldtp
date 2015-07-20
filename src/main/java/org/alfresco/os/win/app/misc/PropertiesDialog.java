@@ -49,11 +49,20 @@ public class PropertiesDialog {
 	/**
 	 * Open the Properties Dialog of a File/Folder
 	 */
-	public Ldtp openDialog() {
-		logger.info("Opening Properties Dialog for: " + getFileName().getPath());
+	public Ldtp openDialog() 
+	{
+	        String fileList = null;
+	        logger.info("Opening Properties Dialog for: " + getFileName().getPath());
 		String fileWithoutExtension = Files.getNameWithoutExtension(getFileName().getName());
 		propertyObject = new Ldtp(getFileName().getParentFile().getName());
-		String fileList = "lst" + fileWithoutExtension + ".*";
+		if(getFileName().isFile())
+		{
+		    fileList = "lst" + fileWithoutExtension + ".*";
+		}
+		else
+		{
+		    fileList = fileWithoutExtension; 
+		}
 		propertyObject.mouseLeftClick(fileList);
 		propertyObject.mouseRightClick(fileList);
 		propertyObject.setWindowName("Context");

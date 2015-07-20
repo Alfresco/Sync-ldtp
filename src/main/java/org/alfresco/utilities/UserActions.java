@@ -1,21 +1,15 @@
 package org.alfresco.utilities;
 
-import org.alfresco.os.win.Application;
-import org.alfresco.os.win.Application.type;
-import org.alfresco.os.win.app.Notepad;
-import org.alfresco.os.win.app.WindowsExplorer;
-import org.apache.log4j.Logger;
-
 import java.io.File;
-import java.io.ObjectInputStream.GetField;
+
+import org.alfresco.os.win.Application.type;
+import org.alfresco.os.win.app.WindowsExplorer;
 
 /**
  * Created by rdorobantu on 7/13/2015.
  */
 public class UserActions
 {
-    private static Logger logger = Logger.getLogger(UserActions.class);
-
     public static void renameFile(File originalFile, File newName)
     {
         WindowsExplorer explorer = new WindowsExplorer();
@@ -52,7 +46,7 @@ public class UserActions
      * 
      * @throws Exception
      */
-    public  void createFolderAndFile(File folderName, String fileName) throws Exception
+    public static void createFolderAndFile(File folderName, String fileName) throws Exception
     {
         WindowsExplorer explorer = openFolder(folderName.getParentFile());
         explorer.createAndOpenFolder(folderName.getName());
