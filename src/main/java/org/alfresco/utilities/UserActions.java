@@ -65,7 +65,7 @@ public class UserActions
      * @throws Exception 
      */
     
-    public WindowsExplorer openFolder(File folderName) throws Exception
+    public static WindowsExplorer openFolder(File folderName) throws Exception
     {
         WindowsExplorer explorer = new WindowsExplorer();
         explorer.openApplication();
