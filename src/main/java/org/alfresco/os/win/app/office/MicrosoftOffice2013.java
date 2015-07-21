@@ -15,6 +15,7 @@
 
 package org.alfresco.os.win.app.office;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.alfresco.os.common.ApplicationBase;
@@ -80,14 +81,16 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
     @Override
     public void openOfficeFromFileMenu(String location) throws Exception
     {
-        Ldtp ldtp = getLdtp();
+//        Ldtp ldtp = getLdtp();
+        Ldtp ldtp = new Ldtp("Document*");
         goToFile(ldtp);
-        ldtp.click("Open");
-        ldtp.click("Computer");
-        ldtp.click("Browse");
-        ldtp =  waitForWindow("dlgOpen");
-        ldtp.enterString("txtFilename", location);
-        ldtp.mouseLeftClick("uknOpen");
+//        ldtp.click("Open");
+//        ldtp.click("Computer");
+//        ldtp.click("btnMyDocuments");
+//        ldtp =  waitForWindow("dlgOpen");
+//        ldtp.enterString("txtFilename", location);
+//        ldtp.mouseLeftClick("uknOpen");
+        ldtp.click("btn"+location);
     }
 
     /**
@@ -111,24 +114,26 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
     @Override
     public void saveAsOffice(String location) throws Exception
     {
-
         goToFile();
         getLdtp().click("Save");
 
-        getLdtp().click("Browse");
+        getLdtp().click("btnMyDocuments");
         waitForWindow("Save As");
         getLdtp().deleteText("txtFilename", 0);
         getLdtp().enterString("txtFilename", location);
         getLdtp().click("btnSave");
+        getLdtp().click("OK");
         getLdtp().waitTillGuiNotExist("Save As");
     }
 
+    @Override
     public ApplicationBase openApplication()
     {
         logger.info("Try to open application: " + getApplicationPath());
         try
         {
-            openApplication(new String[] { getApplicationPath() });
+            openApplication(new String[]{getApplicationPath()});
+            maximize();
             getLdtp().generateKeyEvent("<enter>");
         }
         catch (Exception e)
@@ -141,9 +146,26 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
    public void  goToFile()
    {
        LdtpUtils.logInfo("Go to File");
+       getLdtp().setWindowName("Document*");
        getLdtp().click("File Tab");
        getLdtp().waitTillGuiExist("File", LdtpUtils.RETRY_COUNT);
    }
+
+    /**
+     * Close Application from Close button, based on filename already opened
+     * @param file
+     */
+    @Override
+    public void closeApplication(File file)
+    {
+        focus(file);
+//        getLdtp().click("btnFileTab");
+//        getLdtp().waitTillGuiExist("File", LdtpUtils.RETRY_COUNT);
+//        getLdtp().click("btnClose1");
+        getLdtp().generateKeyEvent("<alt>"+"<f4>");
+        setWaitWindow(applicationDetails.getWaitWindow());
+//        closeApplication();
+    }
 
 
 }
