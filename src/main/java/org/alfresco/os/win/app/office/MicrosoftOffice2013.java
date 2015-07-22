@@ -84,13 +84,19 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
 //        Ldtp ldtp = getLdtp();
         Ldtp ldtp = new Ldtp("Document*");
         goToFile(ldtp);
+        ldtp.mouseMove("Open");
+        LdtpUtils.waitToLoopTime(2);
+        ldtp.mouseLeftClick("Open");
+        ldtp.mouseMove("Recent Documents");
+        LdtpUtils.waitToLoopTime(2);
+        ldtp.mouseLeftClick("Recent Documents");
+        ldtp.click("btn"+location);
 //        ldtp.click("Open");
 //        ldtp.click("Computer");
 //        ldtp.click("btnMyDocuments");
 //        ldtp =  waitForWindow("dlgOpen");
 //        ldtp.enterString("txtFilename", location);
 //        ldtp.mouseLeftClick("uknOpen");
-        ldtp.click("btn"+location);
     }
 
     /**
@@ -116,6 +122,9 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
     {
         goToFile();
         getLdtp().click("Save");
+        getLdtp().mouseMove("Computer");
+        LdtpUtils.waitToLoopTime(2);
+        getLdtp().mouseLeftClick("Computer");
 
         getLdtp().click("btnMyDocuments");
         waitForWindow("Save As");
