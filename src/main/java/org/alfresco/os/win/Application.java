@@ -40,7 +40,7 @@ public class Application extends ApplicationBase
     @Override
     public void killProcess()
     {
-        LdtpUtils.execute(new String[] { "taskkill", "/F", "/IM", getApplicationName() });
+    	LdtpUtils.killAllApplicationsByExeName(getApplicationName());
     }
 
     @Override

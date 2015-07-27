@@ -17,6 +17,7 @@ package org.alfresco.os.win.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
@@ -407,5 +408,45 @@ public class WindowsExplorer extends Application
 		logger.info("Saved image in tmp location:" + img);
 		File actualImage = new File(img);
 		return actualImage;
+	}
+	
+	/**
+	 * Closing all Window Explorer, Notepad forms, etc. 
+	 */
+	public void closeAllWindowForms(){
+		logger.info("Closing all Window Forms opened..");
+		
+		/*
+		 * need to loop over all objects due to dynamic naming conventions
+		 */
+		Integer errorCount =0;
+		while (getOpenedWindows().iterator().hasNext() || errorCount>=10) {
+			String window = (String) getOpenedWindows().iterator().next();
+			logger.info("Try to close Window: " + window);
+			Ldtp tmpWin = new Ldtp(window);
+			tmpWin.waitTime(1);
+			try {
+				tmpWin.click("Close");
+			} catch (LdtpExecutionError e) {
+				errorCount+=1;
+				logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
+			}
+		}
+		logger.info("All Window Forms are now closed! ");
+	}
+	
+	/**
+	 * @return ArrayList of all frmWindows opened
+	 */
+	private ArrayList<String> getOpenedWindows(){
+		String[] windowsList = getLdtp().getWindowList();
+		ArrayList<String> arrWindows = new ArrayList<String>();
+		for (String window : windowsList){
+			if(window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Mozilla")){
+				Ldtp info = new Ldtp(window);
+				if(!LdtpUtils.isApplicationObject(info)){ arrWindows.add(window);}
+			}
+		}
+		return arrWindows;
 	}
 }

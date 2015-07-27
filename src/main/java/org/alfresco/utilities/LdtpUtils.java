@@ -583,4 +583,25 @@ public class LdtpUtils
         }
         return screen;
     }
+    
+    
+    /**
+     * If the LDTP object contains the Application object then 
+     * we can consider this ldtp as one application
+     * 
+     * @param ldtp
+     * @return
+     */
+    public static boolean isApplicationObject(Ldtp ldtp){
+    	return !LdtpUtils.getFullObjectList(ldtp, "Application").isEmpty();
+    }
+    
+    /**
+     * Helper method for killing all <applicationExeNam>
+     * @param applicationName
+     */
+    public static void killAllApplicationsByExeName(String applicationExeNam){
+    	logger.info("Killing application by executable name: " + applicationExeNam);
+    	LdtpUtils.execute(new String[] { "taskkill", "/F", "/IM", applicationExeNam });
+    }
 }
