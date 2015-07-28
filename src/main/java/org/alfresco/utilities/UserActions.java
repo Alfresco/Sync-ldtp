@@ -66,4 +66,20 @@ public class UserActions
         explorer.openFolder(folderName);
         return explorer;
     }
+
+    public static void deleteFolder(File folderName)
+    {
+        WindowsExplorer explorer = new WindowsExplorer();
+        try
+        {
+            explorer.openApplication();
+            explorer.openFolder(folderName.getParentFile());
+            explorer.deleteFolder(folderName, true);
+            explorer.closeExplorer();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 } 

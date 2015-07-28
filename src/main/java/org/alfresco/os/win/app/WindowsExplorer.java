@@ -214,6 +214,7 @@ public class WindowsExplorer extends Application
         openFolder(fileToDelete.getParentFile());
         getLdtp().mouseRightClick(fileToDelete.getName());
         onContextMenuPerform("Delete");
+        getLdtp().waitTime(2);
         alertConfirmation("Delete File", confirmationOption);
     }
 
@@ -233,10 +234,10 @@ public class WindowsExplorer extends Application
      * @throws IOException
      * @throws InterruptedException
      */
-    public void deleteFolder(String folderName, boolean areYouSure)
+    public void deleteFolder(File folderName, boolean areYouSure) throws Exception
     {
         logger.info("delete folder-name " + folderName);
-        getLdtp().mouseRightClick(folderName);
+        getLdtp().mouseRightClick(folderName.getName());
         onContextMenuPerform("Delete");
         getLdtp().waitTime(2);
         alertConfirmation("Delete Folder", areYouSure);
@@ -248,7 +249,7 @@ public class WindowsExplorer extends Application
      * @throws IOException
      * @throws InterruptedException
      */
-    public void deleteFolder(String folderName)
+    public void deleteFolder(File folderName) throws Exception
     {
         deleteFolder(folderName, true);
     }
