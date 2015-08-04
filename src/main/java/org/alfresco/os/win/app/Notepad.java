@@ -183,4 +183,10 @@ public class Notepad extends Application
 		saveAs(fileToRename);
 		exitApplication();	
 	}
+
+    public String getNotepadText()
+    {
+        String text = getLdtp().getTextValue("txt0");
+        return text;
+    }
 }
