@@ -333,11 +333,22 @@ public class LdtpUtils
         }
         else if (SystemUtils.IS_OS_WINDOWS)
         {
-            return new File(getHomeFolder(), "My Documents");
+        	if (isWin81()){
+        	  return new File(getHomeFolder(), "Documents");
+        	}
+        	else{
+        	  return new File(getHomeFolder(), "My Documents");
+        	} 
         }
         return null;
     }
     
+    /**
+     * @return OS name
+     */
+    public static boolean isWin81(){
+    	return getOS().equals("Windows 8.1");
+    }
     /**
      * @return System32 file path
      */

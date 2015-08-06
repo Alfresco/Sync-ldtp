@@ -43,7 +43,13 @@ public class WindowsExplorer extends Application
         logger.info("open windows explorer");
         setApplicationName("explorer.exe");
         setApplicationPath(LdtpUtils.getDocumentsFolder().getParentFile().getPath());
-        setWaitWindow("Libraries");
+        
+        if(LdtpUtils.isWin81()){
+        	setWaitWindow("This PC");
+        }
+        else{
+        	setWaitWindow("Libraries");
+        }    
     }
 
     /**
