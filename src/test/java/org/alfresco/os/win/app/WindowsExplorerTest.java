@@ -145,7 +145,7 @@ public class WindowsExplorerTest extends AbstractTestClass
         folderDestination.mkdir();
 
         app.openApplication();
-        File ok = app.moveFolder(folderSource, folderDestination);
+        File ok = app.moveContent(folderSource, folderDestination);
 
         Assert.assertTrue(ok.exists(), "Folder was successfuly moved to another destination");
         app.exitApplication();

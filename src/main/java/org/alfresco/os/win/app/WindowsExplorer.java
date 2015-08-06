@@ -259,7 +259,7 @@ public class WindowsExplorer extends Application
      * 
      * @throws Exception
      */
-    public File moveFolder(File sourceFolder, File destinationLocation) throws Exception
+    public File moveContent(File sourceFolder, File destinationLocation) throws Exception
     {
         logger.info("move source folder " + sourceFolder.getAbsolutePath() + " destination location " + destinationLocation.getAbsolutePath());
         getLdtp().mouseRightClick(sourceFolder.getName());
@@ -275,6 +275,28 @@ public class WindowsExplorer extends Application
         return newMovedFolder;
     }
 
+    /**
+     * Right click copy and Paste which will act like a move operation
+     * 
+     * @throws Exception
+     */
+    public File copyContent(File sourceFolder, File destinationLocation) throws Exception
+    {
+        logger.info("copy source  " + sourceFolder.getAbsolutePath() + " destination location " + destinationLocation.getAbsolutePath());
+        getLdtp().mouseRightClick(sourceFolder.getName());
+        onContextMenuPerform("Copy");
+
+        openFolder(destinationLocation);
+
+        getLdtp().mouseRightClick("lstItemsView");
+        onContextMenuPerform("Paste");
+
+        File newCopyContent = new File(destinationLocation, sourceFolder.getName());
+        LdtpUtils.waitUntilFileExistsOnDisk(newCopyContent);
+        return newCopyContent;
+    }
+
+    
     /**
      * Just go back in Windows Explorer based on <folder>
      * 
