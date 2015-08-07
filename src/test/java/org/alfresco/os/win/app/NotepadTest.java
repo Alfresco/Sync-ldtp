@@ -18,36 +18,80 @@ import java.io.File;
 
 import org.alfresco.os.AbstractTestClass;
 import org.alfresco.utilities.LdtpUtils;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class NotepadTest extends AbstractTestClass
-{
-    Notepad notepad = new Notepad();
-    File testOne;
+public class NotepadTest  extends AbstractTestClass {
+	Notepad notepad = new Notepad();
+	File testOne;
 
-    @AfterClass
-    public void tearDown()
-    {
-        super.tearDown();
-        notepad.exitApplication();
-    }
-    
-    @BeforeMethod
-    private void setupFile()
-    {
-        testOne = LdtpUtils.getRandomFileName("txt");
-        randomFiles.add(testOne);
-    }
+	@AfterClass
+	public void tearDown() {
+		super.tearDown();
+		notepad.exitApplication();
+	}
 
-    @Test
-    public void testEditing() throws Exception
-    {
-        notepad.openApplication();
-        notepad.edit("1st line");
-        notepad.appendData("2nLine");
-        notepad.saveAs(testOne);
-        notepad.close(testOne);
-    }
+	@BeforeMethod
+	private void setupFile() {
+		testOne = LdtpUtils.getRandomFileName("txt");
+		randomFiles.add(testOne);
+	}
+	
+	@AfterMethod
+	public void cleanuo(){
+		notepad.exitApplication();
+	}
+
+	@Test
+	public void testEdit() throws Exception {
+		notepad.openApplication();
+		notepad.edit("1st line");
+		notepad.close();
+	}
+
+	@Test()
+	public void testSaveAsWithOverwrite() throws Exception {
+		testOne.createNewFile();
+		notepad.openApplication();
+		notepad.saveAsWithOverwrite(testOne);
+		notepad.close(testOne);
+
+		Assert.assertTrue(testOne.exists(), testOne.getPath() + " created");
+	}
+
+	@Test
+	public void testSave() throws Exception {
+		notepad.openApplication();
+		notepad.saveAs(testOne);
+		notepad.focus(testOne);
+		notepad.appendData("data!@#$%^&*()WERTYUIO");
+		notepad.save();
+	}
+
+	@Test
+	public void testSaveAsWithShortcutKeys() throws Exception {
+		notepad.openApplication();
+		notepad.saveAsWithShortcutKeys(testOne);
+		notepad.close(testOne);
+		
+		Assert.assertTrue(testOne.exists(),"File exists on disk");
+	}
+
+	@Test
+	public void testCreateFile() throws Exception {		
+		notepad.createFile(testOne);
+		Assert.assertTrue(testOne.exists(),"FIle exist");
+	}
+
+	@Test
+	public void testGetNotepadText() {
+		String data = "data";
+		notepad.openApplication();
+		notepad.appendData(data);
+		Assert.assertEquals(notepad.getNotepadText(), data);
+		
+	}
 }

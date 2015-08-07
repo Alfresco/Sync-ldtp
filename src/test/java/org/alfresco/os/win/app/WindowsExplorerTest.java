@@ -1,7 +1,6 @@
 package org.alfresco.os.win.app;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.alfresco.os.AbstractTestClass;
 import org.alfresco.os.win.Application.type;
@@ -16,42 +15,44 @@ public class WindowsExplorerTest extends AbstractTestClass
     @Test
     public void testOpenFolder() throws Exception
     {
-        File myDocs = LdtpUtils.getHomeFolder();
+        File myDocs = LdtpUtils.getDocumentsFolder();
         app.openApplication();
         app.openFolder(myDocs);
-        app.rightClickCreate(myDocs.getName(), "test.txt", type.TEXTFILE);
+        
+        app.rightClickCreate(myDocs.getName(), "test1.txt", type.TEXTFILE);        
         app.exitApplication();
     }
 
     @Test
     public void testGoBack() throws Exception
     {
-        File myDocs = LdtpUtils.getHomeFolder();
+        File myDocs = LdtpUtils.getDocumentsFolder();
         app.openApplication();
         app.openFolder(myDocs);
-        app.goBack("Documents");
+        app.goBack("This PC");
         app.exitApplication();
     }
 
     @Test
-    public void testCreateNewFolderMenu()
+    public void testCreateNewFolderMenu() throws Exception
     {
-        File createFolder = new File(app.getApplicationPath(), "TestCreateNewFolder");
+        File createFolder = new File(LdtpUtils.getDocumentsFolder(), "TestCreateNewFolder");
 
         app.openApplication();
+        app.openFolder(createFolder.getParentFile());
         app.createNewFolderMenu(createFolder.getName());
         Assert.assertTrue(createFolder.exists(), "Folder was successfuly created");
 
         createFolder.delete();
-        app.focus();
         app.exitApplication();
     }
 
     @Test
-    public void testCreateAndOpenFolder()
+    public void testCreateAndOpenFolder() throws Exception
     {
-        File createFolder = new File(app.getApplicationPath(), "TestCreateAndOpen");
+        File createFolder = new File(LdtpUtils.getDocumentsFolder(), "TestCreateAndOpen");
         app.openApplication();
+        app.openFolder(createFolder.getParentFile());
         app.createAndOpenFolder(createFolder.getName());
         app.exitApplication();
         createFolder.delete();
@@ -62,14 +63,6 @@ public class WindowsExplorerTest extends AbstractTestClass
     {
         app.openApplication();
         app.openFolderFromCurrent("Music");
-        app.exitApplication();
-    }
-
-    @Test
-    public void testActivateApplicationWindow()
-    {
-        app.openApplication();
-        app.activateApplicationWindow("Documents");
         app.exitApplication();
     }
 
@@ -107,12 +100,13 @@ public class WindowsExplorerTest extends AbstractTestClass
     }
 
     @Test
-    public void testOpenFileInCurrentFolder() throws IOException
+    public void testOpenFileInCurrentFolder() throws Exception
     {
         File file = new File(LdtpUtils.getDocumentsFolder(), "testOpenFileInCurrentFolder.txt");
         file.createNewFile();
 
         app.openApplication();
+        app.openFolder(file.getParentFile());
         app.openFileInCurrentFolder(file);
 
         LdtpUtils.waitToLoopTime(1);
@@ -128,8 +122,10 @@ public class WindowsExplorerTest extends AbstractTestClass
     {
         File file = new File(LdtpUtils.getDocumentsFolder(), "testDeleteFile.txt");
         file.createNewFile();
+        
+        LdtpUtils.waitUntilFileExistsOnDisk(file);
         app.openApplication();
-        app.deleteFile(file, true);
+        app.deleteFile(file, false);
 
         Assert.assertFalse(file.exists(), "File was successfuly deleted");
         app.exitApplication();
@@ -145,6 +141,7 @@ public class WindowsExplorerTest extends AbstractTestClass
         folderDestination.mkdir();
 
         app.openApplication();
+        app.openFolder(folderSource.getParentFile());
         File ok = app.moveContent(folderSource, folderDestination);
 
         Assert.assertTrue(ok.exists(), "Folder was successfuly moved to another destination");
