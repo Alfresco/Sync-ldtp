@@ -89,8 +89,14 @@ public class WindowsExplorer extends Application
         {
             throw new IOException("Please provide a folder");
         }
-        getLdtp().mouseLeftClick("pane2");
-        getLdtp().enterString("uknLibraries", folderPath.getPath());
+        if(LdtpUtils.isWin81()){
+        	getLdtp().generateKeyEvent("<alt>d"); //focusing address editor
+        	getLdtp().generateKeyEvent(folderPath.getPath());
+        }
+        else {
+        	getLdtp().mouseLeftClick("pane2");
+        	getLdtp().enterString("uknLibraries", folderPath.getPath());        	
+        }
         getLdtp().keyPress("<enter>");
         getLdtp().setWindowName(folderPath.getName());
     }
@@ -104,7 +110,7 @@ public class WindowsExplorer extends Application
      */
     public void createNewFolderMenu(String folderName)
     {
-        logger.info("click on new folder and enter the folder name");
+    	logger.info("click on new folder and enter the folder name");
         getLdtp().click("New folder");
         getLdtp().waitTime(1);
         getLdtp().generateKeyEvent(folderName);
@@ -220,8 +226,10 @@ public class WindowsExplorer extends Application
         openFolder(fileToDelete.getParentFile());
         getLdtp().mouseRightClick(fileToDelete.getName());
         onContextMenuPerform("Delete");
-        getLdtp().waitTime(2);
-        alertConfirmation("Delete File", confirmationOption);
+        if(!LdtpUtils.isWin81()){
+    	  getLdtp().waitTime(2);
+          alertConfirmation("Delete File", confirmationOption);
+        }
     }
 
     /**
@@ -305,14 +313,31 @@ public class WindowsExplorer extends Application
     
     /**
      * Just go back in Windows Explorer based on <folder>
+     * On Windows 8.1 you don't need to pass folder name
      * 
      * @param folder
      */
     public void goBack(String folder)
     {
-        folder = folder.toLowerCase();
-        getLdtp().click("Back to " + folder);
+        if (LdtpUtils.isWin81()){
+        	getLdtp().generateKeyEvent("<alt><left>");
+        }
+        else{
+        	folder = folder.toLowerCase();
+        	getLdtp().click("Back to " + folder);	
+        }
         focus(folder);
+    } 
+    
+    
+    /**
+     * Going back in Windows Explorer
+     */
+    public void goBack(){
+    	 if (LdtpUtils.isWin81()){
+    		logger.info("Going back using send keys ALT+LEFT");
+         	getLdtp().generateKeyEvent("<alt><left>");
+         }	
     }
 
     /**
