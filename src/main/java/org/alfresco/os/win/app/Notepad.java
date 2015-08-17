@@ -181,7 +181,8 @@ public class Notepad extends Application
 		openApplication();
 		edit("data");
 		saveAs(fileToRename);
-		exitApplication();	
+		exitApplication();
+		getLdtp().waitTime(2);
 	}
 
     public String getNotepadText()
