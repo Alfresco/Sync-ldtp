@@ -437,6 +437,7 @@ public class WindowsExplorer extends Application
     {
         logger.info("right click and create file type " + app.getType());
         rightClickOn("Items View");
+        getLdtp().waitTime(2);
         getLdtp().setWindowName("Context");
         getLdtp().click("New");
         getLdtp().setWindowName(folderorFile);
