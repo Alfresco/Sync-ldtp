@@ -2,6 +2,7 @@ package org.alfresco.utilities;
 
 import java.io.File;
 
+import com.cobra.ldtp.Ldtp;
 import org.alfresco.os.win.Application.type;
 import org.alfresco.os.win.app.WindowsExplorer;
 
@@ -81,5 +82,18 @@ public class UserActions
         {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * method to create a folder and file inside then go back to parent
+     *
+     * @throws Exception
+     */
+    public static WindowsExplorer createFolderAndFileAndGoBack(WindowsExplorer explorer, File folderName, String fileName) throws Exception
+    {
+        explorer.createAndOpenFolder(folderName.getName());
+        explorer.rightClickCreate(folderName.getName(), fileName, type.TEXTFILE);
+        explorer.goBack(folderName.getParentFile().getName());
+        return explorer;
     }
 } 
