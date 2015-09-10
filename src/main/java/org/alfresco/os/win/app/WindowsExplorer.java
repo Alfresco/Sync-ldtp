@@ -497,7 +497,7 @@ public class WindowsExplorer extends Application
 		String[] windowsList = getLdtp().getWindowList();
 		ArrayList<String> arrWindows = new ArrayList<String>();
 		for (String window : windowsList){
-			if(window.startsWith("frm") && !window.contains("Eclipse") && !window.toLowerCase().contains("git") && !window.contains("Mozilla")){
+			if(window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git") && !window.contains("Mozilla")){
 				Ldtp info = new Ldtp(window);
 				if(!LdtpUtils.isApplicationObject(info)){ arrWindows.add(window);}
 			}
