@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
-import org.alfresco.os.win.ClipboardSystem;
 import org.alfresco.utilities.LdtpUtils;
 import org.apache.log4j.Logger;
 
@@ -89,7 +88,6 @@ public class WindowsExplorer extends Application
     public void openFolder(File folderPath) throws Exception
     {
         LdtpUtils.logInfo("open folder in the " + folderPath.getPath());
-        ClipboardSystem.setString(folderPath.getPath());
         if (!folderPath.isDirectory())
         {
             throw new IOException("Please provide a folder");
@@ -97,14 +95,12 @@ public class WindowsExplorer extends Application
         if (LdtpUtils.isWin81())
         {
             getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
-            getLdtp().generateKeyEvent("<ctrl>v");
-           
+            getLdtp().generateKeyEvent(folderPath.getPath());
         }
         else
         {
             getLdtp().mouseLeftClick("pane2");
-            getLdtp().enterString("uknLibraries", " ");
-            getLdtp().generateKeyEvent("<ctrl>v");
+            getLdtp().enterString("uknLibraries", folderPath.getPath());
         }
         getLdtp().keyPress("<enter>");
         getLdtp().setWindowName(folderPath.getName());
@@ -466,6 +462,7 @@ public class WindowsExplorer extends Application
      */
     public File getIconImage(File fileOrFolder) throws Exception
     {
+
         Ldtp app = new Ldtp(fileOrFolder.getParentFile().getName());
         logger.info("Get Icon Image of: " + fileOrFolder.getPath());
         Integer[] a = app.getObjectSize(Files.getNameWithoutExtension(fileOrFolder.getName()));
