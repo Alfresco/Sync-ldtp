@@ -27,6 +27,7 @@ public class Dialog
 
     public void closeAllDialogs()
     {
+        logger.info("Try to close All Dialogs opened");
         ArrayList<String> arrDialogs = getOpenedDialogs();
         Collections.reverse(arrDialogs);
 
