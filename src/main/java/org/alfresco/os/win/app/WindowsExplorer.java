@@ -37,19 +37,22 @@ import com.google.common.io.Files;
  */
 public class WindowsExplorer extends Application
 {
-	private static Logger logger = Logger.getLogger(WindowsExplorer.class);
+    private static Logger logger = Logger.getLogger(WindowsExplorer.class);
+
     public WindowsExplorer()
     {
         logger.info("open windows explorer");
         setApplicationName("explorer.exe");
         setApplicationPath(LdtpUtils.getDocumentsFolder().getParentFile().getPath());
-        
-        if(LdtpUtils.isWin81()){
-        	setWaitWindow("This PC");
+
+        if (LdtpUtils.isWin81())
+        {
+            setWaitWindow("This PC");
         }
-        else{
-        	setWaitWindow("Libraries");
-        }    
+        else
+        {
+            setWaitWindow("Libraries");
+        }
     }
 
     /**
@@ -89,13 +92,15 @@ public class WindowsExplorer extends Application
         {
             throw new IOException("Please provide a folder");
         }
-        if(LdtpUtils.isWin81()){
-        	getLdtp().generateKeyEvent("<alt>d"); //focusing address editor
-        	getLdtp().generateKeyEvent(folderPath.getPath());
+        if (LdtpUtils.isWin81())
+        {
+            getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
+            getLdtp().generateKeyEvent(folderPath.getPath());
         }
-        else {
-        	getLdtp().mouseLeftClick("pane2");
-        	getLdtp().enterString("uknLibraries", folderPath.getPath());        	
+        else
+        {
+            getLdtp().mouseLeftClick("pane2");
+            getLdtp().enterString("uknLibraries", folderPath.getPath());
         }
         getLdtp().keyPress("<enter>");
         getLdtp().setWindowName(folderPath.getName());
@@ -110,7 +115,7 @@ public class WindowsExplorer extends Application
      */
     public void createNewFolderMenu(String folderName)
     {
-    	logger.info("click on new folder and enter the folder name");
+        logger.info("click on new folder and enter the folder name");
         getLdtp().click("New folder");
         getLdtp().waitTime(1);
         getLdtp().generateKeyEvent(folderName);
@@ -195,7 +200,7 @@ public class WindowsExplorer extends Application
         logger.info("close the explorer");
         getLdtp().click("Close");
         setLdtp(null);
-        
+
     }
 
     @Override
@@ -211,7 +216,7 @@ public class WindowsExplorer extends Application
      */
     public void openFileInCurrentFolder(File file) throws LdtpExecutionError
     {
-       logger.info("open the file present in the current folder " + file.getName());
+        logger.info("open the file present in the current folder " + file.getName());
         getLdtp().doubleClick(file.getName());
     }
 
@@ -226,9 +231,10 @@ public class WindowsExplorer extends Application
         openFolder(fileToDelete.getParentFile());
         getLdtp().mouseRightClick(fileToDelete.getName());
         onContextMenuPerform("Delete");
-        if(!LdtpUtils.isWin81()){
-    	  getLdtp().waitTime(2);
-          alertConfirmation("Delete File", confirmationOption);
+        if (!LdtpUtils.isWin81())
+        {
+            getLdtp().waitTime(2);
+            alertConfirmation("Delete File", confirmationOption);
         }
     }
 
@@ -310,7 +316,6 @@ public class WindowsExplorer extends Application
         return newCopyContent;
     }
 
-    
     /**
      * Just go back in Windows Explorer based on <folder>
      * On Windows 8.1 you don't need to pass folder name
@@ -319,25 +324,28 @@ public class WindowsExplorer extends Application
      */
     public void goBack(String folder)
     {
-        if (LdtpUtils.isWin81()){
-        	getLdtp().generateKeyEvent("<alt><left>");
+        if (LdtpUtils.isWin81())
+        {
+            getLdtp().generateKeyEvent("<alt><left>");
         }
-        else{
-        	folder = folder.toLowerCase();
-        	getLdtp().click("Back to " + folder);	
+        else
+        {
+            folder = folder.toLowerCase();
+            getLdtp().click("Back to " + folder);
         }
         focus(folder);
-    } 
-    
-    
+    }
+
     /**
      * Going back in Windows Explorer
      */
-    public void goBack(){
-    	 if (LdtpUtils.isWin81()){
-    		logger.info("Going back using send keys ALT+LEFT");
-         	getLdtp().generateKeyEvent("<alt><left>");
-         }	
+    public void goBack()
+    {
+        if (LdtpUtils.isWin81())
+        {
+            logger.info("Going back using send keys ALT+LEFT");
+            getLdtp().generateKeyEvent("<alt><left>");
+        }
     }
 
     /**
@@ -406,7 +414,7 @@ public class WindowsExplorer extends Application
         }
         catch (Exception e)
         {
-            logger.error(String.format("Context [%s] was not found on rightClickOn method: [%s]", folderOrFile,e.getCause()));
+            logger.error(String.format("Context [%s] was not found on rightClickOn method: [%s]", folderOrFile, e.getCause()));
             return false;
         }
     }
@@ -426,14 +434,14 @@ public class WindowsExplorer extends Application
     }
 
     /**
-     * Right click and Perform actions to create Different  application 
+     * Right click and Perform actions to create Different application
+     * 
      * @author sprasanna
      * @param - folderorFile to right click on
      * @param - name of the file
      * @param - file type
-     * 
      */
-    public void rightClickCreate(String folderorFile, String name , type app) throws LdtpExecutionError
+    public void rightClickCreate(String folderorFile, String name, type app) throws LdtpExecutionError
     {
         logger.info("right click and create file type " + app.getType());
         rightClickOn("Items View");
@@ -448,60 +456,72 @@ public class WindowsExplorer extends Application
         getLdtp().generateKeyEvent(name);
         getLdtp().generateKeyEvent("<enter>");
     }
-    
+
     /*
-	 * Return the temporary file with image captured
-	 */
-	public File getIconImage(File fileOrFolder) throws Exception {
+     * Return the temporary file with image captured
+     */
+    public File getIconImage(File fileOrFolder) throws Exception
+    {
 
-		Ldtp app = new Ldtp(fileOrFolder.getParentFile().getName());
-		logger.info("Get Icon Image of: " + fileOrFolder.getPath());
-		Integer[] a = app.getObjectSize(Files
-				.getNameWithoutExtension(fileOrFolder.getName()));
+        Ldtp app = new Ldtp(fileOrFolder.getParentFile().getName());
+        logger.info("Get Icon Image of: " + fileOrFolder.getPath());
+        Integer[] a = app.getObjectSize(Files.getNameWithoutExtension(fileOrFolder.getName()));
 
-		String img = app.imageCapture(a[0], a[1], 20, a[3]);
-		logger.info("Saved image in tmp location:" + img);
-		File actualImage = new File(img);
-		return actualImage;
-	}
-	
-	/**
-	 * Closing all Window Explorer, Notepad forms, etc. 
-	 */
-	public void closeAllWindowForms(){
-		logger.info("Closing all Window Forms opened..");
-		
-		/*
-		 * need to loop over all objects due to dynamic naming conventions
-		 */
-		Integer errorCount =0;
-		while (getOpenedWindows().iterator().hasNext() || errorCount>=10) {
-			String window = (String) getOpenedWindows().iterator().next();
-			logger.info("Try to close Window: " + window);
-			Ldtp tmpWin = new Ldtp(window);
-			tmpWin.waitTime(1);
-			try {
-				tmpWin.click("Close");
-			} catch (LdtpExecutionError e) {
-				errorCount+=1;
-				logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
-			}
-		}
-		logger.info("All Window Forms are now closed! ");
-	}
-	
-	/**
-	 * @return ArrayList of all frmWindows opened
-	 */
-	private ArrayList<String> getOpenedWindows(){
-		String[] windowsList = getLdtp().getWindowList();
-		ArrayList<String> arrWindows = new ArrayList<String>();
-		for (String window : windowsList){
-			if(window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git") && !window.contains("Mozilla")){
-				Ldtp info = new Ldtp(window);
-				if(!LdtpUtils.isApplicationObject(info)){ arrWindows.add(window);}
-			}
-		}
-		return arrWindows;
-	}
+        String img = app.imageCapture(a[0], a[1], 20, a[3]);
+        logger.info("Saved image in tmp location:" + img);
+        File actualImage = new File(img);
+        return actualImage;
+    }
+
+    /**
+     * Closing all Window Explorer, Notepad forms, etc.
+     */
+    public void closeAllWindowForms()
+    {
+        logger.info("Closing all Window Forms opened..");
+
+        /*
+         * need to loop over all objects due to dynamic naming conventions
+         */
+        Integer errorCount = 0;
+        while (getOpenedWindows().iterator().hasNext() || errorCount >= 10)
+        {
+            String window = (String) getOpenedWindows().iterator().next();
+            logger.info("Try to close Window: " + window);
+            Ldtp tmpWin = new Ldtp(window);
+            tmpWin.waitTime(1);
+            try
+            {
+                tmpWin.click("Close");
+            }
+            catch (LdtpExecutionError e)
+            {
+                errorCount += 1;
+                logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
+            }
+        }
+        logger.info("All Window Forms are now closed! ");
+    }
+
+    /**
+     * @return ArrayList of all frmWindows opened
+     */
+    private ArrayList<String> getOpenedWindows()
+    {
+        String[] windowsList = getLdtp().getWindowList();
+        ArrayList<String> arrWindows = new ArrayList<String>();
+        for (String window : windowsList)
+        {
+            if (window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git")
+                    && !window.contains("Mozilla"))
+            {
+                Ldtp info = new Ldtp(window);
+                if (!LdtpUtils.isApplicationObject(info))
+                {
+                    arrWindows.add(window);
+                }
+            }
+        }
+        return arrWindows;
+    }
 }
