@@ -40,8 +40,7 @@ public class WindowsExplorer extends Application
     private static Logger logger = Logger.getLogger(WindowsExplorer.class);
 
     public WindowsExplorer()
-    {
-        logger.info("open windows explorer");
+    { 
         setApplicationName("explorer.exe");
         setApplicationPath(LdtpUtils.getDocumentsFolder().getParentFile().getPath());
 
