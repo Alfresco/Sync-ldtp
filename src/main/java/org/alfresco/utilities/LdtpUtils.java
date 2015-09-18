@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
@@ -218,6 +220,32 @@ public class LdtpUtils
             e.printStackTrace();
         }
         return sb.toString();
+    }
+    
+    /**
+     * @param command
+     * @return the List of lines returned by command
+     */
+    public static List<String> executeOnWin(String command)
+    {
+        ArrayList<String> lines = new ArrayList<String>();
+        try 
+        { 
+            Process p=Runtime.getRuntime().exec("cmd /c " + command); 
+            p.waitFor(); 
+            BufferedReader reader=new BufferedReader(new InputStreamReader(p.getInputStream())); 
+            
+            String line; 
+            while((line = reader.readLine()) != null) 
+            { 
+               if(!line.startsWith(" Volume")){
+                   lines.add(line);   
+               }                
+            } 
+        }
+        catch(IOException e1) {} 
+        catch(InterruptedException e2) {}
+        return lines;
     }
 
     /**
