@@ -131,8 +131,8 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
         getLdtp().deleteText("txtFilename", 0);
         getLdtp().enterString("txtFilename", location);
         getLdtp().click("btnSave");
-        getLdtp().click("OK");
-        getLdtp().waitTillGuiNotExist("Save As");
+     //   getLdtp().click("OK");
+     //   getLdtp().waitTillGuiNotExist("Save As");
     }
 
     @Override

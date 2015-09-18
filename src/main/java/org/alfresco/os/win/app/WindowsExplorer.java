@@ -199,7 +199,9 @@ public class WindowsExplorer extends Application
     {
         logger.info("close the explorer");
         getLdtp().click("Close");
+        getLdtp().waitTime(2);
         setLdtp(null);
+        
 
     }
 
