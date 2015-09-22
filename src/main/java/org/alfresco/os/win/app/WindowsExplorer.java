@@ -514,7 +514,7 @@ public class WindowsExplorer extends Application
         for (String window : windowsList)
         {
             if (window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git")
-                    && !window.contains("Mozilla"))
+                    && !window.contains("Mozilla") && !window.contains("LDTP") )
             {
                 Ldtp info = new Ldtp(window);
                 if (!LdtpUtils.isApplicationObject(info))

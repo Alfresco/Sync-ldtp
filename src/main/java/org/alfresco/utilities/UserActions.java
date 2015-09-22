@@ -2,7 +2,6 @@ package org.alfresco.utilities;
 
 import java.io.File;
 
-import com.cobra.ldtp.Ldtp;
 import org.alfresco.os.win.Application.type;
 import org.alfresco.os.win.app.WindowsExplorer;
 
