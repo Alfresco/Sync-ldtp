@@ -13,29 +13,30 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.alfresco.os.win.app.misc;
+package org.alfresco.os.win.app.misc.dialog;
 
 import org.alfresco.os.common.gui.Button;
+import org.alfresco.os.win.app.misc.Dialog;
 
 import com.cobra.ldtp.Ldtp;
 
 /**
+ * Delete Multiple Items dialog
  * 
- * The Delete Folder dialog
  * @author Paul Brodner
- *
  */
-public class DeleteFolderDialog extends Dialog
+public class DeleteMultipleItems extends Dialog
 {
-    public DeleteFolderDialog(){
-        setLdtp(new Ldtp("Delete Dialog"));
+    public DeleteMultipleItems()
+    {
+        setLdtp(new Ldtp("Delete Multiple Items"));
     }
-
+    
     public Button yes(){
-       return new Button(getLdtp(), "Yes");
+        return new Button(getLdtp(), "Yes");
     }
     
     public Button no(){
         return new Button(getLdtp(), "No");
-     }
+    }
 }
