@@ -69,4 +69,8 @@ public class Dialog
     {
         this.ldtp = ldtp;
     }
+    
+    public void closeDialog(){
+        getLdtp().click("Close");
+    }
 }
