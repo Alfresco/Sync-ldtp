@@ -15,7 +15,6 @@
 
 package org.alfresco.os.win.app.misc.dialog;
 
-import org.alfresco.os.common.gui.Button;
 import org.alfresco.os.win.app.misc.Dialog;
 
 import com.cobra.ldtp.Ldtp;
@@ -32,11 +31,11 @@ public class DeleteFolder extends Dialog
         setLdtp(new Ldtp("Delete Folder"));
     }
 
-    public Button yes(){
-       return new Button(getLdtp(), "Yes");
+    public void clickYes(){
+       getLdtp().click("Yes");
     }
     
-    public Button no(){
-        return new Button(getLdtp(), "No");
+    public void clickNo(){
+        getLdtp().click("No");
      }
 }

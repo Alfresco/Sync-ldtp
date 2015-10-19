@@ -40,7 +40,7 @@ public class PropertiesDialog
      */
     public boolean openTab(String tabName) throws Exception
     {
-        logger.info("Opening TAB1:" + tabName);
+        logger.info("Opening TAB:" + tabName);
 
         if (propertyObject == null)
         {
