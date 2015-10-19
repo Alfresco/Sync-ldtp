@@ -42,7 +42,7 @@ public class Dialog
     /**
      * @return ArrayList of all dlg* opened
      */
-    private ArrayList<String> getOpenedDialogs()
+    protected ArrayList<String> getOpenedDialogs()
     {
         String[] windowsList = getLdtp().getWindowList();
         ArrayList<String> arrDialogs = new ArrayList<String>();
@@ -69,8 +69,17 @@ public class Dialog
     {
         this.ldtp = ldtp;
     }
-    
-    public void closeDialog(){
+
+    public void closeDialog()
+    {
         getLdtp().click("Close");
+    }
+
+    /**
+     * @return true if this Dialog exists
+     */
+    public boolean isDisplayed()
+    {
+        return getLdtp().guiExist() == 1;
     }
 }
