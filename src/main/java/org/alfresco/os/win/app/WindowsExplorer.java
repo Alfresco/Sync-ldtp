@@ -98,8 +98,10 @@ public class WindowsExplorer extends Application
         }
         else
         {
-            getLdtp().mouseLeftClick("pane2");
-            getLdtp().enterString("uknLibraries", folderPath.getPath());
+          //  getLdtp().mouseLeftClick("pane2");
+           // getLdtp().enterString("uknLibraries", folderPath.getPath());
+            getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
+            getLdtp().generateKeyEvent(folderPath.getPath());
         }
         getLdtp().keyPress("<enter>");
         getLdtp().setWindowName(folderPath.getName());
