@@ -40,7 +40,7 @@ public class WindowsExplorer extends Application
     private static Logger logger = Logger.getLogger(WindowsExplorer.class);
 
     public WindowsExplorer()
-    { 
+    {
         setApplicationName("explorer.exe");
         setApplicationPath(LdtpUtils.getDocumentsFolder().getParentFile().getPath());
 
@@ -87,6 +87,9 @@ public class WindowsExplorer extends Application
     public void openFolder(File folderPath) throws Exception
     {
         LdtpUtils.logInfo("open folder in the " + folderPath.getPath());
+        if (!folderPath.exists()){
+            throw new IOException("Folder does not exists: " + folderPath.getPath());
+        }
         if (!folderPath.isDirectory())
         {
             throw new IOException("Please provide a folder");
@@ -98,10 +101,16 @@ public class WindowsExplorer extends Application
         }
         else
         {
-           getLdtp().mouseLeftClick("pane2");
-           getLdtp().enterString("uknLibraries", folderPath.getPath());
-        //    getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
-         //   getLdtp().generateKeyEvent(folderPath.getPath());
+            getLdtp().mouseLeftClick("pane2");
+            try
+            {
+                getLdtp().enterString("uknLibraries", "");
+            }
+            catch (Exception e)
+            {
+            }
+            getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
+            getLdtp().generateKeyEvent(folderPath.getPath());
         }
         getLdtp().keyPress("<enter>");
         getLdtp().setWindowName(folderPath.getName());
@@ -202,7 +211,6 @@ public class WindowsExplorer extends Application
         getLdtp().click("Close");
         getLdtp().waitTime(2);
         setLdtp(null);
-        
 
     }
 
@@ -516,7 +524,7 @@ public class WindowsExplorer extends Application
         for (String window : windowsList)
         {
             if (window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git")
-                    && !window.contains("Mozilla") && !window.contains("LDTP") )
+                    && !window.contains("Mozilla") && !window.contains("LDTP"))
             {
                 Ldtp info = new Ldtp(window);
                 if (!LdtpUtils.isApplicationObject(info))
