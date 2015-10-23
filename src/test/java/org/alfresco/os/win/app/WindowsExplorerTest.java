@@ -59,10 +59,13 @@ public class WindowsExplorerTest extends AbstractTestClass
     }
 
     @Test
-    public void testOpenFolderFromCurrent()
+    public void testOpenFolderFromCurrent() throws Exception
     {
         app.openApplication();
-        app.openFolderFromCurrent("Music");
+        File createFolder = new File(LdtpUtils.getDocumentsFolder(), "testOpenFolderFromCurrent");
+        createFolder.mkdir();
+        app.openFolder(createFolder.getParentFile());
+        app.openFolderFromCurrent(createFolder.getName());
         app.exitApplication();
     }
 
@@ -74,7 +77,7 @@ public class WindowsExplorerTest extends AbstractTestClass
 
         app.openApplication();
         app.openFile(fileTest);
-
+        app.getLdtp().waitTime(2);
         boolean isFileOpen = app.isWindowOpened(fileTest.getName());
         Assert.assertTrue(isFileOpen, "File was successfuly opened");
         LdtpUtils.killProcessByWindowName("notepad.exe");
@@ -126,7 +129,7 @@ public class WindowsExplorerTest extends AbstractTestClass
         LdtpUtils.waitUntilFileExistsOnDisk(file);
         app.openApplication();
         app.deleteFile(file, false);
-
+        app.getLdtp().waitTime(3);
         Assert.assertFalse(file.exists(), "File was successfuly deleted");
         app.exitApplication();
     }

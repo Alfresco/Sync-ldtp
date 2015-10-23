@@ -69,6 +69,7 @@ public class NotepadTest  extends AbstractTestClass {
 		notepad.focus(testOne);
 		notepad.appendData("data!@#$%^&*()WERTYUIO");
 		notepad.save();
+		notepad.close();
 	}
 
 	@Test
@@ -91,7 +92,8 @@ public class NotepadTest  extends AbstractTestClass {
 		String data = "data";
 		notepad.openApplication();
 		notepad.appendData(data);
-		Assert.assertEquals(notepad.getNotepadText(), data);
 		
+		Assert.assertEquals(notepad.getNotepadText(), data);
+		notepad.exitApplication();
 	}
 }
