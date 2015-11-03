@@ -292,15 +292,10 @@ public class WindowsExplorer extends Application
      */
     public File moveContent(File sourceFolder, File destinationLocation) throws Exception
     {
-        logger.info("move source folder " + sourceFolder.getAbsolutePath() + " destination location " + destinationLocation.getAbsolutePath());
-        getLdtp().mouseRightClick(sourceFolder.getName());
-        onContextMenuPerform("Cut");
-
+        logger.info("move source folder " + sourceFolder.getAbsolutePath() + " destination location " + destinationLocation.getAbsolutePath());      
+        cut(sourceFolder);
         openFolder(destinationLocation);
-
-        getLdtp().mouseRightClick("lstItemsView");
-        onContextMenuPerform("Paste");
-
+        paste();
         File newMovedFolder = new File(destinationLocation, sourceFolder.getName());
         LdtpUtils.waitUntilFileExistsOnDisk(newMovedFolder);
         return newMovedFolder;
@@ -314,14 +309,9 @@ public class WindowsExplorer extends Application
     public File copyContent(File sourceFolder, File destinationLocation) throws Exception
     {
         logger.info("copy source  " + sourceFolder.getAbsolutePath() + " destination location " + destinationLocation.getAbsolutePath());
-        getLdtp().mouseRightClick(sourceFolder.getName());
-        onContextMenuPerform("Copy");
-
+        copy(sourceFolder);
         openFolder(destinationLocation);
-
-        getLdtp().mouseRightClick("lstItemsView");
-        onContextMenuPerform("Paste");
-
+        paste();
         File newCopyContent = new File(destinationLocation, sourceFolder.getName());
         LdtpUtils.waitUntilFileExistsOnDisk(newCopyContent);
         return newCopyContent;
@@ -540,5 +530,33 @@ public class WindowsExplorer extends Application
             }
         }
         return arrWindows;
+    }
+    
+    
+    /**
+     * CUT operation
+     * @param fileNameOrFolder
+     */
+    public void cut(File fileNameOrFolder){
+        getLdtp().mouseRightClick(fileNameOrFolder.getName());
+        onContextMenuPerform("Cut");
+    }
+    
+    /**
+     * COPY operation
+     * @param fileNameOrFolder
+     */
+    public void copy(File fileNameOrFolder){
+        getLdtp().mouseRightClick(fileNameOrFolder.getName());
+        onContextMenuPerform("Copy");
+    }
+    
+    /**
+     * PASTE operation
+     * @param fileNameOrFolder
+     */
+    public void paste(){        
+        getLdtp().mouseRightClick("lstItemsView");
+        onContextMenuPerform("Paste");
     }
 }
