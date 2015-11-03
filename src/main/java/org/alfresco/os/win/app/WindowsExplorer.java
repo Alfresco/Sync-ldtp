@@ -527,10 +527,16 @@ public class WindowsExplorer extends Application
                     && !window.contains("Mozilla") && !window.contains("LDTP"))
             {
                 Ldtp info = new Ldtp(window);
-                if (!LdtpUtils.isApplicationObject(info))
+                try
                 {
-                    arrWindows.add(window);
+                    if (!LdtpUtils.isApplicationObject(info))
+                    {
+                        arrWindows.add(window);
+                    }  
                 }
+                catch (Exception e)
+                {              
+                }               
             }
         }
         return arrWindows;
