@@ -71,7 +71,9 @@ public class Notepad extends Application
         getLdtp().doubleClick("File");
         getLdtp().click("Save As");
         waitForWindow("Save As");
+        LdtpUtils.logInfo("before enter string");
         getLdtp().enterString("txtFilename", destinationFile.getPath());
+        LdtpUtils.logInfo("after enter string");
         getLdtp().click("btnSave");
         LdtpUtils.waitToLoopTime(1);
     }
