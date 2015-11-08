@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005-2012 Alfresco Software Limited.
+* Copyright (C) 2005-2012 Alfresco Software Limited.
  * This file is part of Alfresco
  * Alfresco is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,6 +15,7 @@
 
 package org.alfresco.os.win.app;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -87,7 +88,8 @@ public class WindowsExplorer extends Application
     public void openFolder(File folderPath) throws Exception
     {
         LdtpUtils.logInfo("open folder in the " + folderPath.getPath());
-        if (!folderPath.exists()){
+        if (!folderPath.exists())
+        {
             throw new IOException("Folder does not exists: " + folderPath.getPath());
         }
         if (!folderPath.isDirectory())
@@ -240,13 +242,7 @@ public class WindowsExplorer extends Application
     {
         logger.info("open a particular folder to delete " + fileToDelete.getAbsolutePath());
         openFolder(fileToDelete.getParentFile());
-        getLdtp().mouseRightClick(fileToDelete.getName());
-        onContextMenuPerform("Delete");
-        if (!LdtpUtils.isWin81())
-        {
-            getLdtp().waitTime(2);
-            alertConfirmation("Delete File", confirmationOption);
-        }
+        delete(fileToDelete.getName(), confirmationOption);        
     }
 
     /**
@@ -292,7 +288,7 @@ public class WindowsExplorer extends Application
      */
     public File moveContent(File sourceFolder, File destinationLocation) throws Exception
     {
-        logger.info("move source folder " + sourceFolder.getAbsolutePath() + " destination location " + destinationLocation.getAbsolutePath());      
+        logger.info("move source folder " + sourceFolder.getAbsolutePath() + " destination location " + destinationLocation.getAbsolutePath());
         cut(sourceFolder);
         openFolder(destinationLocation);
         paste();
@@ -522,41 +518,73 @@ public class WindowsExplorer extends Application
                     if (!LdtpUtils.isApplicationObject(info))
                     {
                         arrWindows.add(window);
-                    }  
+                    }
                 }
                 catch (Exception e)
-                {              
-                }               
+                {
+                }
             }
         }
         return arrWindows;
     }
-    
-    
+
     /**
      * CUT operation
+     * 
      * @param fileNameOrFolder
      */
-    public void cut(File fileNameOrFolder){
+    public void cut(File fileNameOrFolder)
+    {
         getLdtp().mouseRightClick(fileNameOrFolder.getName());
         onContextMenuPerform("Cut");
     }
-    
+
     /**
      * COPY operation
+     * 
      * @param fileNameOrFolder
      */
-    public void copy(File fileNameOrFolder){
+    public void copy(File fileNameOrFolder)
+    {
         getLdtp().mouseRightClick(fileNameOrFolder.getName());
         onContextMenuPerform("Copy");
     }
-    
+
     /**
      * PASTE operation
+     * 
      * @param fileNameOrFolder
      */
-    public void paste(){        
+    public void paste()
+    {
         getLdtp().mouseRightClick("lstItemsView");
         onContextMenuPerform("Paste");
+    }
+
+    /**
+     * jump to a specific folder.
+     * If that folder is ALREADY open, it will auto-focus.
+     */
+    public void jumpToLocation(File location) throws IOException
+    {
+        Desktop.getDesktop().open(location); 
+        focus(location.getName());
+        getLdtp().waitTillGuiExist();
+        maximize();
+    }
+    
+    /**
+     * DELETE operation
+     * 
+     * @param fileNameOrFolder
+     */
+    public void delete(String objectName, boolean confirmationOption){
+        getLdtp().mouseRightClick(objectName);
+        onContextMenuPerform("Delete");
+        if (!LdtpUtils.isWin81())
+        {
+            getLdtp().waitTime(2);
+            alertConfirmation("Delete F*", confirmationOption);
+        }
     }
 }
