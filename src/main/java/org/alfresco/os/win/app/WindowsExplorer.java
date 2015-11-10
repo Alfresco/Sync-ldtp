@@ -442,13 +442,12 @@ public class WindowsExplorer extends Application
     {
         logger.info("right click and create file type " + app.getType());
         rightClickOn("Items View");
-        getLdtp().waitTime(2);
         getLdtp().setWindowName("Context");
         getLdtp().click("New");
         getLdtp().setWindowName(folderorFile);
         getLdtp().mouseMove(app.getType());
         getLdtp().click(app.getType());
-        getLdtp().waitTime(5);
+        getLdtp().waitTime(2);
         getLdtp().generateKeyEvent("<ctrl>a");
         getLdtp().generateKeyEvent(name);
         getLdtp().generateKeyEvent("<enter>");
