@@ -449,6 +449,7 @@ public class WindowsExplorer extends Application
         getLdtp().click(app.getType());
         getLdtp().waitTime(2);
         getLdtp().generateKeyEvent("<ctrl>a");
+        getLdtp().generateKeyEvent("<ctrl>a");
         getLdtp().generateKeyEvent(name);
         getLdtp().generateKeyEvent("<enter>");
     }
