@@ -157,10 +157,9 @@ public class WindowsExplorer extends Application
     public String openFolderFromCurrent(String folderName) throws LdtpExecutionError
     {
         logger.info("open the folder in the current location " + folderName);
-        String _folderName = LdtpUtils.getFullObjectList(getLdtp(), folderName);
-        getLdtp().doubleClick(_folderName);
+        getLdtp().doubleClick(folderName);
         getLdtp().setWindowName(folderName);
-        return _folderName;
+        return folderName;
     }
 
     /**
