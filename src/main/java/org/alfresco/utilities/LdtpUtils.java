@@ -15,6 +15,9 @@
 
 package org.alfresco.utilities;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.PixelGrabber;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -149,7 +152,7 @@ public class LdtpUtils
             }
         }
     }
-    
+
     /**
      * Wait for a partial ldtp object
      * Example:
@@ -163,10 +166,10 @@ public class LdtpUtils
     {
         int counter = 0;
         logger.info("Waiting for partial object: " + partialObjectName);
-        
+
         while (counter < RETRY_COUNT)
         {
-            if (getFullObjectList(ldtp, partialObjectName) !="")
+            if (getFullObjectList(ldtp, partialObjectName) != "")
                 break;
             else
             {
@@ -221,7 +224,7 @@ public class LdtpUtils
         }
         return sb.toString();
     }
-    
+
     /**
      * @param command
      * @return the List of lines returned by command
@@ -229,22 +232,27 @@ public class LdtpUtils
     public static List<String> executeOnWin(String command)
     {
         ArrayList<String> lines = new ArrayList<String>();
-        try 
-        { 
-            Process p=Runtime.getRuntime().exec("cmd /c " + command); 
-            p.waitFor(); 
-            BufferedReader reader=new BufferedReader(new InputStreamReader(p.getInputStream())); 
-            
-            String line; 
-            while((line = reader.readLine()) != null) 
-            { 
-               if(!line.startsWith(" Volume")){
-                   lines.add(line);   
-               }                
-            } 
+        try
+        {
+            Process p = Runtime.getRuntime().exec("cmd /c " + command);
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                if (!line.startsWith(" Volume"))
+                {
+                    lines.add(line);
+                }
+            }
         }
-        catch(IOException e1) {} 
-        catch(InterruptedException e2) {}
+        catch (IOException e1)
+        {
+        }
+        catch (InterruptedException e2)
+        {
+        }
         return lines;
     }
 
@@ -293,11 +301,12 @@ public class LdtpUtils
         return null;
     }
 
-/**
+    /**
      * This method will transform the input string to a recognized output LDAP command.
      * Example:
      * inputs like <img src="aaa"> cannot be processed by LDAP enterString method, so we need to pre-process it
      * transforming '<' into '<shift>.' for example and so on.
+     * 
      * @author Paul Brodner
      * @param input
      * @return
@@ -361,28 +370,32 @@ public class LdtpUtils
         }
         else if (SystemUtils.IS_OS_WINDOWS)
         {
-        	if (isWin81()){
-        	  return new File(getHomeFolder(), "Documents");
-        	}
-        	else{
-        	  return new File(getHomeFolder(), "My Documents");
-        	} 
+            if (isWin81())
+            {
+                return new File(getHomeFolder(), "Documents");
+            }
+            else
+            {
+                return new File(getHomeFolder(), "My Documents");
+            }
         }
         return null;
     }
-    
+
     /**
      * @return OS name
      */
-    public static boolean isWin81(){
-    	return getOS().equals("Windows 8.1");
+    public static boolean isWin81()
+    {
+        return getOS().equals("Windows 8.1");
     }
+
     /**
      * @return System32 file path
      */
     public static File getSystem32()
     {
-    	return new File(System.getenv("SystemRoot"),"system32");
+        return new File(System.getenv("SystemRoot"), "system32");
     }
 
     /**
@@ -606,6 +619,7 @@ public class LdtpUtils
 
     /**
      * Capture screenshot
+     * 
      * @return
      */
     public static File getScreenShot()
@@ -622,25 +636,95 @@ public class LdtpUtils
         }
         return screen;
     }
-    
-    
+
     /**
-     * If the LDTP object contains the Application object then 
+     * If the LDTP object contains the Application object then
      * we can consider this ldtp as one application
      * 
      * @param ldtp
      * @return
      */
-    public static boolean isApplicationObject(Ldtp ldtp){
-    	return !LdtpUtils.getFullObjectList(ldtp, "Application").isEmpty();
+    public static boolean isApplicationObject(Ldtp ldtp)
+    {
+        return !LdtpUtils.getFullObjectList(ldtp, "Application").isEmpty();
     }
-    
+
     /**
      * Helper method for killing all <applicationExeNam>
+     * 
      * @param applicationName
      */
-    public static void killAllApplicationsByExeName(String applicationExeNam){
-    	logger.info("Killing application by executable name: " + applicationExeNam);
-    	LdtpUtils.execute(new String[] { "taskkill", "/F", "/IM", applicationExeNam });
+    public static void killAllApplicationsByExeName(String applicationExeNam)
+    {
+        logger.info("Killing application by executable name: " + applicationExeNam);
+        LdtpUtils.execute(new String[] { "taskkill", "/F", "/IM", applicationExeNam });
+    }
+
+    /**
+     * This will actual compare this two images.
+     * 
+     * @param initialImage
+     * @param compareImage
+     * @return
+     */
+    public static boolean compareImages(File initialImage, File compareImage)
+    {
+        logger.info(String.format("Comparing %s with %s", initialImage.getPath(), compareImage.getPath()));
+
+        Image imageA = Toolkit.getDefaultToolkit().getImage(initialImage.getPath());
+        Image imageB = Toolkit.getDefaultToolkit().getImage(compareImage.getPath());
+
+        try
+        {
+
+            PixelGrabber grab1 = new PixelGrabber(imageA, 0, 0, -1, -1, false);
+            PixelGrabber grab2 = new PixelGrabber(imageB, 0, 0, -1, -1, false);
+
+            int[] data1 = null;
+
+            if (grab1.grabPixels())
+            {
+                int width = grab1.getWidth();
+                int height = grab1.getHeight();
+                data1 = new int[width * height];
+                data1 = (int[]) grab1.getPixels();
+            }
+
+            int[] data2 = null;
+
+            if (grab2.grabPixels())
+            {
+                int width = grab2.getWidth();
+                int height = grab2.getHeight();
+                data2 = new int[width * height];
+                data2 = (int[]) grab2.getPixels();
+            }
+
+            return java.util.Arrays.equals(data1, data2);
+
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+            logger.error("Cannot compare images:", e);
+        }
+        return false;
+    }
+
+    /**
+     * Wait for partial window name
+     * 
+     * @param ldtp
+     * @param partialWindowName
+     */
+    public static void waitForWindowPartialName(Ldtp ldtp, String partialWindowName)
+    {
+        int retries = 1;
+        logger.info(String.format("Waiting for window:  %s", partialWindowName));
+        while (retries <= LdtpUtils.RETRY_COUNT && LdtpUtils.getFullWindowList(ldtp, partialWindowName) == null)
+        {           
+            LdtpUtils.waitToLoopTime(1);
+            retries++;
+        }
     }
 }
