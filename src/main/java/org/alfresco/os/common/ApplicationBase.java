@@ -362,19 +362,7 @@ public abstract class ApplicationBase
      */
     public boolean isWindowOpened(String windowName)
     {
-        String[] windows = null;
-        boolean isOpened = false;
-        windows = getLdtp().getWindowList();
-        windowName = windowName.toLowerCase();
-        for (int i = 0; i < windows.length; i++)
-        {
-            if (windows[i].toLowerCase().contains(windowName))
-            {
-                isOpened = true;
-                break;
-            }
-        }
-        return isOpened;
+       return LdtpUtils.isWindowOpened(getLdtp(), windowName);
     }
 
     /**

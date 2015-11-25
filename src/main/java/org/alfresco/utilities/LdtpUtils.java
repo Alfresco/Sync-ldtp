@@ -727,4 +727,27 @@ public class LdtpUtils
             retries++;
         }
     }
+    
+    /**
+     * Check if a windows identified by <windowName> is opened or not
+     * 
+     * @param windowName
+     * @return
+     */
+    public static boolean isWindowOpened(Ldtp ldtp, String windowName)
+    {
+        String[] windows = null;
+        boolean isOpened = false;
+        windows = ldtp.getWindowList();
+        windowName = windowName.toLowerCase();
+        for (int i = 0; i < windows.length; i++)
+        {
+            if (windows[i].toLowerCase().contains(windowName))
+            {
+                isOpened = true;
+                break;
+            }
+        }
+        return isOpened;
+    }
 }
