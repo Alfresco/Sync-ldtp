@@ -192,4 +192,13 @@ public class Notepad extends Application
         String text = getLdtp().getTextValue("txt0");
         return text;
     }
+    /**
+     * set windows name with the name of file 
+     * @throws Exception 
+     */
+    
+    public void setNotepad(String fileName) throws Exception
+    {
+        waitForApplicationWindow(fileName, true);
+    }
 }

@@ -566,11 +566,13 @@ public class WindowsExplorer extends Application
      */
     public void jumpToLocation(File location) throws IOException
     {
+        logger.info("Inside the jump to location method");
         Desktop.getDesktop().open(location); 
         focus(location.getName());
         getLdtp().grabFocus(location.getName());
         getLdtp().waitTillGuiExist();
         maximize();
+        logger.info("finished  the jump to location method");
     }
     
     /**
