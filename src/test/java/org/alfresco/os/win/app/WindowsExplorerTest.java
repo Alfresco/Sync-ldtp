@@ -1,6 +1,8 @@
 package org.alfresco.os.win.app;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 import org.alfresco.os.AbstractTestClass;
 import org.alfresco.os.win.Application.type;
@@ -149,5 +151,31 @@ public class WindowsExplorerTest extends AbstractTestClass
 
         Assert.assertTrue(ok.exists(), "Folder was successfuly moved to another destination");
         app.exitApplication();
+    }
+    
+    @Test
+    public void cutAndPasteMethods() throws IOException
+    {
+        File folderSource = new File(LdtpUtils.getDocumentsFolder().getPath(), "folde1r");   
+        folderSource.delete();
+        
+        File folderChild = new File(folderSource.getPath(),"child");
+        File destination = new File(folderSource.getPath(),"dest");
+        destination.mkdirs();
+        folderChild.mkdir();
+        WindowsExplorer e = new WindowsExplorer();
+        e.jumpToLocation(folderSource);      
+        e.cut(folderChild);       
+        e.closeExplorer();
+        
+        e.jumpToLocation(destination);
+        e.paste();
+        
+        File f = Paths.get(destination.getPath(), folderChild.getName()).toFile();
+        LdtpUtils.waitUntilFileExistsOnDisk(f);
+        
+        Assert.assertTrue(f.exists(), f.getPath() + " file is moved");
+        f.delete();
+        folderSource.delete();
     }
 }

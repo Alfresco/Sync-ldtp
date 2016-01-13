@@ -23,6 +23,8 @@ import org.alfresco.utilities.LdtpUtils;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
+import com.google.common.io.Files;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -191,7 +193,7 @@ public class MicrosoftOfficeBase extends Application
 
     public void saveOffice() throws LdtpExecutionError
     {
-        getLdtp().generateKeyEvent("<ctrl><s>");
+        getLdtp().generateKeyEvent("<ctrl><s>");      
     }
 
     /*
@@ -274,8 +276,7 @@ public class MicrosoftOfficeBase extends Application
      */
     protected String getOfficePath()
     {
-        String val = getProperty("win.office" + getApplicationVersion() + ".path");
-      //  return ((val == null) ? OFFICE_PATH : val);
+        String val = getProperty("win.office" + getApplicationVersion() + ".path");     
         return val;
     }
 
@@ -301,4 +302,27 @@ public class MicrosoftOfficeBase extends Application
         getLdtp().selectMenuItem("mnuSaveAs");
     }
 
+    /**
+     * Return VersionDetail of Office
+     * @param fileName
+     * @return
+     */
+    public static VersionDetails getOfficeType(File fileName)
+    {
+        
+        String extension = Files.getFileExtension(fileName.getName());
+        switch (extension)
+        {
+            case "doc":
+            case "docx":
+                   return VersionDetails.WORD;                                
+            case "xls":
+            case "xlsx":
+                   return VersionDetails.EXCEL; 
+            case "ppt":
+            case "pptx":
+                   return VersionDetails.POWERPOINT;
+        }
+        return null;        
+    }
 }
