@@ -508,8 +508,9 @@ public class WindowsExplorer extends Application
         ArrayList<String> arrWindows = new ArrayList<String>();
         for (String window : windowsList)
         {
+        	logger.info("window name " + window);
             if (window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git")
-                    && !window.contains("Mozilla") && !window.contains("LDTP"))
+                    && !window.contains("Mozilla") && !window.contains("LDTP") &&!window.contains("Command"))
             {
                 Ldtp info = new Ldtp(window);
                 try
