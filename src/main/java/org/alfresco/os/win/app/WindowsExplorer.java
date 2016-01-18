@@ -574,6 +574,7 @@ public class WindowsExplorer extends Application
     {
         logger.info("Inside the jump to location method");
         Desktop.getDesktop().open(location); 
+        LdtpUtils.waitToLoopTime(1);
         focus(location.getName());
         getLdtp().grabFocus(location.getName());
         getLdtp().waitTillGuiExist();
