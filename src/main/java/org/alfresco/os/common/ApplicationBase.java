@@ -189,7 +189,7 @@ public abstract class ApplicationBase
      * @throws IOException
      * @throws InterruptedException
      */
-    public Process runProcess(String... command)
+    public Process runProcess(String... command) throws Exception
     {
         Process process = LdtpUtils.runProcess(command);
         setProcess(process);

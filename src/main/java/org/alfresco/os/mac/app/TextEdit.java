@@ -65,8 +65,9 @@ public class TextEdit extends Editor
      * Helper for saving file using File object
      * 
      * @param file
+     * @throws Exception 
      */
-    public void save(File file)
+    public void save(File file) throws Exception
     {
         save(file.getPath());
     }
@@ -77,8 +78,9 @@ public class TextEdit extends Editor
      * will add the location string and save the file
      * 
      * @param folder
+     * @throws Exception 
      */
-    private void goToLocation(String location)
+    private void goToLocation(String location) 
     {
         AppleScript appleScript = getAppleScript();
         appleScript.clean();
@@ -114,7 +116,7 @@ public class TextEdit extends Editor
         close(getFileName());
     }
 
-    public void saveAs(File file)
+    public void saveAs(File file) 
     {
         logger.info("Save file As: " + file.getPath());
         getLdtp().generateKeyEvent("<command><shift>s");
@@ -125,8 +127,9 @@ public class TextEdit extends Editor
      * Create a new File locally
      * 
      * @param file
+     * @throws Exception 
      */
-    public void createFile(File file)
+    public void createFile(File file) throws Exception
     {
         logger.info("Create file: " + file.getPath());
         openApplication();

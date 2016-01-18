@@ -67,6 +67,7 @@ public class PropertiesDialog
         String fileList = null;
         logger.info("Opening Properties Dialog for: " + getFileName().getPath());
         String fileWithoutExtension = Files.getNameWithoutExtension(getFileName().getName());
+        logger.info("getFileName().getParentFile().getName() " + getFileName().getParentFile().getName());
         propertyObject = new Ldtp(getFileName().getParentFile().getName());
         if (getFileName().isFile())
         {

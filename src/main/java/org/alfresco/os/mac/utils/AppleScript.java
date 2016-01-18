@@ -46,13 +46,21 @@ public class AppleScript
 
     /**
      * Run the script
+     * @throws Exception 
      */
-    public void run()
+    public void run() 
     {
         commandLine.add(0, "osascript");
         String[] command = new String[commandLine.size()];
         command = commandLine.toArray(command);
+        try
+        {
         LdtpUtils.runProcess(command);
+        }
+        catch (Exception e)
+        {
+            //need to work on this when we do mac udpates
+        }
     }
 
     public void clean()

@@ -100,7 +100,7 @@ public class TextEditTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testCreateFile()
+    public void testCreateFile() throws Exception
     {
         app.exitApplication();
         tmpFile.delete();

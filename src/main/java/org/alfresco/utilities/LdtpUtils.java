@@ -28,8 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.SystemUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
@@ -44,7 +43,7 @@ import com.google.common.io.Files;
  */
 public class LdtpUtils
 {
-    private static Log logger = LogFactory.getLog(LdtpUtils.class);
+    private static Logger logger = Logger.getLogger(LdtpUtils.class);
     private static boolean isInfoEnabled = logger.isInfoEnabled();
     private static boolean isDebugEnabled = logger.isDebugEnabled();
 
@@ -284,21 +283,13 @@ public class LdtpUtils
      * @throws IOException
      * @throws InterruptedException
      */
-    public static Process runProcess(String... command)
+    public static Process runProcess(String... command) throws Exception
     {
         ProcessBuilder pb = new ProcessBuilder(command);
         Process process;
-        try
-        {
             process = pb.start();
             LdtpUtils.logDebug("Running Process:" + command.toString());
             return process;
-        }
-        catch (IOException e)
-        {
-            logger.error("Could not run process", e.getCause());
-        }
-        return null;
     }
 
     /**
