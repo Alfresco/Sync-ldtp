@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
+import org.alfresco.os.win.app.office.MicrosoftOfficeBase.VersionDetails;
 import org.alfresco.utilities.LdtpUtils;
 import org.apache.log4j.Logger;
 
@@ -476,6 +477,11 @@ public class WindowsExplorer extends Application
     {
         logger.info("Closing all Window Forms opened..");
 
+        LdtpUtils.killAllApplicationsByExeName("notepad.exe");
+        LdtpUtils.killAllApplicationsByExeName("notepad++.exe");
+        LdtpUtils.killAllApplicationsByExeName(VersionDetails.EXCEL.getExeName());
+        LdtpUtils.killAllApplicationsByExeName(VersionDetails.WORD.getExeName());
+        LdtpUtils.killAllApplicationsByExeName(VersionDetails.POWERPOINT.getExeName());
         /*
          * need to loop over all objects due to dynamic naming conventions
          */
@@ -509,7 +515,7 @@ public class WindowsExplorer extends Application
         for (String window : windowsList)
         {
             if (window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git")
-                    && !window.contains("Mozilla") && !window.contains("LDTP"))
+                    && !window.contains("Mozilla") && !window.contains("LDTP") &&!window.contains("Command"))
             {
                 Ldtp info = new Ldtp(window);
                 try
@@ -568,6 +574,7 @@ public class WindowsExplorer extends Application
     {
         logger.info("Inside the jump to location method");
         Desktop.getDesktop().open(location); 
+        LdtpUtils.waitToLoopTime(1);
         focus(location.getName());
         getLdtp().grabFocus(location.getName());
         getLdtp().waitTillGuiExist();

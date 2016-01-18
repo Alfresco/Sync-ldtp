@@ -15,6 +15,7 @@
 
 package org.alfresco.utilities;
 
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.PixelGrabber;
@@ -740,5 +741,15 @@ public class LdtpUtils
             }
         }
         return isOpened;
+    }
+
+    /**
+     * Open File in default Editor
+     * @param file
+     * @throws IOException
+     */
+    public static void openFile(File file)
+    {
+        LdtpUtils.executeOnWin("start " + file.getPath());       
     }
 }
