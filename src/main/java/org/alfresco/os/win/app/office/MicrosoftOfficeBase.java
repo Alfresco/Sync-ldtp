@@ -188,6 +188,10 @@ public class MicrosoftOfficeBase extends Application
      */
     public void editOffice(String data)
     {
+        // powerpoint application created by context menu doesn't have slides, so click to create one
+        if(applicationDetails == VersionDetails.POWERPOINT)
+            getLdtp().click("Slide");
+        
         getLdtp().generateKeyEvent(data);
     }
 
@@ -304,13 +308,13 @@ public class MicrosoftOfficeBase extends Application
 
     /**
      * Return VersionDetail of Office
-     * @param fileName
+     * @param file
      * @return
      */
-    public static VersionDetails getOfficeType(File fileName)
+    public static VersionDetails getOfficeVersionDetail(File file)
     {
         
-        String extension = Files.getFileExtension(fileName.getName());
+        String extension = Files.getFileExtension(file.getName());
         switch (extension)
         {
             case "doc":
@@ -324,5 +328,28 @@ public class MicrosoftOfficeBase extends Application
                    return VersionDetails.POWERPOINT;
         }
         return null;        
+    }
+    
+    /**
+     * Return VersionDetail of Office
+     * @param file
+     * @return
+     */
+    public static type getOfficeVersionType(File file)
+    {
+        String extension = Files.getFileExtension(file.getName());
+        switch (extension)
+        {
+            case "doc":
+            case "docx":
+                   return type.WORD;                              
+            case "xls":
+            case "xlsx":
+                   return type.EXCEL; 
+            case "ppt":
+            case "pptx":
+                   return type.POWERPOINT;
+        }
+        return null;   
     }
 }
