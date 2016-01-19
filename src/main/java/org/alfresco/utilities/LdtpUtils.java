@@ -15,7 +15,6 @@
 
 package org.alfresco.utilities;
 
-import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.PixelGrabber;
@@ -286,11 +285,12 @@ public class LdtpUtils
      */
     public static Process runProcess(String... command) throws Exception
     {
+        logger.info("Running Process:" + command.toString());
         ProcessBuilder pb = new ProcessBuilder(command);
         Process process;
-            process = pb.start();
-            LdtpUtils.logDebug("Running Process:" + command.toString());
-            return process;
+        process = pb.start();
+        logger.info("Starting Process:" + process.toString());
+        return process;
     }
 
     /**
