@@ -19,13 +19,12 @@ import java.io.File;
 
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
+import org.alfresco.os.win.app.WindowsExplorer;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.log4j.Logger;
 
-import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
 import com.google.common.io.Files;
-
-import org.apache.log4j.Logger;
 
 /**
  * This class has all the method involved in using the actions in Office application
@@ -351,5 +350,27 @@ public class MicrosoftOfficeBase extends Application
                    return type.POWERPOINT;
         }
         return null;   
+    }
+    
+    
+    /**
+     * Will double click on <file> to it will be opened in default office app - assumming you are already in 
+     * the parent folder of <file>
+     * 
+     * @param file
+     */
+    public void doubleClickFile(File file, WindowsExplorer explorer)
+    {
+        logger.info("Opening Office file (double clicking):" + file.getPath());
+        explorer.getLdtp().doubleClick(file.getName());
+        focus(file.getName());
+    }
+    
+    /**
+     * @return application details
+     */
+    public VersionDetails getApplicationDetails()
+    {
+        return applicationDetails;
     }
 }
