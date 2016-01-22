@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.alfresco</groupId>
 	<artifactId>ldtp</artifactId>
@@ -15,7 +16,7 @@
 	</properties>
 	<scm>
 		<connection>scm:git:https://github.com/AlfrescoTestAutomation/alfresco-ldtp.git</connection>
-		<url>https://github.com/AlfrescoTestAutomation/alfresco-ldtp.git</url>
+		<url>https://github.com/Alfresco/Sync-ldtp.git</url>
 		<developerConnection>scm:git:https://github.com/AlfrescoTestAutomation/alfresco-ldtp.git</developerConnection>
 	</scm>
 	<distributionManagement>
@@ -78,4 +79,16 @@
 		<name>Alfresco</name>
 		<url>http://www.alfresco.com</url>
 	</organization>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
