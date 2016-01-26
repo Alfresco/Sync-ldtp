@@ -475,6 +475,7 @@ public class WindowsExplorer extends Application
      */
     public void closeAllWindowForms()
     {
+    	
         logger.info("Closing all Window Forms opened..");
 
         LdtpUtils.killAllApplicationsByExeName("notepad.exe");
@@ -485,23 +486,32 @@ public class WindowsExplorer extends Application
         /*
          * need to loop over all objects due to dynamic naming conventions
          */
-        Integer errorCount = 0;
-        while (getOpenedWindows().iterator().hasNext() || errorCount >= 10)
-        {
-            String window = (String) getOpenedWindows().iterator().next();
-            logger.info("Try to close Window: " + window);
-            Ldtp tmpWin = new Ldtp(window);
-            tmpWin.waitTime(1);
-            try
-            {
-                tmpWin.click("Close");
-            }
-            catch (LdtpExecutionError e)
-            {
-                errorCount += 1;
-                logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
-            }
-        }
+//        if(!LdtpUtils.isWin81())
+//        {
+//        Integer errorCount = 0;
+//        while (getOpenedWindows().iterator().hasNext() || errorCount >= 10)
+//        {
+//            String window = (String) getOpenedWindows().iterator().next();
+//            logger.info("Try to close Window: " + window);
+//            Ldtp tmpWin = new Ldtp(window);
+//            tmpWin.waitTime(1);
+//            try
+//            {
+//                tmpWin.click("Close");
+//            }
+//            catch (LdtpExecutionError e)
+//            {
+//                errorCount += 1;
+//                logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
+//            }
+//        }
+//        }
+//        // this will only close windows explorer for 8.1
+//        else
+//        {
+//        	LdtpUtils.executeOnWin("taskkill /f /im explorer.exe && start explorer");
+//        }
+        LdtpUtils.executeOnWin("taskkill /f /im explorer.exe && start explorer");
         logger.info("All Window Forms are now closed! ");
     }
 
@@ -590,10 +600,7 @@ public class WindowsExplorer extends Application
     public void delete(String objectName, boolean confirmationOption){
         getLdtp().mouseRightClick(objectName);
         onContextMenuPerform("Delete");
-        if (!LdtpUtils.isWin81())
-        {
             getLdtp().waitTime(2);
             alertConfirmation("Delete F*", confirmationOption);
-        }
     }
 }

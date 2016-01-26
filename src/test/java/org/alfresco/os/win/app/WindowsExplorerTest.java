@@ -177,5 +177,12 @@ public class WindowsExplorerTest extends AbstractTestClass
         Assert.assertTrue(f.exists(), f.getPath() + " file is moved");
         f.delete();
         folderSource.delete();
+     }
+    @Test
+    public void  closeall()
+    {
+    	WindowsExplorer e = new WindowsExplorer();
+    	System.out.println("iside test");
+    	e.closeAllWindowForms();
     }
 }
