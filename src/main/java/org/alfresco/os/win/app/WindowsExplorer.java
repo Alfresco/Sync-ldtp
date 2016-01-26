@@ -511,7 +511,18 @@ public class WindowsExplorer extends Application
 //        {
 //        	LdtpUtils.executeOnWin("taskkill /f /im explorer.exe && start explorer");
 //        }
-        LdtpUtils.executeOnWin("taskkill /f /im explorer.exe && start explorer");
+        LdtpUtils.executeOnWin("start /B /NORMAL taskkill /f /im explorer.exe");
+ 
+        try
+        {
+            LdtpUtils.runProcess(new String[]{"cmd", "/C", "start", "/B", "/NORMAL", "explorer.exe"});
+        }
+        catch (Exception e)
+        {
+            logger.error("Cannot Restart Explorer" + e.getMessage());
+            e.printStackTrace();
+        }
+
         logger.info("All Window Forms are now closed! ");
     }
 
