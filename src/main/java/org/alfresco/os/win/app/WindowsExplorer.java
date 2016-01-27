@@ -100,8 +100,8 @@ public class WindowsExplorer extends Application
         }
         if (LdtpUtils.isWin81())
         {
-        	focus();
-        	getLdtp().waitTime(2);
+        	getLdtp().grabFocus("This PC");
+        	getLdtp().waitTime(1);
             getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
             getLdtp().generateKeyEvent(folderPath.getPath());
         }
