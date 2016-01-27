@@ -69,6 +69,7 @@ public class WindowsExplorer extends Application
     public void focus()
     {
         getLdtp().setWindowName(getWaitWindow());
+       // getLdtp().activateWindow(getWaitWindow());
     }
 
     @Override
@@ -99,6 +100,7 @@ public class WindowsExplorer extends Application
         }
         if (LdtpUtils.isWin81())
         {
+        	focus();
             getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
             getLdtp().generateKeyEvent(folderPath.getPath());
         }
