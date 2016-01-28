@@ -473,12 +473,67 @@ public class WindowsExplorer extends Application
         return actualImage;
     }
 
+//    /**
+//     * Closing all Window Explorer, Notepad forms, etc.
+//     */
+//    public void closeAllWindowForms()
+//    {
+//    	
+//        logger.info("Closing all Window Forms opened..");
+//
+//        LdtpUtils.killAllApplicationsByExeName("notepad.exe");
+//        LdtpUtils.killAllApplicationsByExeName("notepad++.exe");
+//        LdtpUtils.killAllApplicationsByExeName(VersionDetails.EXCEL.getExeName());
+//        LdtpUtils.killAllApplicationsByExeName(VersionDetails.WORD.getExeName());
+//        LdtpUtils.killAllApplicationsByExeName(VersionDetails.POWERPOINT.getExeName());
+//        /*
+//         * need to loop over all objects due to dynamic naming conventions
+//         */
+////        if(!LdtpUtils.isWin81())
+////        {
+////        Integer errorCount = 0;
+////        while (getOpenedWindows().iterator().hasNext() || errorCount >= 10)
+////        {
+////            String window = (String) getOpenedWindows().iterator().next();
+////            logger.info("Try to close Window: " + window);
+////            Ldtp tmpWin = new Ldtp(window);
+////            tmpWin.waitTime(1);
+////            try
+////            {
+////                tmpWin.click("Close");
+////            }
+////            catch (LdtpExecutionError e)
+////            {
+////                errorCount += 1;
+////                logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
+////            }
+////        }
+////        }
+////        // this will only close windows explorer for 8.1
+////        else
+////        {
+////        	LdtpUtils.executeOnWin("taskkill /f /im explorer.exe && start explorer");
+////        }
+//        LdtpUtils.executeOnWin("start /B /NORMAL taskkill /f /im explorer.exe");
+// 
+//        try
+//        {
+//            LdtpUtils.runProcess(new String[]{"cmd", "/C", "start", "/B", "/NORMAL", "explorer.exe"});
+//        }
+//        catch (Exception e)
+//        {
+//            logger.error("Cannot Restart Explorer" + e.getMessage());
+//            e.printStackTrace();
+//        }
+//
+//        logger.info("All Window Forms are now closed! ");
+//    }
+
     /**
      * Closing all Window Explorer, Notepad forms, etc.
      */
     public void closeAllWindowForms()
     {
-    	
         logger.info("Closing all Window Forms opened..");
 
         LdtpUtils.killAllApplicationsByExeName("notepad.exe");
@@ -489,46 +544,25 @@ public class WindowsExplorer extends Application
         /*
          * need to loop over all objects due to dynamic naming conventions
          */
-//        if(!LdtpUtils.isWin81())
-//        {
-//        Integer errorCount = 0;
-//        while (getOpenedWindows().iterator().hasNext() || errorCount >= 10)
-//        {
-//            String window = (String) getOpenedWindows().iterator().next();
-//            logger.info("Try to close Window: " + window);
-//            Ldtp tmpWin = new Ldtp(window);
-//            tmpWin.waitTime(1);
-//            try
-//            {
-//                tmpWin.click("Close");
-//            }
-//            catch (LdtpExecutionError e)
-//            {
-//                errorCount += 1;
-//                logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
-//            }
-//        }
-//        }
-//        // this will only close windows explorer for 8.1
-//        else
-//        {
-//        	LdtpUtils.executeOnWin("taskkill /f /im explorer.exe && start explorer");
-//        }
-        LdtpUtils.executeOnWin("start /B /NORMAL taskkill /f /im explorer.exe");
- 
-        try
+        Integer errorCount = 0;
+        while (getOpenedWindows().iterator().hasNext() || errorCount >= 10)
         {
-            LdtpUtils.runProcess(new String[]{"cmd", "/C", "start", "/B", "/NORMAL", "explorer.exe"});
+            String window = (String) getOpenedWindows().iterator().next();
+            logger.info("Try to close Window: " + window);
+            Ldtp tmpWin = new Ldtp(window);
+            tmpWin.waitTime(1);
+            try
+            {
+                tmpWin.click("Close");
+            }
+            catch (LdtpExecutionError e)
+            {
+                errorCount += 1;
+                logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
+            }
         }
-        catch (Exception e)
-        {
-            logger.error("Cannot Restart Explorer" + e.getMessage());
-            e.printStackTrace();
-        }
-
         logger.info("All Window Forms are now closed! ");
     }
-
     /**
      * @return ArrayList of all frmWindows opened
      */
@@ -541,13 +575,21 @@ public class WindowsExplorer extends Application
             if (window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git")
                     && !window.contains("Mozilla") && !window.contains("LDTP") &&!window.contains("Command"))
             {
-                Ldtp info = new Ldtp(window);
                 try
                 {
+                if(!LdtpUtils.isWin81())
+               	{
+                	Ldtp info = new Ldtp(window);
                     if (!LdtpUtils.isApplicationObject(info))
                     {
                         arrWindows.add(window);
                     }
+               	}
+                else
+                	{
+                		arrWindows.add(window);
+                		
+                	}
                 }
                 catch (Exception e)
                 {
