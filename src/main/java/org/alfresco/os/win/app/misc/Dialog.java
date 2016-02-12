@@ -17,12 +17,14 @@ import com.cobra.ldtp.Ldtp;
 public class Dialog
 {
     private Ldtp ldtp;
+    private String dialogName;
 
     protected static Logger logger = Logger.getLogger(Dialog.class);
 
-    public Dialog()
+    public Dialog(String dialogName)
     {
-        setLdtp(new Ldtp(" "));
+        setDialogName(dialogName);
+        setLdtp(new Ldtp(dialogName));
     }
 
     public void closeAllDialogs()
@@ -35,7 +37,9 @@ public class Dialog
         {
             String dialog = (String) iterator.next();
             logger.info("Found  Dialog [" + dialog + "] and try to close it sending ESC key!");
+            getLdtp().activateWindow(dialog);          
             getLdtp().generateKeyEvent("<esc>");
+            logger.info("Pressing 'ESC' key on [" + dialog + "]");
         }
     }
 
@@ -81,5 +85,21 @@ public class Dialog
     public boolean isDisplayed()
     {
         return getLdtp().guiExist() == 1;
+    }
+
+    public String getDialogName()
+    {
+        return dialogName;
+    }
+
+    public void setDialogName(String dialogName)
+    {
+        this.dialogName = dialogName;
+    }
+    
+    public void focus()
+    {
+        logger.info("Grab focus to: " + getDialogName());
+        getLdtp().activateWindow(getDialogName());
     }
 }

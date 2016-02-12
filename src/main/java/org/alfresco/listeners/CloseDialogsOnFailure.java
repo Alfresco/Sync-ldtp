@@ -10,7 +10,7 @@ public class CloseDialogsOnFailure extends TestListenerAdapter
     @Override
     public void onTestFailure(ITestResult tr)
     {
-        new Dialog().closeAllDialogs();
+        new Dialog(" ").closeAllDialogs();
         super.onTestFailure(tr);
     }
 }

@@ -17,8 +17,6 @@ package org.alfresco.os.win.app.misc.dialog;
 
 import org.alfresco.os.win.app.misc.Dialog;
 
-import com.cobra.ldtp.Ldtp;
-
 /**
  * 
  * The Delete Folder dialog
@@ -28,7 +26,7 @@ import com.cobra.ldtp.Ldtp;
 public class DeleteFolder extends Dialog
 {
     public DeleteFolder(){
-        setLdtp(new Ldtp("Delete Folder"));
+        super("Delete Folder");
     }
 
     public void clickYes(){

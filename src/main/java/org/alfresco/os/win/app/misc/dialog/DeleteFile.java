@@ -2,8 +2,6 @@ package org.alfresco.os.win.app.misc.dialog;
 
 import org.alfresco.os.win.app.misc.Dialog;
 
-import com.cobra.ldtp.Ldtp;
-
 /**
  * The Delete File windows based dialog
  * 
@@ -14,7 +12,7 @@ public class DeleteFile extends Dialog
 
     public DeleteFile()
     {
-        setLdtp(new Ldtp("Delete File"));
+        super("Delete File");
     }
 
     /**
@@ -30,8 +28,9 @@ public class DeleteFile extends Dialog
      * Clicking Yes on Delete File dialog
      */
     public void clickYes()
-    {
+    {             
         getLdtp().click("Yes");
+        logger.info("Clicking 'Yes' on  '" + getDialogName() + "' dialog");
     }
 
     /**
@@ -40,5 +39,6 @@ public class DeleteFile extends Dialog
     public void clickCancel()
     {
         getLdtp().click("Cancel");
+        logger.info("Clicking 'Cancel' on  '" + getDialogName() + "' dialog");
     }
 }

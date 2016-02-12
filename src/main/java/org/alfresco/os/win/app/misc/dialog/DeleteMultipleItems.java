@@ -17,8 +17,6 @@ package org.alfresco.os.win.app.misc.dialog;
 
 import org.alfresco.os.win.app.misc.Dialog;
 
-import com.cobra.ldtp.Ldtp;
-
 /**
  * Delete Multiple Items dialog
  * 
@@ -26,16 +24,21 @@ import com.cobra.ldtp.Ldtp;
  */
 public class DeleteMultipleItems extends Dialog
 {
+    
     public DeleteMultipleItems()
-    {
-        setLdtp(new Ldtp("Delete Multiple Items"));
+    {       
+        super("Delete Multiple Items");
     }
     
-    public void clickYes(){
+    public void clickYes(){       
         getLdtp().click("Yes");
+        logger.info("Clicking 'Yes' on '" + getDialogName() + "' Items dialog");
     }
     
-    public void clickNo(){
+    public void clickNo(){        
         getLdtp().click("No");
+        logger.info("Clicking 'No' on '" + getDialogName() + "' Items dialog");
     }
+
+   
 }
