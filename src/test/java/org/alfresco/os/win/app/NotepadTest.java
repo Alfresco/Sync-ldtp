@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
 
 public class NotepadTest  extends AbstractTestClass {
 	Notepad notepad = new Notepad();
-	File testOne;
+	File testOne ;
 
 	@AfterClass
 	public void tearDown() {
@@ -35,7 +35,7 @@ public class NotepadTest  extends AbstractTestClass {
 	}
 
 	@BeforeMethod
-	private void setupFile() {
+	private void setupFile() throws Exception {
 		testOne = LdtpUtils.getRandomFileName("txt");
 		randomFiles.add(testOne);
 	}
@@ -49,7 +49,7 @@ public class NotepadTest  extends AbstractTestClass {
 	public void testEdit() throws Exception {
 		notepad.openApplication();
 		notepad.edit("1st line");
-		notepad.close();
+	//	notepad.close();
 	}
 
 	@Test()
@@ -58,7 +58,6 @@ public class NotepadTest  extends AbstractTestClass {
 		notepad.openApplication();
 		notepad.saveAsWithOverwrite(testOne);
 		notepad.close(testOne);
-
 		Assert.assertTrue(testOne.exists(), testOne.getPath() + " created");
 	}
 
@@ -77,7 +76,6 @@ public class NotepadTest  extends AbstractTestClass {
 		notepad.openApplication();
 		notepad.saveAsWithShortcutKeys(testOne);
 		notepad.close(testOne);
-		
 		Assert.assertTrue(testOne.exists(),"File exists on disk");
 	}
 
@@ -92,7 +90,6 @@ public class NotepadTest  extends AbstractTestClass {
 		String data = "data";
 		notepad.openApplication();
 		notepad.appendData(data);
-		
 		Assert.assertEquals(notepad.getNotepadText(), data);
 		notepad.exitApplication();
 	}

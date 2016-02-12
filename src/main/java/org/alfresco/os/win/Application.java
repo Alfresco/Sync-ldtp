@@ -35,6 +35,7 @@ public class Application extends ApplicationBase
     public void exitApplication()
     {
         killProcess();
+        LdtpUtils.waitToLoopTime(2);
     }
 
     @Override

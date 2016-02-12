@@ -50,6 +50,10 @@ public class WindowsExplorer extends Application
         {
             setWaitWindow("This PC");
         }
+        else if(LdtpUtils.isWin10())
+        {
+        	setWaitWindow("File Explorer");
+        }
         else
         {
             setWaitWindow("Libraries");
@@ -101,6 +105,13 @@ public class WindowsExplorer extends Application
         if (LdtpUtils.isWin81())
         {
         	getLdtp().grabFocus("This PC");
+        	getLdtp().waitTime(1);
+            getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
+            getLdtp().generateKeyEvent(folderPath.getPath());
+        }
+        else if(LdtpUtils.isWin10())
+        {
+        	getLdtp().grabFocus("Quick access");
         	getLdtp().waitTime(1);
             getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
             getLdtp().generateKeyEvent(folderPath.getPath());
@@ -324,7 +335,7 @@ public class WindowsExplorer extends Application
      */
     public void goBack(String folder)
     {
-        if (LdtpUtils.isWin81())
+        if (LdtpUtils.isWin81() || (LdtpUtils.isWin10()))
         {
             getLdtp().generateKeyEvent("<alt><left>");
         }
@@ -333,7 +344,14 @@ public class WindowsExplorer extends Application
             folder = folder.toLowerCase();
             getLdtp().click("Back to " + folder);
         }
-        focus(folder);
+        if(LdtpUtils.isWin10())
+        {
+        	focus("File Explorer");
+        }
+        else
+        {
+        	focus(folder);
+        }
     }
 
     /**

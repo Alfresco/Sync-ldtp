@@ -366,9 +366,13 @@ public class LdtpUtils
             {
                 return new File(getHomeFolder(), "Documents");
             }
-            else
+            else if(getOS().contains("windows 10"))
             {
-                return new File(getHomeFolder(), "My Documents");
+             	return new File(getHomeFolder(), "Documents");
+            }
+           	else
+          	{
+                return new File(getHomeFolder(), "Documents");
             }
         }
         return null;
@@ -380,6 +384,14 @@ public class LdtpUtils
     public static boolean isWin81()
     {
         return getOS().equals("Windows 8.1");
+    }
+
+    /**
+     * @return OS name
+     */
+    public static boolean isWin10()
+    {
+        return getOS().contains("Windows 10");
     }
 
     /**

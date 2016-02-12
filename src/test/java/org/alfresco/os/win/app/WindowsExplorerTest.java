@@ -20,7 +20,6 @@ public class WindowsExplorerTest extends AbstractTestClass
         File myDocs = LdtpUtils.getDocumentsFolder();
         app.openApplication();
         app.openFolder(myDocs);
-        
         app.rightClickCreate(myDocs.getName(), "test1.txt", type.TEXTFILE);        
         app.exitApplication();
     }
@@ -28,10 +27,17 @@ public class WindowsExplorerTest extends AbstractTestClass
     @Test
     public void testGoBack() throws Exception
     {
-        File myDocs = LdtpUtils.getDocumentsFolder();
-        app.openApplication();
+    	File myDocs = LdtpUtils.getDocumentsFolder();
+    	app.openApplication();
         app.openFolder(myDocs);
-        app.goBack("This PC");
+        if(LdtpUtils.isWin10())
+        {
+        	app.goBack("Quick access");
+        }
+        else
+        {
+        	app.goBack("This PC");
+        }
         app.exitApplication();
     }
 
@@ -44,7 +50,6 @@ public class WindowsExplorerTest extends AbstractTestClass
         app.openFolder(createFolder.getParentFile());
         app.createNewFolderMenu(createFolder.getName());
         Assert.assertTrue(createFolder.exists(), "Folder was successfuly created");
-
         createFolder.delete();
         app.exitApplication();
     }
@@ -76,7 +81,6 @@ public class WindowsExplorerTest extends AbstractTestClass
     {
         File fileTest = getRandomTestFile("testFile.txt");
         fileTest.createNewFile();
-
         app.openApplication();
         app.openFile(fileTest);
         app.getLdtp().waitTime(2);
@@ -92,11 +96,9 @@ public class WindowsExplorerTest extends AbstractTestClass
         File fileTest = getRandomTestFile("testFile.txt");
         String renameFileName = "renamed" + System.currentTimeMillis() + ".txt";
         fileTest.createNewFile();
-
         app.openApplication();
         app.openFolder(fileTest.getParentFile());
         app.rename(fileTest.getName(), renameFileName);
-
         File renamedFile = new File(fileTest.getParentFile(), renameFileName);
         Assert.assertTrue(renamedFile.exists(), "File was successfuly renamed");
         renamedFile.delete();
@@ -109,7 +111,6 @@ public class WindowsExplorerTest extends AbstractTestClass
     {
         File file = new File(LdtpUtils.getDocumentsFolder(), "testOpenFileInCurrentFolder.txt");
         file.createNewFile();
-
         app.openApplication();
         app.openFolder(file.getParentFile());
         app.openFileInCurrentFolder(file);
@@ -127,12 +128,11 @@ public class WindowsExplorerTest extends AbstractTestClass
     {
         File file = new File(LdtpUtils.getDocumentsFolder(), "testDeleteFile.txt");
         file.createNewFile();
-        
         LdtpUtils.waitUntilFileExistsOnDisk(file);
         app.openApplication();
         app.deleteFile(file, false);
         app.getLdtp().waitTime(3);
-        Assert.assertFalse(file.exists(), "File was successfuly deleted");
+        Assert.assertTrue(file.exists(), "File was not successfully deleted");
         app.exitApplication();
     }
 
@@ -170,6 +170,7 @@ public class WindowsExplorerTest extends AbstractTestClass
         
         e.jumpToLocation(destination);
         e.paste();
+        e.closeExplorer();
         
         File f = Paths.get(destination.getPath(), folderChild.getName()).toFile();
         LdtpUtils.waitUntilFileExistsOnDisk(f);
