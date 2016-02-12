@@ -37,7 +37,7 @@ public class Dialog
         {
             String dialog = (String) iterator.next();
             logger.info("Found  Dialog [" + dialog + "] and try to close it sending ESC key!");
-            getLdtp().activateWindow(dialog);          
+            getLdtp().activateWindow(dialog);
             getLdtp().generateKeyEvent("<esc>");
             logger.info("Pressing 'ESC' key on [" + dialog + "]");
         }
@@ -87,6 +87,17 @@ public class Dialog
         return getLdtp().guiExist() == 1;
     }
 
+    public void waitForDialogToAppear()
+    {
+        int count = 0;
+        while ((!isDisplayed() && count <  LdtpUtils.RETRY_COUNT) )
+        {
+            logger.info("Waiting 1 second for dialog [" + getDialogName() + "] to appear...");
+            count += 1;
+            getLdtp().waitTime(1);
+        }
+    }
+
     public String getDialogName()
     {
         return dialogName;
@@ -96,7 +107,7 @@ public class Dialog
     {
         this.dialogName = dialogName;
     }
-    
+
     public void focus()
     {
         logger.info("Grab focus to: " + getDialogName());
