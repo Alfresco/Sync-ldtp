@@ -59,7 +59,7 @@ public class Application extends ApplicationBase
     }
 
     @Override
-    public ApplicationBase openApplication()
+    public ApplicationBase openApplication() throws Exception
     {
         try
         {

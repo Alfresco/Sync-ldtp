@@ -73,7 +73,7 @@ public class WindowsExplorer extends Application
     }
 
     @Override
-    public ApplicationBase openApplication()
+    public ApplicationBase openApplication() throws Exception
     {
         super.openApplication();
         maximize();
