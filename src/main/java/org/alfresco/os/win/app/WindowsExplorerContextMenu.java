@@ -13,9 +13,9 @@ import com.cobra.ldtp.Ldtp;
  * You need to pass only the folder root path and then play with the available menus available
  * Example:
  * WindowsExplorerContextMenu menu = new WindowsExplorerContextMenu("C:/test/paul")
- *      menu.openItem("View").openSubMenu("Large icons");
- *      menu.openItem("New").openSubMenu("Text Document");
- *      menu.openItem("View").openSubMenu("List");
+ * menu.openItem("View").openSubMenu("Large icons");
+ * menu.openItem("New").openSubMenu("Text Document");
+ * menu.openItem("View").openSubMenu("List");
  *
  * @author pbrodner
  */
@@ -32,8 +32,13 @@ public class WindowsExplorerContextMenu extends ContextMenu
     public void open() throws Exception
     {
         Desktop.getDesktop().open(rootFolder);
-        new Ldtp(rootFolder.getName()).mouseRightClick("Items View");
-        setMenuItem(new ContextMenuItem(rootFolder.getName()));
+        new Ldtp(rootFolder.getName()).mouseRightClick("Items View");        
+    }
+
+    @Override
+    public ContextMenuItem getContextMenuItem(String itemName)
+    {
+        return new ContextMenuItem(rootFolder.getName());
     }
 
 }

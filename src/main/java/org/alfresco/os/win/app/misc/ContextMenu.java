@@ -1,6 +1,7 @@
 package org.alfresco.os.win.app.misc;
 
 import org.alfresco.os.common.GuiObject;
+import org.alfresco.os.win.app.WindowsExplorerContextMenu;
 
 import com.cobra.ldtp.Ldtp;
 
@@ -30,13 +31,25 @@ public abstract class ContextMenu extends GuiObject
         setLdtp(new Ldtp("Context"));
     }
 
-    public ContextMenuItem openItem(String item) throws Exception
+    /**
+     * will contain the implementation code of opening this context menu
+     * 
+     * @throws Exception
+     */
+    public abstract void open() throws Exception;
+
+    /**
+     * how Context Menu Item is visible in LDTP, define the new ContextMenuItem class
+     * 
+     * @return
+     */
+    public abstract ContextMenuItem getContextMenuItem(String itemName);
+
+    public ContextMenuItem openItem(String itemName) throws Exception
     {
         open();
-        getLdtp().selectMenuItem(item);
-
+        setMenuItem(getContextMenuItem(itemName));
+        getLdtp().selectMenuItem(itemName);
         return menuItem;
     }
-
-    public abstract void open() throws Exception;
 }
