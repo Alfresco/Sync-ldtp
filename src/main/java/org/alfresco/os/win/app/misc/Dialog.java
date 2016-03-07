@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.alfresco.os.common.GuiObject;
 import org.alfresco.utilities.LdtpUtils;
+import org.alfresco.utilities.LoggerUtils;
 import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
@@ -19,7 +20,7 @@ public class Dialog extends GuiObject
 {   
     private String dialogName;
 
-    protected static Logger logger = Logger.getLogger(Dialog.class);
+    protected static Logger logger = LoggerUtils.getLogger();
 
     public Dialog(String dialogName)
     {

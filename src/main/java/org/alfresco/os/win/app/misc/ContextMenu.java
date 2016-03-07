@@ -43,7 +43,7 @@ public abstract class ContextMenu extends GuiObject
      * 
      * @return
      */
-    public abstract ContextMenuItem getContextMenuItem(String itemName);
+    protected abstract ContextMenuItem getContextMenuItem(String itemName);
 
     public ContextMenuItem openItem(String itemName) throws Exception
     {
