@@ -30,14 +30,11 @@ public class WindowsExplorerTest extends AbstractTestClass
     	File myDocs = LdtpUtils.getDocumentsFolder();
     	app.openApplication();
         app.openFolder(myDocs);
-        if(LdtpUtils.isWin10())
-        {
-        	app.goBack("Quick access");
-        }
-        else
-        {
+//        if(LdtpUtils.isWin10())
+//        {
+//        	app.goBack("Quick access");
+//        }
         	app.goBack("This PC");
-        }
         app.exitApplication();
     }
 
@@ -51,7 +48,8 @@ public class WindowsExplorerTest extends AbstractTestClass
         app.createNewFolderMenu(createFolder.getName());
         Assert.assertTrue(createFolder.exists(), "Folder was successfuly created");
         createFolder.delete();
-        app.exitApplication();
+        app.closeExplorer();
+       // app.exitApplication();
     }
 
     @Test
@@ -135,6 +133,19 @@ public class WindowsExplorerTest extends AbstractTestClass
         Assert.assertTrue(file.exists(), "File was not successfully deleted");
         app.exitApplication();
     }
+    @Test
+    public void testDeleteFolder() throws Exception
+    {
+    	File createFolder = new File(LdtpUtils.getDocumentsFolder(), "Testdelete");
+
+        app.openApplication();
+        app.openFolder(createFolder.getParentFile());
+        app.createNewFolderMenu(createFolder.getName());
+        Assert.assertTrue(createFolder.exists(), "Folder was successfuly created");
+        app.deleteFolder(createFolder);
+        app.closeExplorer();
+    }
+    		
 
     @Test
     public void testMoveFolderInCurrent() throws Exception
@@ -186,4 +197,6 @@ public class WindowsExplorerTest extends AbstractTestClass
     	System.out.println("iside test");
     	e.closeAllWindowForms();
     }
+    
+    
 }

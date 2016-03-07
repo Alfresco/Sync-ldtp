@@ -20,10 +20,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
+
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.os.win.app.office.MicrosoftOfficeBase.VersionDetails;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
@@ -46,17 +49,22 @@ public class WindowsExplorer extends Application
         setApplicationName("explorer.exe");
         setApplicationPath(LdtpUtils.getDocumentsFolder().getParentFile().getPath());
 
-        if (LdtpUtils.isWin81())
+        switch(LdtpUtils.getOS())
         {
-            setWaitWindow("This PC");
+        case "Windows 8.1":
+    	{
+    		 setWaitWindow("This PC");
+    		 break;
+    	}
+        case  "Windows 7":
+        {
+        	setWaitWindow("Libraries");
+        	break;
         }
-        else if(LdtpUtils.isWin10())
+        default: 
         {
-        	setWaitWindow("File Explorer");
+        	setWaitWindow("This PC");
         }
-        else
-        {
-            setWaitWindow("Libraries");
         }
     }
 
@@ -102,16 +110,9 @@ public class WindowsExplorer extends Application
         {
             throw new IOException("Please provide a folder");
         }
-        if (LdtpUtils.isWin81())
+        if ((LdtpUtils.isWin81()) || (LdtpUtils.isWin10()))
         {
         	getLdtp().grabFocus("This PC");
-        	getLdtp().waitTime(1);
-            getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
-            getLdtp().generateKeyEvent(folderPath.getPath());
-        }
-        else if(LdtpUtils.isWin10())
-        {
-        	getLdtp().grabFocus("Quick access");
         	getLdtp().waitTime(1);
             getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
             getLdtp().generateKeyEvent(folderPath.getPath());
@@ -344,14 +345,7 @@ public class WindowsExplorer extends Application
             folder = folder.toLowerCase();
             getLdtp().click("Back to " + folder);
         }
-        if(LdtpUtils.isWin10())
-        {
-        	focus("File Explorer");
-        }
-        else
-        {
         	focus(folder);
-        }
     }
 
     /**
@@ -359,7 +353,7 @@ public class WindowsExplorer extends Application
      */
     public void goBack()
     {
-        if (LdtpUtils.isWin81())
+        if (LdtpUtils.isWin81()|| (LdtpUtils.isWin10()))
         {
             logger.info("Going back using send keys ALT+LEFT");
             getLdtp().generateKeyEvent("<alt><left>");
@@ -490,62 +484,6 @@ public class WindowsExplorer extends Application
         File actualImage = new File(img);
         return actualImage;
     }
-
-//    /**
-//     * Closing all Window Explorer, Notepad forms, etc.
-//     */
-//    public void closeAllWindowForms()
-//    {
-//    	
-//        logger.info("Closing all Window Forms opened..");
-//
-//        LdtpUtils.killAllApplicationsByExeName("notepad.exe");
-//        LdtpUtils.killAllApplicationsByExeName("notepad++.exe");
-//        LdtpUtils.killAllApplicationsByExeName(VersionDetails.EXCEL.getExeName());
-//        LdtpUtils.killAllApplicationsByExeName(VersionDetails.WORD.getExeName());
-//        LdtpUtils.killAllApplicationsByExeName(VersionDetails.POWERPOINT.getExeName());
-//        /*
-//         * need to loop over all objects due to dynamic naming conventions
-//         */
-////        if(!LdtpUtils.isWin81())
-////        {
-////        Integer errorCount = 0;
-////        while (getOpenedWindows().iterator().hasNext() || errorCount >= 10)
-////        {
-////            String window = (String) getOpenedWindows().iterator().next();
-////            logger.info("Try to close Window: " + window);
-////            Ldtp tmpWin = new Ldtp(window);
-////            tmpWin.waitTime(1);
-////            try
-////            {
-////                tmpWin.click("Close");
-////            }
-////            catch (LdtpExecutionError e)
-////            {
-////                errorCount += 1;
-////                logger.error("Error #" + errorCount + " thrown on close window: " + window, e);
-////            }
-////        }
-////        }
-////        // this will only close windows explorer for 8.1
-////        else
-////        {
-////        	LdtpUtils.executeOnWin("taskkill /f /im explorer.exe && start explorer");
-////        }
-//        LdtpUtils.executeOnWin("start /B /NORMAL taskkill /f /im explorer.exe");
-// 
-//        try
-//        {
-//            LdtpUtils.runProcess(new String[]{"cmd", "/C", "start", "/B", "/NORMAL", "explorer.exe"});
-//        }
-//        catch (Exception e)
-//        {
-//            logger.error("Cannot Restart Explorer" + e.getMessage());
-//            e.printStackTrace();
-//        }
-//
-//        logger.info("All Window Forms are now closed! ");
-//    }
 
     /**
      * Closing all Window Explorer, Notepad forms, etc.
