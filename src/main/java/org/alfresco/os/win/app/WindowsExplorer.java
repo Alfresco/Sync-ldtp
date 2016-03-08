@@ -64,6 +64,7 @@ public class WindowsExplorer extends Application
         default: 
         {
         	setWaitWindow("This PC");
+        	break;
         }
         }
     }
