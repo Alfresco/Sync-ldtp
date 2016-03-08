@@ -86,7 +86,7 @@ public class NotepadTest  extends AbstractTestClass {
 	}
 
 	@Test
-	public void testGetNotepadText() {
+	public void testGetNotepadText() throws Exception {
 		String data = "data";
 		notepad.openApplication();
 		notepad.appendData(data);
