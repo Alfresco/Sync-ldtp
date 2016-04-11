@@ -147,7 +147,8 @@ public class MicrosoftOfficeBase extends Application
      */
     public void focus(Object fileName)
     {
-        String _waitFor = "";
+    	logger.info("Focus office document...");
+    	String _waitFor = "";
         try
         {
             if (fileName instanceof File)
@@ -191,12 +192,14 @@ public class MicrosoftOfficeBase extends Application
         if(applicationDetails == VersionDetails.POWERPOINT)
             getLdtp().click("Slide");
         
+        logger.info(String.format("Edditing Office document, appending [%s] content", data));
         getLdtp().generateKeyEvent(data);
     }
 
     public void saveOffice() throws LdtpExecutionError
     {
-        getLdtp().generateKeyEvent("<ctrl><s>");      
+    	logger.info("Save Office Document, pressing CTRL+S");
+    	getLdtp().generateKeyEvent("<ctrl><s>");      
     }
 
     /*
@@ -204,7 +207,8 @@ public class MicrosoftOfficeBase extends Application
      */
     public void saveOffice(String location) throws Exception
     {
-        getLdtp().click("btnSave");
+    	logger.info("Saving Office Document, using SaveAs dialog");
+    	getLdtp().click("btnSave");
         waitForWindow("Save As");
         getLdtp().deleteText("txtFilename", 0);
         getLdtp().enterString("txtFilename", location);
@@ -232,7 +236,7 @@ public class MicrosoftOfficeBase extends Application
      */
     public void goToFile()
     {
-        LdtpUtils.logInfo("Go to File");
+        logger.info("Go to File");
         getLdtp().click("btnFileTab");
         getLdtp().waitTillGuiExist("File", LdtpUtils.RETRY_COUNT);
     }
@@ -247,7 +251,7 @@ public class MicrosoftOfficeBase extends Application
      */
     public void activateDialog(String dialogObjectName)
     {
-        LdtpUtils.logInfo("Activate '" + dialogObjectName + "' dialog");
+        logger.info("Activate '" + dialogObjectName + "' dialog");
 
         try
         {
@@ -263,13 +267,6 @@ public class MicrosoftOfficeBase extends Application
 
         getLdtp().activateWindow(getWaitWindow()); // getWaitWindow defined on LDTP
     }
-
-    
-    
-   
-
-    //
-   
 
     
     /**

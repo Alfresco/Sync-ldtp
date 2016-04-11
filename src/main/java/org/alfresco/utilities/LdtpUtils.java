@@ -447,7 +447,8 @@ public class LdtpUtils
      */
     public static void waitUntilFileExistsOnDisk(File filePath)
     {
-        int retries = 1;
+        logger.info(String.format("Waiting until file [%s] exists on Disk", filePath.getPath()));
+    	int retries = 1;
         while (retries <= LdtpUtils.RETRY_COUNT && !filePath.exists())
         {
             retries++;

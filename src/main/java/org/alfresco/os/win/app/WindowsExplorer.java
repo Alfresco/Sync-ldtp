@@ -85,7 +85,7 @@ public class WindowsExplorer extends Application
     }
 
     @Override
-    public ApplicationBase openApplication()
+    public ApplicationBase openApplication() throws Exception
     {
         super.openApplication();
         maximize();
@@ -528,8 +528,8 @@ public class WindowsExplorer extends Application
         ArrayList<String> arrWindows = new ArrayList<String>();
         for (String window : windowsList)
         {
-            if (window.startsWith("frm") && !window.contains("Eclipse") && !window.contains("Bamboo") && !window.toLowerCase().contains("git")
-                    && !window.contains("Mozilla") && !window.contains("LDTP") &&!window.contains("Command"))
+            if (window.startsWith("frm") && !window.contains("Eclipse") && !window.toLowerCase().contains("bamboo") && !window.toLowerCase().contains("git")
+                    && !window.toLowerCase().contains("mozilla") && !window.toLowerCase().contains("ldtp") &&!window.toLowerCase().contains("command"))
             {
                 try
                 {
