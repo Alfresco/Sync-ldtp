@@ -2,9 +2,8 @@
 * [Introduction](#introduction)
 * [Requirements](#requirements)
 * [LDTP Documentation](#ldtp-documentation)
-* [Getting Started](#getting-started)
+* [Getting Started](#getting-started)c
 * [Usage](#usage)
-* [Wiki](https://github.com/AlfrescoTestAutomation/alfresco-ldtp/wiki)
 
 ## Introduction
 We are pleased to introduce Alfresco LDTP library (IN Progress): a Java based automation suite that will enable GUI testing (Windows and MAC) of Alfresco desktop applications.
@@ -17,7 +16,7 @@ In our open source solution we used the following repositories:
 
 For MAC you will need:
 * OS X system with Xcode installed (tested on 10.9)
-If you experience any issues, please feel free to open a ticket in the [issue tracker](https://github.com/AlfrescoTestAutomation/alfresco-ldtp/issues).
+If you experience any issues, please feel free to open a ticket in the [issue tracker](https://github.com/Alfresco/Sync-ldtp/issues).
 * please also follow the [Getting Started with Pyatom](https://github.com/pyatom/pyatom#getting-started) section from official page.
 
 For Windows you will need:
@@ -37,7 +36,7 @@ The class diagram with just some basic class for win and mac.
 
 * Checkout the code and install all dependencies:
 ```
-$ git clone https://github.com/AlfrescoTestAutomation/alfresco-ldtp
+$ git clone https://github.com/Alfresco/Sync-ldtp
 $ mvn clean install -DskipTests 
 ```
 * Run MAC OS X related tests:
