@@ -401,10 +401,7 @@ public class LdtpUtils
     {
         return new File(System.getenv("SystemRoot"), "system32");
     }
-
-    /**
-     * TODO add getTrashFolderLocation for Windows
-     */
+   
     public static File getTrashFolderLocation()
     {
         if (SystemUtils.IS_OS_MAC)

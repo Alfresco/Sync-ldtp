@@ -20,13 +20,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
-
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.os.win.app.office.MicrosoftOfficeBase.VersionDetails;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
