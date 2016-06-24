@@ -97,21 +97,4 @@ public class Dialog extends GuiObject
         logger.info("Grab focus to: " + getDialogName());
         getLdtp().activateWindow(getDialogName());
     }
-
-    /**
-     * @return ArrayList of lbl*
-     */
-    public ArrayList<String> getDialogContents()
-    {
-        String[] contentList = getLdtp().getObjectList();
-        ArrayList<String> arrMessage = new ArrayList<String>();
-        for (String messageContent : contentList)
-        {
-            if (messageContent.startsWith("lbl"))
-            {
-                    arrMessage.add(messageContent.replace("lbl", ""));
-            }
-        }
-        return arrMessage;
-    }
 }
