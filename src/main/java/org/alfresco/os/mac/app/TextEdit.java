@@ -27,8 +27,6 @@ import com.cobra.ldtp.LdtpExecutionError;
 /**
  * This class will handle operations related to TextEditor application on MAC operating system.
  * 
- * @task QA-1108
- * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
 public class TextEdit extends Editor
 {

@@ -26,8 +26,6 @@ import org.apache.log4j.Logger;
 /**
  * This class will handle Finder based action over Files (CRUD) and Folder (CRUD).
  * 
- * @task QA-1107
- * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
 public class FinderExplorer extends KeyboardShortcut
 {
@@ -168,6 +166,7 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info("Creating Folder: " + folderPath.getPath());
         openFolder(folderPath.getParentFile());
         getLdtp().generateKeyEvent("<shift><command>n");
+        LdtpUtils.waitToLoopTime(2);
         getLdtp().generateKeyEvent(folderPath.getName());
         getLdtp().generateKeyEvent("<enter>");
     }
@@ -195,6 +194,7 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info("Deleting folder:" + folderPath.getPath());
         openFolder(folderPath);
         goToEnclosingFolder();
+        LdtpUtils.waitToLoopTime(2);
         cmdDelete();
     }
 
@@ -209,6 +209,7 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info("Move Folder[" + source.getPath() + "] to:" + destination.getPath());
         openFolder(source);
         goToEnclosingFolder();
+        LdtpUtils.waitToLoopTime(2);
         cmdCopy();
         openFolder(destination);
         cmdMove();
@@ -216,11 +217,13 @@ public class FinderExplorer extends KeyboardShortcut
 
     public void copyFolder(File source, File destination)
     {
-        logger.info(String.format("Copy folder {%s} to {%}", source.getPath(), destination.getPath()));
+        logger.info(String.format("Copy folder [%s] to [%s]", source.getPath(), destination.getPath()));
         openFolder(source);
         goToEnclosingFolder();
+        LdtpUtils.waitToLoopTime(1);
         cmdCopy();
         openFolder(destination);
+        LdtpUtils.waitToLoopTime(1);
         cmdPaste();
     }
 
@@ -235,6 +238,7 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info(String.format("Rename folder {%s} to {%s}", folder.getPath(), newName));
         openFolder(folder);
         goToEnclosingFolder();
+        LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<enter>");
         getLdtp().generateKeyEvent(newName);
         getLdtp().generateKeyEvent("<enter>");

@@ -5,7 +5,6 @@ import com.cobra.ldtp.Ldtp;
 /**
  * Generic GUI object that is using LDTP
  * 
- * @author pbrodner
  */
 public abstract class GuiObject
 {

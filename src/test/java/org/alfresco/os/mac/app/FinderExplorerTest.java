@@ -34,7 +34,7 @@ public class FinderExplorerTest
 {
     private FinderExplorer f = new FinderExplorer();
 
-    @BeforeMethod()
+    @BeforeMethod
     private void openFinder()
     {
         f.openApplication();
@@ -138,14 +138,14 @@ public class FinderExplorerTest
         new File(folderSource.getParentFile().getPath(), "renamedFolder").delete();
     }
 
-    @Test(groups = { "MacOnly" })
+   @Test(groups = { "MacOnly" })
     public void testRestoreDeletedFolder() throws IOException
     {
         File folder = new File(f.getApplicationPath(), "FolderRestore");
         folder.mkdir();
         f.deleteFolder(folder);
         Assert.assertFalse(folder.exists(), "Folder was successfuly deleted");
-
+        f.closeExplorer();
         f.restoreDeletedFolder(folder);
         Assert.assertTrue(folder.exists(), "Folder was successfuly Restored");
     }
@@ -281,7 +281,7 @@ public class FinderExplorerTest
         fileSource.createNewFile();
         f.deleteFile(fileSource);
         Assert.assertFalse(fileSource.exists(), "File was successfuly deleted");
-
+        f.closeExplorer();
         f.restoreDeletedFile(fileSource);
         Assert.assertTrue(fileSource.exists(), "File was successfuly Restored");
     }

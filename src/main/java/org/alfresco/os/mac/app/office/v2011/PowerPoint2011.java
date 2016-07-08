@@ -19,7 +19,6 @@ import org.alfresco.os.mac.app.office.MicrosoftOfficeBase;
 /**
  * Microsoft Office PowerPoint 2011 GUI - implementation.
  * 
- * @author Paul Brodner
  */
 public class PowerPoint2011 extends MicrosoftOfficeBase
 {

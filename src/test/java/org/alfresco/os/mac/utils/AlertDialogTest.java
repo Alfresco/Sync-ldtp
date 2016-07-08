@@ -25,7 +25,6 @@ import org.testng.annotations.Test;
 /**
  * Unit test for validation of AlertDialog class
  * 
- * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
 public class AlertDialogTest
 {

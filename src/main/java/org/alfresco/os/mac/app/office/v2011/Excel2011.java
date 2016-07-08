@@ -19,7 +19,6 @@ import org.alfresco.os.mac.app.office.MicrosoftOfficeBase;
 /**
  * Microsoft Office Excel 2011 GUI - implementation.
  * 
- * @author Paul Brodner
  */
 public class Excel2011 extends MicrosoftOfficeBase
 {

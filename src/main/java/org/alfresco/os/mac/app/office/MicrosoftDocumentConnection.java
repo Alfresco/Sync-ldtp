@@ -43,8 +43,6 @@ import org.w3c.dom.NodeList;
  * This class will cover the MDC Office tool on MAC OS.
  * (Tested with Office2011)
  * 
- * @task QA-981
- * @author Paul Brodner
  */
 public class MicrosoftDocumentConnection extends Application
 {

@@ -20,7 +20,6 @@ import org.alfresco.os.mac.app.office.MicrosoftOfficeBase;
 /**
  * Microsoft Office Word 2011 GUI - implementation.
  * 
- * @author Paul Brodner
  */
 public class Word2011 extends MicrosoftOfficeBase
 {

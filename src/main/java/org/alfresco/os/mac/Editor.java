@@ -32,7 +32,6 @@ import com.cobra.ldtp.LdtpExecutionError;
  * This class should be extended by any other Desktop Editor application.
  * Save a document As, etc.
  * 
- * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
 public abstract class Editor extends Application
 {

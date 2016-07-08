@@ -30,7 +30,6 @@ import com.cobra.ldtp.LdtpExecutionError;
 /**
  * Handle general MAC Office actions used between multiple versions of Office suite (i.e. Office 2011, Office 2010, etc.).
  * 
- * @author Paul Brodner
  */
 public class MicrosoftOfficeBase extends Editor
 {
