@@ -268,7 +268,7 @@ public class FinderExplorerTest
         File fileSource = new File(f.getApplicationPath(), "testOriginalFile.rtf");
         fileSource.createNewFile();
         File fileRenamed = new File(f.getApplicationPath(), "testRenamedFile.rtf");
-        f.renameFile(fileSource, fileRenamed.getName());
+        f.renameFile(fileSource, fileRenamed);
         Assert.assertFalse(fileSource.exists(), "Original file doesn't exist due ro renaming operation");
         Assert.assertTrue(fileRenamed.exists(), "File was successfuly renamed");
         f.deleteFile(fileRenamed);

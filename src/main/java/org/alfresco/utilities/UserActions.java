@@ -8,6 +8,7 @@ import org.alfresco.os.win.app.WindowsExplorer;
 /**
  * Created by rdorobantu on 7/13/2015.
  */
+@Deprecated
 public class UserActions
 {
     public static void renameFile(File originalFile, File newName)

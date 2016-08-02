@@ -327,13 +327,13 @@ public class FinderExplorer extends KeyboardShortcut
      * @param folder
      * @param newName
      */
-    public void renameFile(File file, String newName)
+    public void renameFile(File file, File newName)
     {
         logger.info(String.format("Rename file {%s} to {%s}.", file.getPath(), newName));
         selectFile(file);
         getLdtp().generateKeyEvent("<enter>");
         cmdAll();
-        getLdtp().generateKeyEvent(newName);
+        getLdtp().generateKeyEvent(newName.getName());
         getLdtp().generateKeyEvent("<enter>");
     }
 
@@ -370,5 +370,21 @@ public class FinderExplorer extends KeyboardShortcut
         {
             throw new WindowNotOpenedException("Could not open Trash folder");
         }
+    }
+    
+    /**
+     * move content 
+     */
+    public void moveContent(File contentToMove , File newLocation) throws Exception
+    {
+        if(contentToMove.isFile())
+        {
+            moveFile(contentToMove,newLocation);
+        }
+        else
+        {
+            moveFolder(contentToMove,newLocation);
+        }
+        
     }
 }

@@ -131,7 +131,20 @@ public class TextEdit extends Editor
     {
         logger.info("Create file: " + file.getPath());
         openApplication();
+        edit("test file");
         saveAs(file);
         exitApplication();
+        getLdtp().waitTime(2);
+    }
+
+    /**
+     * method to open a file in textedit
+     */
+    public void openFile(File file) throws Exception
+    {
+        logger.info("Open file: " + file.getPath());
+        openApplication();
+        openFromFileMenu(file);
+        getLdtp().waitTime(1);
     }
 }

@@ -19,7 +19,6 @@ import java.io.File;
 
 import org.alfresco.utilities.LdtpUtils;
 import org.testng.Assert;
-import org.testng.AssertJUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -33,8 +32,8 @@ public class TextEditTest
 {
 
     TextEdit app = new TextEdit();
-    private File tmpFile = new File(System.getProperty("user.home").toString() + File.separator + "Documents/" + "test.rtf");
-    private File tmpFile2 = new File(System.getProperty("user.home").toString() + File.separator + "Documents/" + "test2.rtf");
+    private File tmpFile = new File(System.getProperty("user.home").toString() + File.separator + "Documents/" + "test.txt");
+    private File tmpFile2 = new File(System.getProperty("user.home").toString() + File.separator + "Documents/" + "test2.txt");
 
     @BeforeClass
     private void setup()
@@ -44,7 +43,7 @@ public class TextEditTest
         tmpFile2.delete();
     }
 
-    @AfterClass
+  @AfterClass
     private void tearDown()
     {
         tmpFile.delete();
@@ -56,7 +55,7 @@ public class TextEditTest
     public void testOpenApplication()
     {
         app.openApplication();
-        AssertJUnit.assertTrue(LdtpUtils.isProcessRunning("TextEdit"));
+        Assert.assertTrue(LdtpUtils.isProcessRunning("TextEdit"));
     }
 
     @Test(dependsOnMethods = { "testOpenApplication" }, groups = { "MacOnly" })
@@ -98,6 +97,14 @@ public class TextEditTest
         Assert.assertTrue(tmpFile2.exists(), "File was successfuly created on disk.");
         app.exitApplication();
     }
+   @Test(dependsOnMethods = {"testSaveAs"})
+    public void testOpen() throws Exception
+    {
+        app.openFile(tmpFile2);
+        app.edit("test333222");
+        app.save();
+        app.closeFile();
+    }
 
     @Test(groups = { "MacOnly" })
     public void testCreateFile() throws Exception
@@ -107,4 +114,5 @@ public class TextEditTest
         app.createFile(tmpFile);
         Assert.assertTrue(tmpFile.exists(), "File was successfuly created");
     }
+    
 }

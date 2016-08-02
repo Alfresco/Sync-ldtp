@@ -57,6 +57,7 @@ public abstract class Editor extends Application
     {
         logger.info("Editing document:" + data);
         getLdtp().enterString(data);
+        getLdtp().waitTime(1);
     }
 
     /**
@@ -66,6 +67,7 @@ public abstract class Editor extends Application
     {
         logger.info("Save document.");
         getLdtp().generateKeyEvent("<command>s");
+        getLdtp().waitTime(1);
     }
 
     /**
@@ -170,18 +172,20 @@ public abstract class Editor extends Application
         getLdtp().generateKeyEvent("<enter>");
     }
 
-    public void openFromFileMenu(File file) throws LdtpExecutionError
+    public void openFromFileMenu(File file) throws Exception
     {
         logger.info("Open file from Menu: " + file.getPath());
         focus();
         setFileName(file.getName());
         getLdtp().generateKeyEvent("<command>o");
         // go to parent directory
+        getLdtp().waitTime(1);
         getLdtp().enterString(file.getPath());
         getLdtp().waitTime(1);
         getLdtp().generateKeyEvent("<enter>");
         getLdtp().waitTime(1);
         getLdtp().generateKeyEvent("<enter>");
+        getLdtp().setWindowName(file.getName());
     }
 
     /**

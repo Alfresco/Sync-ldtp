@@ -80,7 +80,7 @@ public class Excel2011Test extends AbstractTestClass
     }
 
     @Test(groups = { "MacOnly", "Office2011" })
-    public void testEdit()
+    public void testEdit() throws Exception
     {
         excel.openFromFileMenu(tmpFile);
         excel.edit("testdata");
@@ -89,7 +89,7 @@ public class Excel2011Test extends AbstractTestClass
     }
 
     @Test(groups = { "MacOnly", "Office2011" })
-    public void testSave()
+    public void testSave() throws Exception
     {
         excel.openFromFileMenu(tmpFile);
         excel.save();
@@ -97,7 +97,7 @@ public class Excel2011Test extends AbstractTestClass
     }
 
     @Test(groups = { "MacOnly", "Office2011" })
-    public void testSaveString()
+    public void testSaveString() throws Exception
     {
         excel.openFromFileMenu(tmpFile);
         excel.save();
@@ -112,7 +112,7 @@ public class Excel2011Test extends AbstractTestClass
     }
 
     @Test(groups = { "MacOnly", "Office2011" })
-    public void testSaveAndClose()
+    public void testSaveAndClose() throws Exception
     {
         excel.openFromFileMenu(tmpFile);
         excel.saveAndClose();
@@ -120,7 +120,7 @@ public class Excel2011Test extends AbstractTestClass
     }
 
     @Test(groups = { "MacOnly", "Office2011" })
-    public void testCloseFile()
+    public void testCloseFile() throws Exception
     {
         excel.openFromFileMenu(tmpFile);
         excel.setFileName(tmpFile.getName());
