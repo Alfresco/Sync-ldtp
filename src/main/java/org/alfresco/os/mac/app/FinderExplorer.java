@@ -164,7 +164,6 @@ public class FinderExplorer extends KeyboardShortcut
     public void createFolder(File folderPath)
     {
         logger.info("Creating Folder: " + folderPath.getPath());
-        openFolder(folderPath.getParentFile());
         getLdtp().generateKeyEvent("<shift><command>n");
         LdtpUtils.waitToLoopTime(2);
         getLdtp().generateKeyEvent(folderPath.getName());
@@ -179,6 +178,7 @@ public class FinderExplorer extends KeyboardShortcut
     public void createAndOpenFolder(File folder)
     {
         logger.info("Create and Open Folder:" + folder.getPath());
+        openFolder(folder.getParentFile());
         createFolder(folder);
         openFolder(folder);
     }
