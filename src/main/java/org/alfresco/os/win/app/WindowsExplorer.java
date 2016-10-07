@@ -527,7 +527,7 @@ public class WindowsExplorer extends Application
         for (String window : windowsList)
         {
             if (window.startsWith("frm") && !window.contains("Eclipse") && !window.toLowerCase().contains("bamboo") && !window.toLowerCase().contains("git")
-                    && !window.toLowerCase().contains("mozilla") && !window.toLowerCase().contains("ldtp") &&!window.toLowerCase().contains("command"))
+                    && !window.toLowerCase().contains("mozilla") && !window.toLowerCase().contains("ldtp") &&!window.toLowerCase().contains("command") &&!window.toLowerCase().contains("DebugView"))
             {
                 try
                 {
