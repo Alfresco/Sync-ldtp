@@ -387,4 +387,19 @@ public class FinderExplorer extends KeyboardShortcut
         }
         
     }
+    /**
+     * copy Content content 
+     */
+    public void copyContent(File contentToMove , File newLocation) throws Exception
+    {
+        if(contentToMove.isFile())
+        {
+            copyFile(contentToMove,newLocation);
+        }
+        else
+        {
+            copyFolder(contentToMove,newLocation);
+        }
+        
+    }
 }

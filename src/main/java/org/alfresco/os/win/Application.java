@@ -25,7 +25,6 @@ import com.cobra.ldtp.LdtpExecutionError;
 /**
  * Abstract class that will cover only Windows based application
  * 
- * @author <a href="mailto:paulbrodner@gmail.com">Paul Brodner</a>
  */
 public class Application extends ApplicationBase
 {
