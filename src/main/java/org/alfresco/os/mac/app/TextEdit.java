@@ -50,13 +50,13 @@ public class TextEdit extends Editor
      * (non-Javadoc)
      * @see org.alfresco.os.mac.EditorAbstract#save(java.lang.String)
      */
-    public void save(String location)
+    public void save(File location)
     {
         logger.info("Save document to: " + location);
         // paul.brodner: "/" char cannot be added to TextEditor via LDTP
         // we used an alternative: with AppleScript
         goToLocation(location);
-        waitForFileOnDisk(new File(location));
+        waitForFileOnDisk(location);
     }
 
     /**
@@ -65,10 +65,10 @@ public class TextEdit extends Editor
      * @param file
      * @throws Exception 
      */
-    public void save(File file) throws Exception
-    {
-        save(file.getPath());
-    }
+//    public void save(File file) throws Exception
+//    {
+//        save(file.getPath());
+//    }
 
     /**
      * Using the AppleScript commands, we can activate and add proper input values
@@ -78,8 +78,9 @@ public class TextEdit extends Editor
      * @param folder
      * @throws Exception 
      */
-    private void goToLocation(String location) 
+    private void goToLocation(File location) 
     {
+    	System.out.println(location);
         AppleScript appleScript = getAppleScript();
         appleScript.clean();
         appleScript.addCommandScript("tell app \"TextEdit\" to activate");
@@ -91,12 +92,11 @@ public class TextEdit extends Editor
         appleScript.addCommandScript("delay 0.5");
         appleScript.addCommandScript("keystroke \"a\" using {command down}");
         appleScript.addCommandScript("delay 1");
-        appleScript.addCommandScript("keystroke \"" + location + "\"");
+        appleScript.addCommandScript("keystroke \"" + location.getParentFile().getPath() + "\"");
         appleScript.addCommandScript("delay 1");
         appleScript.addCommandScript("keystroke return");
-        appleScript.addCommandScript("delay 1");
-        File fileName = new File(location);
-        appleScript.addCommandScript("keystroke \"" + fileName.getName() + "\"");
+        appleScript.addCommandScript("delay 2");
+        appleScript.addCommandScript("keystroke \"" + location.getName() + "\"");
         appleScript.addCommandScript("delay 2");
         appleScript.addCommandScript("keystroke return");
         appleScript.addCommandScript("end tell");
@@ -118,7 +118,7 @@ public class TextEdit extends Editor
     {
         logger.info("Save file As: " + file.getPath());
         getLdtp().generateKeyEvent("<command><shift>s");
-        save(file.getPath());
+        save(file);
     }
 
     /**
