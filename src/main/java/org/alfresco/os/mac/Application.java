@@ -46,7 +46,7 @@ public abstract class Application extends ApplicationBase
     {
         LdtpUtils.logDebug("Kill Application process: " + getApplicationName());
         LdtpUtils.execute(new String[] { "killall", getApplicationName() });
-        killPython();
+       // killPython();
     }
 
     public void killPython()

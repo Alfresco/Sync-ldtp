@@ -134,7 +134,7 @@ public class TextEdit extends Editor
         edit("test file");
         saveAs(file);
         exitApplication();
-        getLdtp().waitTime(2);
+       Thread.sleep(2000);
     }
 
     /**
