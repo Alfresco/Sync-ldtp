@@ -1,16 +1,9 @@
 /*
- * Copyright (C) 2005-2015 Alfresco Software Limited.
- * This file is part of Alfresco
- * Alfresco is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * Alfresco is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
- * You should have received a copy of the GNU Lesser General Public License
- * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (C) 2005-2015 Alfresco Software Limited. This file is part of Alfresco Alfresco is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. Alfresco is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You should have received a copy of the GNU Lesser General
+ * Public License along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.alfresco.os.mac.app;
@@ -25,14 +18,13 @@ import org.apache.log4j.Logger;
 
 /**
  * This class will handle Finder based action over Files (CRUD) and Folder (CRUD).
- * 
  */
 public class FinderExplorer extends KeyboardShortcut
 {
-	private static Logger logger = Logger.getLogger(FinderExplorer.class);
-	/**
-     * Initialize the FinderExplorer window for Mac
-     * Opening first the Documents folder of the current user
+    private static Logger logger = Logger.getLogger(FinderExplorer.class);
+
+    /**
+     * Initialize the FinderExplorer window for Mac Opening first the Documents folder of the current user
      */
     public FinderExplorer()
     {
@@ -52,7 +44,7 @@ public class FinderExplorer extends KeyboardShortcut
         // each finder has the window name set to the current folder name
         setWaitWindow("frmDocuments");
     }
-    
+
     public boolean isLayoutViewEnabled(LayoutView layout)
     {
         return isBtnEnabled(layout.getIdentifiler());
@@ -69,8 +61,7 @@ public class FinderExplorer extends KeyboardShortcut
     }
 
     /**
-     * Enumerate possible Layouts that we can define before we start using the Finder explorer.
-     * Use LIST as default
+     * Enumerate possible Layouts that we can define before we start using the Finder explorer. Use LIST as default
      * 
      * @author Paul Brodner
      */
@@ -92,8 +83,7 @@ public class FinderExplorer extends KeyboardShortcut
 
     /*
      * (non-Javadoc)
-     * @see org.alfresco.utilities.ApplicationAbstract#openApplication()
-     * Overrite the openApplication in order to also set the default view of the folder
+     * @see org.alfresco.utilities.ApplicationAbstract#openApplication() Overrite the openApplication in order to also set the default view of the folder
      */
     public FinderExplorer openApplication()
     {
@@ -184,8 +174,7 @@ public class FinderExplorer extends KeyboardShortcut
     }
 
     /**
-     * Delete a folder based on MAC shortcut keys
-     * First we navigate to target folder, go up one level and delete it using cmd+bksp
+     * Delete a folder based on MAC shortcut keys First we navigate to target folder, go up one level and delete it using cmd+bksp
      * 
      * @param folderPath
      */
@@ -233,14 +222,14 @@ public class FinderExplorer extends KeyboardShortcut
      * @param folder
      * @param newName
      */
-    public void renameFolder(File folder, String newName)
+    public void renameFolder(File folder, File newName)
     {
         logger.info(String.format("Rename folder {%s} to {%s}", folder.getPath(), newName));
         openFolder(folder);
         goToEnclosingFolder();
         LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<enter>");
-        getLdtp().generateKeyEvent(newName);
+        getLdtp().generateKeyEvent(newName.getName());
         getLdtp().generateKeyEvent("<enter>");
     }
 
@@ -350,8 +339,7 @@ public class FinderExplorer extends KeyboardShortcut
     }
 
     /**
-     * Empty the trash file
-     * Command-Shift-Option-Delete Empty Trash without confirmation dialog
+     * Empty the trash file Command-Shift-Option-Delete Empty Trash without confirmation dialog
      * 
      * @throws Exception
      */
@@ -371,35 +359,65 @@ public class FinderExplorer extends KeyboardShortcut
             throw new WindowNotOpenedException("Could not open Trash folder");
         }
     }
-    
+
     /**
-     * move content 
+     * move content
      */
-    public void moveContent(File contentToMove , File newLocation) throws Exception
+    public void moveContent(File contentToMove, File newLocation) throws Exception
     {
-        if(contentToMove.isFile())
+        if (contentToMove.isFile())
         {
-            moveFile(contentToMove,newLocation);
+            moveFile(contentToMove, newLocation);
         }
         else
         {
-            moveFolder(contentToMove,newLocation);
+            moveFolder(contentToMove, newLocation);
         }
-        
+
+    }
+
+    /**
+     * copy Content content
+     */
+    public void copyContent(File contentToMove, File newLocation) throws Exception
+    {
+        if (contentToMove.isFile())
+        {
+            copyFile(contentToMove, newLocation);
+        }
+        else
+        {
+            copyFolder(contentToMove, newLocation);
+        }
+
+    }
+
+    /**
+     * rename content
+     */
+    public void renameContent(File orginialContent, File newName) throws Exception
+    {
+        if (orginialContent.isFile())
+        {
+            renameFile(orginialContent, newName);
+        }
+        else
+        {
+            renameFolder(orginialContent, newName);
+        }
     }
     /**
-     * copy Content content 
+     * delete content
      */
-    public void copyContent(File contentToMove , File newLocation) throws Exception
+    public void deleteContent(File orginialContent) throws Exception
     {
-        if(contentToMove.isFile())
+        if (orginialContent.isFile())
         {
-            copyFile(contentToMove,newLocation);
+            deleteFile(orginialContent);
         }
         else
         {
-            copyFolder(contentToMove,newLocation);
+            deleteFolder(orginialContent);
         }
-        
     }
 }

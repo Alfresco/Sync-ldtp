@@ -130,7 +130,7 @@ public class FinderExplorerTest
         File renamedFolder = new File(folderSource.getParentFile().getPath(), "renamedFolder");
         renamedFolder.delete();
 
-        f.renameFolder(folderSource, renamedFolder.getName());
+        f.renameFolder(folderSource, renamedFolder);
 
         Assert.assertTrue(renamedFolder.exists(), "Folder was successfully renamed");
         Assert.assertFalse(folderSource.exists(), "Orininal folder doesn't exist due to renaming operation");

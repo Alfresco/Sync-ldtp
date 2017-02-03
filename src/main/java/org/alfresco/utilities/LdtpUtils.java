@@ -452,6 +452,16 @@ public class LdtpUtils
             waitToLoopTime(2);
         }
     }
+    public static void waitUntilFileDoesNotExistsOnDisk(File filePath)
+    {
+        logger.info(String.format("Waiting until file [%s] does not exists on Disk", filePath.getPath()));
+        int retries = 1;
+        while (retries <= LdtpUtils.RETRY_COUNT && filePath.exists())
+        {
+            retries++;
+            waitToLoopTime(2);
+        }
+    }
 
     /**
      * Check if process identified by <processName> is currently running
