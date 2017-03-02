@@ -255,6 +255,31 @@ public class LdtpUtils
         return lines;
     }
 
+    public static List<String> executeOnMac(String command)
+    {
+        ArrayList<String> lines = new ArrayList<String>();
+        try
+        {
+            System.out.println("command " + command);
+            String[] com = {"/bin/sh", "-c" , command};
+            Process p = Runtime.getRuntime().exec(com);
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                    lines.add(line);
+            }
+        }
+        catch (IOException e1)
+        {
+        }
+        catch (InterruptedException e2)
+        {
+        }
+        return lines;
+    }
     /**
      * Execute a command
      * 
