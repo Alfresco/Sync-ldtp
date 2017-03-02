@@ -144,6 +144,7 @@ public class TextEdit extends Editor
     {
         logger.info("Open file: " + file.getPath());
         openApplication();
+        focus();
         openFromFileMenu(file);
         getLdtp().waitTime(1);
     }
