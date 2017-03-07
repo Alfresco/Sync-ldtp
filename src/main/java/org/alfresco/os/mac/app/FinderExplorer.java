@@ -181,7 +181,7 @@ public class FinderExplorer extends KeyboardShortcut
     public void deleteFolder(File folderPath)
     {
         logger.info("Deleting folder:" + folderPath.getPath());
-        openFolder(folderPath);
+        openFolder(folderPath.getParentFile());
         goToEnclosingFolder();
         LdtpUtils.waitToLoopTime(2);
         cmdDelete();
