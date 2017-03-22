@@ -1,6 +1,6 @@
 package org.alfresco.os.win.app.misc.dialog;
 
-import org.alfresco.os.win.app.misc.Dialog;
+import org.alfresco.os.common.Dialog;
 
 /**
  * The Delete File windows based dialog

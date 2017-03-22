@@ -1,10 +1,9 @@
-package org.alfresco.os.win.app.misc;
+package org.alfresco.os.common;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.alfresco.os.common.GuiObject;
 import org.alfresco.utilities.LdtpUtils;
 import org.alfresco.utilities.LoggerUtils;
 import org.apache.log4j.Logger;
@@ -14,7 +13,6 @@ import com.cobra.ldtp.Ldtp;
 /**
  * Map a simple Dialog window
  * 
- * @author Paul Brodner
  */
 public class Dialog extends GuiObject
 {   
@@ -53,7 +51,7 @@ public class Dialog extends GuiObject
         ArrayList<String> arrDialogs = new ArrayList<String>();
         for (String window : windowsList)
         {
-            if (window.startsWith("dlg"))
+            if (window.startsWith("dlg") || window.startsWith("frm"))
             {
                 Ldtp info = new Ldtp(window);
                 if (!LdtpUtils.isApplicationObject(info))
@@ -95,6 +93,8 @@ public class Dialog extends GuiObject
     public void focus()
     {
         logger.info("Grab focus to: " + getDialogName());
+        getLdtp().setWindowName(getDialogName());
         getLdtp().activateWindow(getDialogName());
+        getLdtp().waitTime(2);
     }
 }

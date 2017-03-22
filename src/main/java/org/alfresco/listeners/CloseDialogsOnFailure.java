@@ -1,6 +1,6 @@
 package org.alfresco.listeners;
 
-import org.alfresco.os.win.app.misc.Dialog;
+import org.alfresco.os.common.Dialog;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 

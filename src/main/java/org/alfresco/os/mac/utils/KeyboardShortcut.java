@@ -102,5 +102,11 @@ public class KeyboardShortcut extends Application
     {
         getLdtp().generateKeyEvent("<command>a"); // we want also to rewrite the extension
     }
-
+   /**
+    * open spot search    
+    */
+    public void cmdSpotlight()
+    {
+        getLdtp().generateKeyEvent("<command><space>");
+    }
 }
