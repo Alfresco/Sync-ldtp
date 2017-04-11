@@ -497,6 +497,7 @@ public class LdtpUtils
     public static boolean isProcessRunning(String processName)
     {
         processName = processName.toLowerCase();
+        logger.info("process name :" + processName);
         Process p = null;
         try
         {
@@ -514,8 +515,8 @@ public class LdtpUtils
             String line;
             while ((line = bufferReader.readLine()) != null)
             {
-                if (line.toLowerCase().contains(processName))
-                    return true;
+                    if (line.toLowerCase().contains(processName))
+                        return true;
             }
             inputStream.close();
             inputStreamReader.close();

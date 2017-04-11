@@ -411,6 +411,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void deleteContent(File orginialContent) throws Exception
     {
+        
         if (orginialContent.isFile())
         {
             deleteFile(orginialContent);
@@ -419,5 +420,16 @@ public class FinderExplorer extends KeyboardShortcut
         {
             deleteFolder(orginialContent);
         }
+    }
+    /**
+     * move when file is open 
+     * 
+     */
+    public void moveFileWhenFolderOpen(File contentToMove, File newLocation) throws Exception
+    {
+        cmdAll();
+        cmdCopy();
+        openFolder(newLocation);
+        cmdMove();
     }
 }
