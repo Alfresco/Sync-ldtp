@@ -6,12 +6,14 @@ import org.testng.TestListenerAdapter;
 
 public class CloseTextEditOnFailure extends TestListenerAdapter
 {
-
     @Override
     public void onTestFailure(ITestResult tr)
     {
-        LdtpUtils.killProcessByWindowName("TextEdit");
+        if(LdtpUtils.isProcessRunning("TextEdit"))
+        {
+        LdtpUtils.execute(new String[] { "killall", "TextEdit" });
         super.onTestFailure(tr);
+        }
     }
     
 }
