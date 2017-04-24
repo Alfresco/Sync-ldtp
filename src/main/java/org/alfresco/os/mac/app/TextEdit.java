@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.alfresco.os.mac.Editor;
 import org.alfresco.os.mac.utils.AppleScript;
+import org.alfresco.utilities.LdtpUtils;
 import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.LdtpExecutionError;
@@ -143,8 +144,9 @@ public class TextEdit extends Editor
     public void openFile(File file) throws Exception
     {
         logger.info("Open file: " + file.getPath());
-        openApplication();
-        focus();
+        LdtpUtils.logInfo("Opening Application: " + getApplicationPath());
+        runProcess(new String[] { "open", getApplicationPath() });
+        LdtpUtils.waitToLoopTime(2);
         openFromFileMenu(file);
         getLdtp().waitTime(1);
     }
