@@ -175,7 +175,7 @@ public abstract class Editor extends Application
     public void openFromFileMenu(File file) throws Exception
     {
         logger.info("Open file from Menu: " + file.getPath());
-        focus();
+       // focus();
         setFileName(file.getName());
         getLdtp().generateKeyEvent("<command>o");
         // go to parent directory
