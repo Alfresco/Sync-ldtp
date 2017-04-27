@@ -180,6 +180,8 @@ public abstract class Editor extends Application
         getLdtp().generateKeyEvent("<command>o");
         // go to parent directory
         getLdtp().waitTime(1);
+        getLdtp().generateKeyEvent("<shift><command>g");
+        getLdtp().waitTime(1);
         getLdtp().enterString(file.getPath());
         getLdtp().waitTime(1);
         getLdtp().generateKeyEvent("<enter>");
@@ -201,7 +203,7 @@ public abstract class Editor extends Application
     public void closeFile()
     {
         logger.info("Just close the current file.");
-        focus();
+      //  focus();
         getLdtp().generateKeyEvent("<command>q");
     }
 
