@@ -179,13 +179,13 @@ public abstract class Editor extends Application
         setFileName(file.getName());
         getLdtp().generateKeyEvent("<command>o");
         // go to parent directory
-        getLdtp().waitTime(1);
+        Thread.sleep(1000);
         getLdtp().generateKeyEvent("<shift><command>g");
-        getLdtp().waitTime(1);
+        Thread.sleep(1000);
         getLdtp().enterString(file.getPath());
-        getLdtp().waitTime(1);
+        Thread.sleep(1000);
         getLdtp().generateKeyEvent("<enter>");
-        getLdtp().waitTime(1);
+        Thread.sleep(1000);
         getLdtp().generateKeyEvent("<enter>");
         getLdtp().setWindowName(file.getName());
     }

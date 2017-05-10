@@ -148,6 +148,6 @@ public class TextEdit extends Editor
         runProcess(new String[] { "open", getApplicationPath() });
         LdtpUtils.waitToLoopTime(2);
         openFromFileMenu(file);
-        getLdtp().waitTime(1);
+        Thread.sleep(1000);
     }
 }
