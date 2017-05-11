@@ -368,6 +368,23 @@ public class LdtpUtils
         }
         while (endTime - currentTime < (seconds * 1000));
     }
+    /**
+     * We will wait until the <seconds> are passed from current run
+     * 
+     * @param seconds
+     * @throws Exception 
+     */
+    public static void waitForElement(long millseconds) 
+    {
+        try
+        {
+        logInfo("Waiting (in loops) for: " + millseconds/1000 + " second(s).");
+        Thread.sleep(millseconds);
+        }
+        catch (Exception e)
+        {
+        }
+    }
 
     public static String getOS()
     {
