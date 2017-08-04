@@ -1,5 +1,8 @@
 package org.alfresco.os.common;
 
+import org.alfresco.utilities.LoggerUtils;
+import org.apache.log4j.Logger;
+
 import com.cobra.ldtp.Ldtp;
 
 /**
@@ -8,6 +11,7 @@ import com.cobra.ldtp.Ldtp;
  */
 public abstract class GuiObject
 {
+    protected static Logger logger = LoggerUtils.getLogger();
     private Ldtp ldtp;
 
     public Ldtp getLdtp()
