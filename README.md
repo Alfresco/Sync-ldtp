@@ -27,11 +27,6 @@ For Windows you will need:
 
 Please take a look on [LDTP User Manual](http://ldtp.freedesktop.org/user-doc/)
 
-## Project Structure
-
-The class diagram with just some basic class for win and mac.
-![class diag](https://github.com/Alfresco/Sync-ldtp/raw/master/uml/class_diagram.png)
-
 ## Getting Started
 
 * Checkout the code and install all dependencies:
