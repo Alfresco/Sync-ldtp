@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -487,24 +488,36 @@ public class LdtpUtils
     public static void waitUntilFileExistsOnDisk(File filePath)
     {
         logger.info(String.format("Waiting until file [%s] exists on Disk", filePath.getPath()));
-    	int retries = 1;
-        while (retries <= LdtpUtils.RETRY_COUNT && !filePath.exists())
+        int retries = 1;
+        while (retries <= 60 && !filePath.exists())
         {
             retries++;
-            waitToLoopTime(2);
+            waitToLoopTime(1);
         }
     }
     public static void waitUntilFileDoesNotExistsOnDisk(File filePath)
     {
         logger.info(String.format("Waiting until file [%s] does not exists on Disk", filePath.getPath()));
         int retries = 1;
-        while (retries <= LdtpUtils.RETRY_COUNT && filePath.exists())
+        while (retries <= 60 && filePath.exists())
         {
             retries++;
-            waitToLoopTime(2);
+            waitToLoopTime(1);
         }
     }
 
+    public static void waitUntilFileHasContent(File filePath, String expectedContent) throws Exception
+    {
+        logger.info(String.format("Waiting until file [%s] has content '%s'", filePath.getPath(), expectedContent));
+        int retries = 1;
+        String actualContent = new String(java.nio.file.Files.readAllBytes(Paths.get(filePath.getPath())));
+        while (retries <= 60 && actualContent != expectedContent)
+        {
+            actualContent = new String(java.nio.file.Files.readAllBytes(Paths.get(filePath.getPath())));
+            retries++;
+            waitToLoopTime(1);
+        }
+    }
     /**
      * Check if process identified by <processName> is currently running
      * 

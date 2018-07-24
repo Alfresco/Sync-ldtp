@@ -15,6 +15,9 @@
 
 package org.alfresco.os.common;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -449,4 +452,12 @@ public abstract class ApplicationBase
 	public void setUseDefinedWindowFullName(boolean useWindowFullName) {
 		this.useDefinedWindowFullName = useWindowFullName;
 	}
+
+    public void pasteString(String value)
+    {
+        StringSelection stringSelection = new StringSelection(value);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
+        getLdtp().generateKeyEvent("<ctrl>v");
+    }
 }

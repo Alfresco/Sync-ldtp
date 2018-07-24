@@ -48,21 +48,26 @@ public class WindowsExplorer extends Application
 
         switch(LdtpUtils.getOS())
         {
-        case "Windows 8.1":
-    	{
-    		 setWaitWindow("This PC");
-    		 break;
-    	}
-        case  "Windows 7":
-        {
-        	setWaitWindow("Libraries");
-        	break;
-        }
-        default: 
-        {
-        	setWaitWindow("This PC");
-        	break;
-        }
+            case "Windows 8.1":
+            {
+                 setWaitWindow("This PC");
+                 break;
+            }
+            case  "Windows 7":
+            {
+                setWaitWindow("Libraries");
+                break;
+            }
+            case  "Windows 10":
+            {
+                setWaitWindow("File Explorer");
+                break;
+            }
+            default:
+            {
+                setWaitWindow("This PC");
+                break;
+            }
         }
     }
 
@@ -110,10 +115,10 @@ public class WindowsExplorer extends Application
         }
         if ((LdtpUtils.isWin81()) || (LdtpUtils.isWin10()))
         {
-        	getLdtp().grabFocus("This PC");
-        	getLdtp().waitTime(1);
+            //getLdtp().grabFocus("This PC");
+            getLdtp().waitTime(1);
             getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
-            getLdtp().generateKeyEvent(folderPath.getPath());
+            pasteString(folderPath.getPath());
         }
         else
         {
@@ -125,7 +130,9 @@ public class WindowsExplorer extends Application
             catch (Exception e)
             {
             }
-            getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
+
+            getLdtp().generateKeyEvent("<alt>d"); // focu
+            // sing address editor
             getLdtp().generateKeyEvent(folderPath.getPath());
         }
         getLdtp().keyPress("<enter>");
