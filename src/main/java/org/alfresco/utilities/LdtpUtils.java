@@ -49,7 +49,7 @@ public class LdtpUtils
     private static boolean isDebugEnabled = logger.isDebugEnabled();
 
     // CONSTANTS
-    public static final int RETRY_COUNT = 15;
+    public static final int RETRY_COUNT = 30;
     public static final String PROPERTIES_FILE = "alfresco-ldtp.properties";
 
     /**
@@ -150,6 +150,16 @@ public class LdtpUtils
                 {
                 }
             }
+        }
+    }
+
+    public static void waitForObjectToBeEnabled(Ldtp ldtp, String objName)
+    {
+        int retry = 0;
+        while (retry < RETRY_COUNT && ldtp.stateEnabled(objName) != 1)
+        {
+            retry++;
+            waitToLoopTime(1);
         }
     }
 
