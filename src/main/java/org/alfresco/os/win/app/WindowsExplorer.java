@@ -253,6 +253,12 @@ public class WindowsExplorer extends Application
         getLdtp().doubleClick(file.getName());
     }
 
+    public void delete(File contentToDelete)
+    {
+        logger.info("Delete content: " + contentToDelete.getAbsolutePath());
+        delete(contentToDelete.getName());
+    }
+
     /**
      * Delete a file or folder in a given path
      * 
@@ -262,7 +268,7 @@ public class WindowsExplorer extends Application
     {
         logger.info("open a particular folder to delete " + fileToDelete.getAbsolutePath());
         openFolder(fileToDelete.getParentFile());
-        delete(fileToDelete.getName(), confirmationOption);        
+        delete(fileToDelete.getName(), confirmationOption);
     }
 
     /**
@@ -612,12 +618,25 @@ public class WindowsExplorer extends Application
     /**
      * DELETE operation
      * 
-     * @param fileNameOrFolder
+     * @param objectName
+     * @param confirmationOption
      */
-    public void delete(String objectName, boolean confirmationOption){
+    public void delete(String objectName, boolean confirmationOption)
+    {
         getLdtp().mouseRightClick(objectName);
         onContextMenuPerform("Delete");
             getLdtp().waitTime(2);
             alertConfirmation("Delete F*", confirmationOption);
+    }
+
+    /**
+     * DELETE operation
+     *
+     * @param objectName
+     */
+    public void delete(String objectName)
+    {
+        getLdtp().mouseRightClick(objectName);
+        onContextMenuPerform("Delete");
     }
 }

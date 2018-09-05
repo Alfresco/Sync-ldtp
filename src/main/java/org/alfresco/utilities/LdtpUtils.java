@@ -587,6 +587,25 @@ public class LdtpUtils
         }
     }
 
+    /**
+     * Wait until process is not running, or the RETRY_COUNT is reached
+     *
+     * @param processName
+     */
+    public static void waitUntilProcessIsNotRunning(String processName)
+    {
+        boolean isRunning;
+        int retry = 0;
+        isRunning = isProcessRunning(processName);
+        while (isRunning && retry < RETRY_COUNT)
+        {
+            retry++;
+            waitToLoopTime(1);
+            isRunning = isProcessRunning(processName);
+            logger.info(String.format("Wait until process %s is not working", processName));
+        }
+    }
+
     /*
      * Return a File using a random name
      * The path will point to current user documents folder
