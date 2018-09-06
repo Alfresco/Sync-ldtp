@@ -95,6 +95,6 @@ public class Dialog extends GuiObject
         logger.info("Grab focus to: " + getDialogName());
         getLdtp().setWindowName(getDialogName());
         getLdtp().activateWindow(getDialogName());
-        getLdtp().waitTime(2);
+        LdtpUtils.waitForWindowPartialName(getLdtp(), getDialogName());
     }
 }

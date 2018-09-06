@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -81,7 +82,7 @@ public abstract class ApplicationBase
      */
     protected ApplicationBase openApplication(String[] command) throws Exception
     {
-        LdtpUtils.logInfo("Opening Application: " + command.toString());
+        LdtpUtils.logInfo("Opening Application: " + Arrays.asList(command));
         runProcess(command);
         LdtpUtils.waitToLoopTime(2);
         waitForApplicationWindow(getWaitWindow(), true);
