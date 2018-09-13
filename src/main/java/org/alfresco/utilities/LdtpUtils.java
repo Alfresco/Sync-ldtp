@@ -576,9 +576,9 @@ public class LdtpUtils
      */
     public static void waitUntilProcessIsRunning(String processName)
     {
-        boolean isRunning = false;
+        boolean isRunning;
         int retry = 0;
-        waitToLoopTime(1);
+        isRunning = isProcessRunning(processName);
         while (!isRunning && retry <= RETRY_COUNT)
         {
             retry++;
@@ -819,7 +819,7 @@ public class LdtpUtils
         int retries = 1;
         logger.info(String.format("Waiting for window:  %s", partialWindowName));
         while (retries <= LdtpUtils.RETRY_COUNT && LdtpUtils.getFullWindowList(ldtp, partialWindowName) == null)
-        {           
+        {
             LdtpUtils.waitToLoopTime(1);
             retries++;
         }

@@ -72,11 +72,13 @@ public class Dialog extends GuiObject
     public void waitForDialogToAppear()
     {
         int count = 0;
-        while ((!isDisplayed() && count <  LdtpUtils.RETRY_COUNT) )
+        boolean displayed = isDisplayed();
+        while ((!displayed && count < LdtpUtils.RETRY_COUNT))
         {
             count += 1;
             logger.info("Waiting 1 second for dialog [" + getDialogName() + "] to appear [remaining: "+ (LdtpUtils.RETRY_COUNT -count) + "]...");            
             getLdtp().waitTime(1);
+            displayed = isDisplayed();
         }
     }
 
