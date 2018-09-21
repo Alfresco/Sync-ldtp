@@ -91,7 +91,7 @@ public class WindowsExplorer extends Application
     public ApplicationBase openApplication() throws Exception
     {
         super.openApplication();
-        maximize();
+       // maximize();
         return this;
     }
 
@@ -115,8 +115,7 @@ public class WindowsExplorer extends Application
         }
         if ((LdtpUtils.isWin81()) || (LdtpUtils.isWin10()))
         {
-            //getLdtp().grabFocus("This PC");
-            getLdtp().waitTime(1);
+            getLdtp().grabFocus("File Explorer");
             getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
             pasteString(folderPath.getPath());
         }
@@ -230,10 +229,9 @@ public class WindowsExplorer extends Application
     public void closeExplorer()
     {
         logger.info("close the explorer");
+        getLdtp().waitTillGuiExist("Close");
         getLdtp().click("Close");
-        getLdtp().waitTime(2);
         setLdtp(null);
-
     }
 
     @Override
@@ -590,8 +588,7 @@ public class WindowsExplorer extends Application
 
     /**
      * PASTE operation
-     * 
-     * @param fileNameOrFolder
+
      */
     public void paste()
     {
@@ -605,14 +602,10 @@ public class WindowsExplorer extends Application
      */
     public void jumpToLocation(File location) throws IOException
     {
-        logger.info("Inside the jump to location method");
-        Desktop.getDesktop().open(location); 
-        LdtpUtils.waitToLoopTime(1);
+        Desktop.getDesktop().open(location);
         focus(location.getName());
         getLdtp().grabFocus(location.getName());
         getLdtp().waitTillGuiExist();
-        maximize();
-        logger.info("finished  the jump to location method");
     }
     
     /**
