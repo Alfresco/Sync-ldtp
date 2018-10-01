@@ -555,8 +555,8 @@ public class LdtpUtils
             String line;
             while ((line = bufferReader.readLine()) != null)
             {
-                    if (line.toLowerCase().contains(processName))
-                        return true;
+                if (line.toLowerCase().contains(processName))
+                    return true;
             }
             inputStream.close();
             inputStreamReader.close();

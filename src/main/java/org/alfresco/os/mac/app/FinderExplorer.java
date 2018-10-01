@@ -126,10 +126,8 @@ public class FinderExplorer extends KeyboardShortcut
     {
         logger.info("Open Folder: " + folderPath.getPath());
         getLdtp().generateKeyEvent("<shift><command>g");
-        getLdtp().generateKeyEvent(folderPath.getPath());
-        // getLdtp().click("btnGo");
+        pasteString(folderPath.getPath());
         getLdtp().generateKeyEvent("<enter>");
-        LdtpUtils.waitToLoopTime(1);
         focus(folderPath);
     }
 
@@ -149,7 +147,7 @@ public class FinderExplorer extends KeyboardShortcut
     /**
      * Create a new Folder based on MAC shortcut keys
      * 
-     * @param folderName
+     * @param folderPath
      */
     public void createFolder(File folderPath)
     {
@@ -163,7 +161,7 @@ public class FinderExplorer extends KeyboardShortcut
     /**
      * Create and open a folder
      * 
-     * @param folderName
+     * @param folder
      */
     public void createAndOpenFolder(File folder)
     {
@@ -236,7 +234,7 @@ public class FinderExplorer extends KeyboardShortcut
     /**
      * Restore any deleted Folder
      * 
-     * @param filename
+     * @param folder
      */
     public void restoreDeletedFolder(File folder)
     {
@@ -284,7 +282,7 @@ public class FinderExplorer extends KeyboardShortcut
      * Move a file from <source> to <destination>
      * 
      * @param source
-     * @param destination
+     * @param destinationFolder
      */
     public void moveFile(File source, File destinationFolder)
     {
@@ -313,7 +311,7 @@ public class FinderExplorer extends KeyboardShortcut
     /**
      * Rename <folder> with <newName>
      * 
-     * @param folder
+     * @param file
      * @param newName
      */
     public void renameFile(File file, File newName)

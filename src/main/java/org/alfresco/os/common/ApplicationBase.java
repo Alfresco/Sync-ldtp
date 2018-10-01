@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.alfresco.os.common;
 
 import java.awt.*;
@@ -27,13 +26,13 @@ import java.util.Iterator;
 import java.util.Properties;
 
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 
 /**
  * Abstract class that will cover the main functionalities of Windows/MAC applications
- * 
  */
 public abstract class ApplicationBase
 {
@@ -65,7 +64,7 @@ public abstract class ApplicationBase
     public abstract void exitApplication();
 
     public abstract ApplicationBase openApplication() throws Exception;
-    
+
     public abstract void closeWindow();
 
     public abstract void killProcess();
@@ -75,7 +74,7 @@ public abstract class ApplicationBase
     /**
      * Open the application, based on command passed
      * This will also wait until the application is opened
-     * 
+     *
      * @param command
      * @return
      * @throws Exception
@@ -99,7 +98,7 @@ public abstract class ApplicationBase
     /**
      * This is the WaitWindow of any application.
      * This window string will tell us when the application is loaded.
-     * 
+     *
      * @return
      */
     public String getWaitWindow()
@@ -120,9 +119,9 @@ public abstract class ApplicationBase
     /**
      * This will initialize only once the Properties object
      * You can get the value of a key property
-     * 
-     * @author Paul Brodner
+     *
      * @return String
+     * @author Paul Brodner
      */
     public String getProperty(String key)
     {
@@ -184,12 +183,12 @@ public abstract class ApplicationBase
     /**
      * This will a specific process based on command array list passed
      * It's best to use this alternative rather than Runtime.getRuntime().exec
-     * 
-     * @author Paul Brodner
+     *
      * @param command
      * @return
      * @throws IOException
      * @throws InterruptedException
+     * @author Paul Brodner
      */
     public Process runProcess(String... command) throws Exception
     {
@@ -200,14 +199,14 @@ public abstract class ApplicationBase
 
     /**
      * @author Paul Brodner
-     *         Destroyed the processes opened
+     * Destroyed the processes opened
      */
     protected void destroyProcesses()
     {
 
         try
         {
-            for (Iterator<Process> iterator = getProcesses().iterator(); iterator.hasNext();)
+            for (Iterator<Process> iterator = getProcesses().iterator(); iterator.hasNext(); )
             {
                 Process process = iterator.next();
                 logger.debug("Destroy process: " + process.toString());
@@ -222,7 +221,7 @@ public abstract class ApplicationBase
 
     /**
      * This method will initialize or reuse the same LDTP object for interacting with GUI app
-     * 
+     *
      * @return Ldtp
      */
     public Ldtp getLdtp()
@@ -250,8 +249,8 @@ public abstract class ApplicationBase
     }
 
     /**
-     * @author Paul Brodner
      * @return all open applications as String Array
+     * @author Paul Brodner
      */
     public String[] getOpenApplications()
     {
@@ -273,12 +272,12 @@ public abstract class ApplicationBase
     /**
      * Wait for a Application main window
      * If you want to wait to specific dialogs, use waitForWindow
-     * 
-     * @author Paul Brodner
+     *
      * @param windowName
      * @return
      * @throws InterruptedException
      * @throws IOException
+     * @author Paul Brodner
      */
     public Ldtp waitForApplicationWindow(String windowName, boolean defineGetLDTP) throws Exception
     {
@@ -295,13 +294,14 @@ public abstract class ApplicationBase
                 LdtpUtils.logInfo(String.format("Window [%s] expected, but found: %s. Waiting...", windowName, window));
                 if (window.contains(windowName))
                 {
-                	if (isDefinedWindowFullName()){
-                		return _ldtp;
-                	}
+                    if (isDefinedWindowFullName())
+                    {
+                        return _ldtp;
+                    }
                     _ldtp = new Ldtp(window);
                     if (defineGetLDTP)
                     {
-                    	setWaitWindow(window);	
+                        setWaitWindow(window);
                         setLdtp(_ldtp);
                         return getLdtp();
                     }
@@ -316,12 +316,12 @@ public abstract class ApplicationBase
 
     /**
      * Wait for a Window
-     * 
-     * @author Paul Brodner
+     *
      * @param windowName
      * @return
      * @throws InterruptedException
      * @throws IOException
+     * @author Paul Brodner
      */
     public Ldtp waitForWindow(String windowName) throws Exception
     {
@@ -330,7 +330,7 @@ public abstract class ApplicationBase
 
     /**
      * Wait until this <windowName> is closed
-     * 
+     *
      * @param windowName
      * @throws InterruptedException
      * @throws IOException
@@ -358,18 +358,18 @@ public abstract class ApplicationBase
 
     /**
      * Check if a windows identified by <windowName> is opened or not
-     * 
+     *
      * @param windowName
      * @return
      */
     public boolean isWindowOpened(String windowName)
     {
-       return LdtpUtils.isWindowOpened(getLdtp(), windowName);
+        return LdtpUtils.isWindowOpened(getLdtp(), windowName);
     }
 
     /**
      * Check if a button is enabled or not
-     * 
+     *
      * @param buttonName
      * @return boolean value
      */
@@ -388,9 +388,9 @@ public abstract class ApplicationBase
 
     /**
      * Used mainly for wait process: waiting until the specified windows is opened
-     * 
-     * @author Paul Brodner
+     *
      * @param waitWindow
+     * @author Paul Brodner
      */
     protected void setWaitWindow(String waitWindow)
     {
@@ -399,9 +399,9 @@ public abstract class ApplicationBase
 
     /**
      * Define the application name
-     * 
-     * @author Paul Brodner
+     *
      * @param applicationName
+     * @author Paul Brodner
      */
     protected void setApplicationName(String applicationName)
     {
@@ -410,9 +410,9 @@ public abstract class ApplicationBase
 
     /**
      * Add the Application full path
-     * 
-     * @author Paul Brodner
+     *
      * @param applicationPath
+     * @author Paul Brodner
      */
     protected void setApplicationPath(String applicationPath)
     {
@@ -421,9 +421,9 @@ public abstract class ApplicationBase
 
     /**
      * Click on a Button only when is enabled
-     * 
-     * @author Paul Brodner
+     *
      * @param name
+     * @author Paul Brodner
      */
     protected void clickButton(String name)
     {
@@ -439,25 +439,34 @@ public abstract class ApplicationBase
         getLdtp().click(name);
     }
 
-	/**
-	 * @return the useWindowFullName
-	 */
-	public boolean isDefinedWindowFullName() {
-		return useDefinedWindowFullName;
-	}
+    /**
+     * @return the useWindowFullName
+     */
+    public boolean isDefinedWindowFullName()
+    {
+        return useDefinedWindowFullName;
+    }
 
-	/**
-	 * @param useWindowFullName the useWindowFullName to set
-	 */
-	public void setUseDefinedWindowFullName(boolean useWindowFullName) {
-		this.useDefinedWindowFullName = useWindowFullName;
-	}
+    /**
+     * @param useWindowFullName the useWindowFullName to set
+     */
+    public void setUseDefinedWindowFullName(boolean useWindowFullName)
+    {
+        this.useDefinedWindowFullName = useWindowFullName;
+    }
 
     public void pasteString(String value)
     {
         StringSelection stringSelection = new StringSelection(value);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
-        getLdtp().generateKeyEvent("<ctrl>v");
+        if (SystemUtils.IS_OS_WINDOWS)
+        {
+            getLdtp().generateKeyEvent("<ctrl>v");
+        }
+        else
+        {
+            getLdtp().generateKeyEvent("<command>v");
+        }
     }
 }
