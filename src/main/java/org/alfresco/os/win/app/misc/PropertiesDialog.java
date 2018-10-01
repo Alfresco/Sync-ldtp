@@ -38,7 +38,7 @@ public class PropertiesDialog
      * @param tabName
      * @throws Exception
      */
-    public boolean openTab(String tabName) throws Exception
+    public void openTab(String tabName) throws Exception
     {
         logger.info("Opening TAB:" + tabName);
 
@@ -47,16 +47,8 @@ public class PropertiesDialog
             logger.error("First openDialog() in your code, prior to opening a tab.");
             throw new Exception("First openDialog() of Properties object");
         }
-        if (propertyObject.objectExist(tabName)==1){
-            propertyObject.selectTab("*", tabName);    
-        }
-        else
-        {
-            logger.error("TabName:" + tabName + "  does not exists in PropertiesDialog window"); 
-            throw new Exception("TabName:" + tabName + " was not found");
-        }
-        
-        return true;
+        propertyObject.waitTillGuiExist(tabName);
+        propertyObject.selectTab("*", tabName);
     }
 
     /**

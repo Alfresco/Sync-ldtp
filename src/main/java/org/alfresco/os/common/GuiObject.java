@@ -5,6 +5,10 @@ import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 /**
  * Generic GUI object that is using LDTP
  * 
@@ -41,5 +45,13 @@ public abstract class GuiObject
     protected String getLabelStringValue(String label)
     {
         return getLdtp().getObjectProperty(label, "label");
+    }
+
+    public void pasteString(String value)
+    {
+        StringSelection stringSelection = new StringSelection(value);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
+        getLdtp().generateKeyEvent("<ctrl>v");
     }
 }

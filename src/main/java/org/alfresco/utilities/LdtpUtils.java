@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class LdtpUtils
     private static boolean isDebugEnabled = logger.isDebugEnabled();
 
     // CONSTANTS
-    public static final int RETRY_COUNT = 15;
+    public static final int RETRY_COUNT = 30;
     public static final String PROPERTIES_FILE = "alfresco-ldtp.properties";
 
     /**
@@ -149,6 +150,16 @@ public class LdtpUtils
                 {
                 }
             }
+        }
+    }
+
+    public static void waitForObjectToBeEnabled(Ldtp ldtp, String objName)
+    {
+        int retry = 0;
+        while (retry < RETRY_COUNT && ldtp.stateEnabled(objName) != 1)
+        {
+            retry++;
+            waitToLoopTime(1);
         }
     }
 
@@ -487,24 +498,36 @@ public class LdtpUtils
     public static void waitUntilFileExistsOnDisk(File filePath)
     {
         logger.info(String.format("Waiting until file [%s] exists on Disk", filePath.getPath()));
-    	int retries = 1;
-        while (retries <= LdtpUtils.RETRY_COUNT && !filePath.exists())
+        int retries = 1;
+        while (retries <= 60 && !filePath.exists())
         {
             retries++;
-            waitToLoopTime(2);
+            waitToLoopTime(1);
         }
     }
     public static void waitUntilFileDoesNotExistsOnDisk(File filePath)
     {
         logger.info(String.format("Waiting until file [%s] does not exists on Disk", filePath.getPath()));
         int retries = 1;
-        while (retries <= LdtpUtils.RETRY_COUNT && filePath.exists())
+        while (retries <= 60 && filePath.exists())
         {
             retries++;
-            waitToLoopTime(2);
+            waitToLoopTime(1);
         }
     }
 
+    public static void waitUntilFileHasContent(File filePath, String expectedContent) throws Exception
+    {
+        logger.info(String.format("Waiting until file [%s] has content '%s'", filePath.getPath(), expectedContent));
+        int retries = 1;
+        String actualContent = new String(java.nio.file.Files.readAllBytes(Paths.get(filePath.getPath())));
+        while (retries <= 60 && actualContent != expectedContent)
+        {
+            actualContent = new String(java.nio.file.Files.readAllBytes(Paths.get(filePath.getPath())));
+            retries++;
+            waitToLoopTime(1);
+        }
+    }
     /**
      * Check if process identified by <processName> is currently running
      * 
@@ -532,8 +555,8 @@ public class LdtpUtils
             String line;
             while ((line = bufferReader.readLine()) != null)
             {
-                    if (line.toLowerCase().contains(processName))
-                        return true;
+                if (line.toLowerCase().contains(processName))
+                    return true;
             }
             inputStream.close();
             inputStreamReader.close();
@@ -553,14 +576,33 @@ public class LdtpUtils
      */
     public static void waitUntilProcessIsRunning(String processName)
     {
-        boolean isRunning = false;
+        boolean isRunning;
         int retry = 0;
-        waitToLoopTime(1);
+        isRunning = isProcessRunning(processName);
         while (!isRunning && retry <= RETRY_COUNT)
         {
             retry++;
             waitToLoopTime(1);
             isRunning = isProcessRunning(processName);
+        }
+    }
+
+    /**
+     * Wait until process is not running, or the RETRY_COUNT is reached
+     *
+     * @param processName
+     */
+    public static void waitUntilProcessIsNotRunning(String processName)
+    {
+        boolean isRunning;
+        int retry = 0;
+        isRunning = isProcessRunning(processName);
+        while (isRunning && retry < RETRY_COUNT)
+        {
+            retry++;
+            waitToLoopTime(1);
+            isRunning = isProcessRunning(processName);
+            logger.info(String.format("Wait until process %s is not working", processName));
         }
     }
 
@@ -777,7 +819,7 @@ public class LdtpUtils
         int retries = 1;
         logger.info(String.format("Waiting for window:  %s", partialWindowName));
         while (retries <= LdtpUtils.RETRY_COUNT && LdtpUtils.getFullWindowList(ldtp, partialWindowName) == null)
-        {           
+        {
             LdtpUtils.waitToLoopTime(1);
             retries++;
         }

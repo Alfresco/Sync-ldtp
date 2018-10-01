@@ -22,14 +22,18 @@ import org.apache.log4j.Logger;
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 /**
  * Abstract class that will cover only Windows based application
- * 
+ *
  */
 public class Application extends ApplicationBase
 {
 	private static Logger logger = Logger.getLogger(Application.class);
-	
+
     @Override
     public void exitApplication()
     {
@@ -71,12 +75,12 @@ public class Application extends ApplicationBase
         }
         return this;
     }
-    
+
     public void closeWindow(){
         logger.info("Closing the window, clicking the 'Close' button");
         getLdtp().click("Close");
     }
-    
+
     /**
      * Enum for all the application that can be used in windows
      * @author sprasanna
@@ -91,14 +95,14 @@ public class Application extends ApplicationBase
         FOLDER("Folder"),
         TEXTFILE("Text Document"),
         NOTEPAD("Notepad");
- 
+
         private String application;
- 
+
         private type(String type)
         {
             application = type;
         }
- 
+
         public String getType()
         {
             return application;
@@ -107,10 +111,12 @@ public class Application extends ApplicationBase
     /*
      * Maximize the window
      */
-    public void maximize(){
-    	String idMaximize = "btnMaximize";
-    	if (getLdtp().objectExist(idMaximize)==1){
-    		clickButton(idMaximize);
-    	} 	 	
+    public void maximize()
+    {
+        String idMaximize = "btnMaximize";
+        if (getLdtp().objectExist(idMaximize)==1)
+        {
+            clickButton(idMaximize);
+        }
     }
 }

@@ -48,21 +48,26 @@ public class WindowsExplorer extends Application
 
         switch(LdtpUtils.getOS())
         {
-        case "Windows 8.1":
-    	{
-    		 setWaitWindow("This PC");
-    		 break;
-    	}
-        case  "Windows 7":
-        {
-        	setWaitWindow("Libraries");
-        	break;
-        }
-        default: 
-        {
-        	setWaitWindow("This PC");
-        	break;
-        }
+            case "Windows 8.1":
+            {
+                 setWaitWindow("This PC");
+                 break;
+            }
+            case  "Windows 7":
+            {
+                setWaitWindow("Libraries");
+                break;
+            }
+            case  "Windows 10":
+            {
+                setWaitWindow("File Explorer");
+                break;
+            }
+            default:
+            {
+                setWaitWindow("This PC");
+                break;
+            }
         }
     }
 
@@ -86,7 +91,7 @@ public class WindowsExplorer extends Application
     public ApplicationBase openApplication() throws Exception
     {
         super.openApplication();
-        maximize();
+       // maximize();
         return this;
     }
 
@@ -110,10 +115,9 @@ public class WindowsExplorer extends Application
         }
         if ((LdtpUtils.isWin81()) || (LdtpUtils.isWin10()))
         {
-        	getLdtp().grabFocus("This PC");
-        	getLdtp().waitTime(1);
+            getLdtp().grabFocus("File Explorer");
             getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
-            getLdtp().generateKeyEvent(folderPath.getPath());
+            pasteString(folderPath.getPath());
         }
         else
         {
@@ -125,7 +129,9 @@ public class WindowsExplorer extends Application
             catch (Exception e)
             {
             }
-            getLdtp().generateKeyEvent("<alt>d"); // focusing address editor
+
+            getLdtp().generateKeyEvent("<alt>d"); // focu
+            // sing address editor
             getLdtp().generateKeyEvent(folderPath.getPath());
         }
         getLdtp().keyPress("<enter>");
@@ -223,10 +229,9 @@ public class WindowsExplorer extends Application
     public void closeExplorer()
     {
         logger.info("close the explorer");
+        getLdtp().waitTillGuiExist("Close");
         getLdtp().click("Close");
-        getLdtp().waitTime(2);
         setLdtp(null);
-
     }
 
     @Override
@@ -246,6 +251,12 @@ public class WindowsExplorer extends Application
         getLdtp().doubleClick(file.getName());
     }
 
+    public void delete(File contentToDelete)
+    {
+        logger.info("Delete content: " + contentToDelete.getAbsolutePath());
+        delete(contentToDelete.getName());
+    }
+
     /**
      * Delete a file or folder in a given path
      * 
@@ -255,7 +266,7 @@ public class WindowsExplorer extends Application
     {
         logger.info("open a particular folder to delete " + fileToDelete.getAbsolutePath());
         openFolder(fileToDelete.getParentFile());
-        delete(fileToDelete.getName(), confirmationOption);        
+        delete(fileToDelete.getName(), confirmationOption);
     }
 
     /**
@@ -577,8 +588,7 @@ public class WindowsExplorer extends Application
 
     /**
      * PASTE operation
-     * 
-     * @param fileNameOrFolder
+
      */
     public void paste()
     {
@@ -592,25 +602,34 @@ public class WindowsExplorer extends Application
      */
     public void jumpToLocation(File location) throws IOException
     {
-        logger.info("Inside the jump to location method");
-        Desktop.getDesktop().open(location); 
-        LdtpUtils.waitToLoopTime(1);
+        Desktop.getDesktop().open(location);
         focus(location.getName());
         getLdtp().grabFocus(location.getName());
         getLdtp().waitTillGuiExist();
-        maximize();
-        logger.info("finished  the jump to location method");
     }
     
     /**
      * DELETE operation
      * 
-     * @param fileNameOrFolder
+     * @param objectName
+     * @param confirmationOption
      */
-    public void delete(String objectName, boolean confirmationOption){
+    public void delete(String objectName, boolean confirmationOption)
+    {
         getLdtp().mouseRightClick(objectName);
         onContextMenuPerform("Delete");
             getLdtp().waitTime(2);
             alertConfirmation("Delete F*", confirmationOption);
+    }
+
+    /**
+     * DELETE operation
+     *
+     * @param objectName
+     */
+    public void delete(String objectName)
+    {
+        getLdtp().mouseRightClick(objectName);
+        onContextMenuPerform("Delete");
     }
 }
