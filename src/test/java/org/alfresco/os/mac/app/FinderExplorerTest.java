@@ -41,14 +41,14 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testFinderWindow()
+    public void testFinderWindow() throws Exception
     {
         f.openFolder(new File(f.getApplicationPath()));
         Assert.assertTrue(f.isWindowOpened("Documents"), "Finder Window is opened on User's Documents folder");
     }
 
     @Test(groups = { "MacOnly" })
-    public void testOpenFolder()
+    public void testOpenFolder() throws Exception
     {
         File testPath = new File(f.getApplicationPath());
         f.openFolder(testPath);
@@ -76,7 +76,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testDeleteFolder()
+    public void testDeleteFolder() throws Exception
     {
         File testFolder = new File(f.getApplicationPath(), "testDirectoryDelete");
         testFolder.mkdir();
@@ -86,7 +86,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testMoveFolder()
+    public void testMoveFolder() throws Exception
     {
         File folderSource = new File(f.getApplicationPath(), "testMoveFolderSource");
         folderSource.mkdir();
@@ -104,7 +104,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testCopyFolder()
+    public void testCopyFolder() throws Exception
     {
         File folderSource = new File(f.getApplicationPath(), "testCopyFolder");
         folderSource.mkdir();
@@ -123,7 +123,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testRenameFolder() throws InterruptedException
+    public void testRenameFolder() throws Exception
     {
         File folderSource = new File(f.getApplicationPath(), "testRenameFolder");
         folderSource.mkdir();
@@ -139,7 +139,7 @@ public class FinderExplorerTest
     }
 
    @Test(groups = { "MacOnly" })
-    public void testRestoreDeletedFolder() throws IOException
+    public void testRestoreDeletedFolder() throws Exception
     {
         File folder = new File(f.getApplicationPath(), "FolderRestore");
         folder.mkdir();
@@ -151,7 +151,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testEmptyTrash()
+    public void testEmptyTrash() throws Exception
     {
         File folder = new File(f.getApplicationPath(), "folderEmptyTrash");
         folder.mkdir();
@@ -168,7 +168,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testGoEnclosingFolder()
+    public void testGoEnclosingFolder() throws Exception
     {
         File folderSource = new File(f.getApplicationPath(), "testEnclose");
         folderSource.mkdir();
@@ -180,7 +180,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testGoBack()
+    public void testGoBack() throws Exception
     {
         File folderSource = new File(f.getApplicationPath(), "testGoBack");
         folderSource.mkdir();
@@ -191,7 +191,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testGoForward()
+    public void testGoForward() throws Exception
     {
         File folderSource = new File(f.getApplicationPath(), "testGoForward");
         folderSource.mkdir();
@@ -203,7 +203,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testGoActivate()
+    public void testGoActivate() throws Exception
     {
         File folderSource = new File(f.getApplicationPath());
         f.openFolder(folderSource);
@@ -213,7 +213,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testSelectFile() throws IOException
+    public void testSelectFile() throws Exception
     {
         File fileTest = new File(f.getApplicationPath(), "testSelectFile.txt");
         fileTest.createNewFile();
@@ -222,7 +222,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testDeleteFile() throws IOException
+    public void testDeleteFile() throws Exception
     {
         File fileTest = new File(f.getApplicationPath(), "testDeleteFile.txt");
         fileTest.createNewFile();
@@ -231,7 +231,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testMoveFile() throws IOException
+    public void testMoveFile() throws Exception
     {
         File fileSource = new File(f.getApplicationPath(), "testMoveFile.rtf");
         fileSource.createNewFile();
@@ -247,7 +247,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testCopyFile() throws IOException
+    public void testCopyFile() throws Exception
     {
         File fileSource = new File(f.getApplicationPath(), "testCopyFile.rtf");
         fileSource.createNewFile();
@@ -263,7 +263,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testRenameFile() throws IOException
+    public void testRenameFile() throws Exception
     {
         File fileSource = new File(f.getApplicationPath(), "testOriginalFile.rtf");
         fileSource.createNewFile();
@@ -275,7 +275,7 @@ public class FinderExplorerTest
     }
 
     @Test(groups = { "MacOnly" })
-    public void testRestoreDeletedFile() throws IOException
+    public void testRestoreDeletedFile() throws Exception
     {
         File fileSource = new File(f.getApplicationPath(), "testRestore.rtf");
         fileSource.createNewFile();

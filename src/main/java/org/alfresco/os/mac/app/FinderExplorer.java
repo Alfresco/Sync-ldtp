@@ -5,16 +5,15 @@
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You should have received a copy of the GNU Lesser General
  * Public License along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.alfresco.os.mac.app;
-
-import java.io.File;
 
 import org.alfresco.exceptions.WindowNotOpenedException;
 import org.alfresco.os.mac.utils.AlertDialog;
 import org.alfresco.os.mac.utils.KeyboardShortcut;
 import org.alfresco.utilities.LdtpUtils;
 import org.apache.log4j.Logger;
+
+import java.io.File;
 
 /**
  * This class will handle Finder based action over Files (CRUD) and Folder (CRUD).
@@ -102,6 +101,7 @@ public class FinderExplorer extends KeyboardShortcut
     public void closeExplorer()
     {
         logger.info("Close Explorer Window.");
+        LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<command>w");
         setWaitWindow("frmDocuments");
     }
@@ -122,13 +122,14 @@ public class FinderExplorer extends KeyboardShortcut
      * 
      * @param folderPath
      */
-    public void openFolder(File folderPath)
+    public void openFolder(File folderPath) throws Exception
     {
         logger.info("Open Folder: " + folderPath.getPath());
         getLdtp().generateKeyEvent("<shift><command>g");
         pasteString(folderPath.getPath());
         getLdtp().generateKeyEvent("<enter>");
         focus(folderPath);
+        waitForWindow(new File(folderPath.getParent()).getName());
     }
 
     /**
@@ -141,6 +142,10 @@ public class FinderExplorer extends KeyboardShortcut
         if (folder.isDirectory())
         {
             getLdtp().activateWindow(folder.getName());
+        }
+        else
+        {
+            getLdtp().activateWindow(new File(folder.getParent()).getName());
         }
     }
 
@@ -163,7 +168,7 @@ public class FinderExplorer extends KeyboardShortcut
      * 
      * @param folder
      */
-    public void createAndOpenFolder(File folder)
+    public void createAndOpenFolder(File folder) throws Exception
     {
         logger.info("Create and Open Folder:" + folder.getPath());
         openFolder(folder.getParentFile());
@@ -176,7 +181,7 @@ public class FinderExplorer extends KeyboardShortcut
      * 
      * @param folderPath
      */
-    public void deleteFolder(File folderPath)
+    public void deleteFolder(File folderPath) throws Exception
     {
         logger.info("Deleting folder:" + folderPath.getPath());
         openFolder(folderPath);
@@ -191,7 +196,7 @@ public class FinderExplorer extends KeyboardShortcut
      * @param source
      * @param destination
      */
-    public void moveFolder(File source, File destination)
+    public void moveFolder(File source, File destination) throws Exception
     {
         logger.info("Move Folder[" + source.getPath() + "] to:" + destination.getPath());
         openFolder(source);
@@ -202,7 +207,7 @@ public class FinderExplorer extends KeyboardShortcut
         cmdMove();
     }
 
-    public void copyFolder(File source, File destination)
+    public void copyFolder(File source, File destination) throws Exception
     {
         logger.info(String.format("Copy folder [%s] to [%s]", source.getPath(), destination.getPath()));
         openFolder(source);
@@ -220,7 +225,7 @@ public class FinderExplorer extends KeyboardShortcut
      * @param folder
      * @param newName
      */
-    public void renameFolder(File folder, File newName)
+    public void renameFolder(File folder, File newName) throws Exception
     {
         logger.info(String.format("Rename folder {%s} to {%s}", folder.getPath(), newName));
         openFolder(folder);
@@ -236,7 +241,7 @@ public class FinderExplorer extends KeyboardShortcut
      * 
      * @param folder
      */
-    public void restoreDeletedFolder(File folder)
+    public void restoreDeletedFolder(File folder) throws Exception
     {
         logger.info("Restore Delted Folder from Trash: " + folder.getName());
         File deletedFolder = new File(LdtpUtils.getTrashFolderLocation(), folder.getName());
@@ -248,7 +253,7 @@ public class FinderExplorer extends KeyboardShortcut
      * 
      * @param file
      */
-    public void openFile(File file)
+    public void openFile(File file) throws Exception
     {
         logger.info("Open File:" + file.getPath());
         selectFile(file);
@@ -260,7 +265,7 @@ public class FinderExplorer extends KeyboardShortcut
      * 
      * @param file
      */
-    public void selectFile(File file)
+    public void selectFile(File file) throws Exception
     {
         logger.info("Select File: " + file.getPath());
         openFolder(file);
@@ -271,7 +276,7 @@ public class FinderExplorer extends KeyboardShortcut
      * 
      * @param file
      */
-    public void deleteFile(File file)
+    public void deleteFile(File file) throws Exception
     {
         logger.info("Delete File: " + file.getPath());
         selectFile(file);
@@ -284,7 +289,7 @@ public class FinderExplorer extends KeyboardShortcut
      * @param source
      * @param destinationFolder
      */
-    public void moveFile(File source, File destinationFolder)
+    public void moveFile(File source, File destinationFolder) throws Exception
     {
         logger.info("Move File[" + source.getPath() + "] to folder:" + destinationFolder.getPath());
         selectFile(source);
@@ -299,7 +304,7 @@ public class FinderExplorer extends KeyboardShortcut
      * @param source
      * @param destinationFolder
      */
-    public void copyFile(File source, File destinationFolder)
+    public void copyFile(File source, File destinationFolder) throws Exception
     {
         logger.info(String.format("Copy file {%s} to {%s}.", source.getPath(), destinationFolder.getPath()));
         selectFile(source);
@@ -314,7 +319,7 @@ public class FinderExplorer extends KeyboardShortcut
      * @param file
      * @param newName
      */
-    public void renameFile(File file, File newName)
+    public void renameFile(File file, File newName) throws Exception
     {
         logger.info(String.format("Rename file {%s} to {%s}.", file.getPath(), newName));
         selectFile(file);
@@ -329,7 +334,7 @@ public class FinderExplorer extends KeyboardShortcut
      * 
      * @param filename
      */
-    public void restoreDeletedFile(File filename)
+    public void restoreDeletedFile(File filename) throws Exception
     {
         logger.info("Restore File from Trash:" + filename.getName());
         File deletedFile = new File(LdtpUtils.getTrashFolderLocation(), filename.getName());
