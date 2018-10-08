@@ -129,7 +129,14 @@ public class FinderExplorer extends KeyboardShortcut
         pasteString(folderPath.getPath());
         getLdtp().generateKeyEvent("<enter>");
         focus(folderPath);
-        waitForWindow(new File(folderPath.getParent()).getName());
+        if(folderPath.isFile())
+        {
+            waitForWindow(new File(folderPath.getParent()).getName());
+        }
+        else
+        {
+            waitForWindow(folderPath.getName());
+        }
     }
 
     /**
@@ -186,7 +193,6 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info("Deleting folder:" + folderPath.getPath());
         openFolder(folderPath);
         goToEnclosingFolder();
-        LdtpUtils.waitToLoopTime(2);
         cmdDelete();
     }
 

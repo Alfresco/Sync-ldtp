@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.SystemUtils;
@@ -382,7 +383,7 @@ public class LdtpUtils
     /**
      * We will wait until the <seconds> are passed from current run
      * 
-     * @param seconds
+     * @param millseconds
      * @throws Exception 
      */
     public static void waitForElement(long millseconds) 
@@ -666,6 +667,19 @@ public class LdtpUtils
         return null;
     }
 
+    public static void waitForWindowToDisappear(Ldtp ldtp, String windowName)
+    {
+        int retries = 0;
+        String[] windowList = ldtp.getWindowList();
+        while (retries <= LdtpUtils.RETRY_COUNT && Arrays.asList(windowList).contains(windowName))
+        {
+            logger.info(String.format("Wait for window '%s' to disappear", windowName));
+            retries++;
+            waitToLoopTime(1);
+            windowList = ldtp.getWindowList();
+        }
+    }
+
     /**
      * Return the full name of the LDTP object
      * 
@@ -749,7 +763,7 @@ public class LdtpUtils
     /**
      * Helper method for killing all <applicationExeNam>
      * 
-     * @param applicationName
+     * @param applicationExeNam
      */
     public static void killAllApplicationsByExeName(String applicationExeNam)
     {
