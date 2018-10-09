@@ -106,6 +106,16 @@ public class FinderExplorer extends KeyboardShortcut
         setWaitWindow("frmDocuments");
     }
 
+    public void closeExplorer(String windowName) throws Exception
+    {
+        logger.info(String.format("Close Explorer Window of %s.", windowName));
+        waitForWindow(windowName);
+        getLdtp().setWindowName(windowName);
+        getLdtp().activateWindow(windowName);
+        waitForWindow(windowName);
+        getLdtp().generateKeyEvent("<option><command>w");
+    }
+
     /**
      * Define a default Layout on the Finder Window
      * 
