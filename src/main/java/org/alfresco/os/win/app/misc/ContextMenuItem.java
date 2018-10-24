@@ -8,8 +8,6 @@ import com.cobra.ldtp.Ldtp;
  * Handles Context Menus sub items
  * This class works in corelation with {@link ContextMenu}
  * 
- * Take a look at {@link WindowsExplorerContextMenu} implemented
- * 
  * @author pbrodner
  */
 public class ContextMenuItem extends GuiObject
@@ -21,6 +19,7 @@ public class ContextMenuItem extends GuiObject
 
     public ContextMenuItem openSubMenu(String value)
     {
+        logger.info(String.format("Select '%s'", value));
         getLdtp().mouseMove(value);
         getLdtp().click(value);
         return this;

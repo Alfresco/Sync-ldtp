@@ -79,19 +79,18 @@ public class WindowsExplorer extends Application
     public void focus(String windowName)
     {
         getLdtp().setWindowName(windowName);
+        getLdtp().activateWindow(windowName);
     }
 
     public void focus()
     {
-        getLdtp().setWindowName(getWaitWindow());
-       // getLdtp().activateWindow(getWaitWindow());
+        focus(getWaitWindow());
     }
 
     @Override
     public ApplicationBase openApplication() throws Exception
     {
         super.openApplication();
-       // maximize();
         return this;
     }
 
@@ -604,7 +603,7 @@ public class WindowsExplorer extends Application
     {
         Desktop.getDesktop().open(location);
         focus(location.getName());
-        getLdtp().grabFocus(location.getName());
+        //getLdtp().grabFocus(location.getName());
         getLdtp().waitTillGuiExist();
     }
     

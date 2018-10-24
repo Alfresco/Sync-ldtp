@@ -67,19 +67,10 @@ public class Dialog extends GuiObject
     {
         getLdtp().click("Close");
     }
-
     
     public void waitForDialogToAppear()
     {
-        int count = 0;
-        boolean displayed = isDisplayed();
-        while ((!displayed && count < LdtpUtils.RETRY_COUNT))
-        {
-            count += 1;
-            logger.info("Waiting 1 second for dialog [" + getDialogName() + "] to appear [remaining: "+ (LdtpUtils.RETRY_COUNT -count) + "]...");            
-            getLdtp().waitTime(1);
-            displayed = isDisplayed();
-        }
+        getLdtp().waitTillGuiExist();
     }
 
     public String getDialogName()
@@ -96,7 +87,7 @@ public class Dialog extends GuiObject
     {
         logger.info("Grab focus to: " + getDialogName());
         getLdtp().setWindowName(getDialogName());
+        getLdtp().waitTillGuiExist();
         getLdtp().activateWindow(getDialogName());
-        LdtpUtils.waitForWindowPartialName(getLdtp(), getDialogName());
     }
 }
