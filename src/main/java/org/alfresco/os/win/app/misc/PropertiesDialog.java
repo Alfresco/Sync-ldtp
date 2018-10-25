@@ -73,8 +73,8 @@ public class PropertiesDialog
         propertyObject.mouseRightClick(fileList);
         propertyObject.setWindowName("Context");
         propertyObject.selectMenuItem("Properties");
-
         propertyObject.setWindowName("dlg" + fileWithoutExtension + ".*");
+        propertyObject.waitTillGuiExist();
         propertyObject.activateWindow("dlg" + fileWithoutExtension + ".*");
         return propertyObject;
     }
