@@ -1,6 +1,7 @@
 package org.alfresco.os.win.app.misc;
 
 import java.io.File;
+import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
@@ -73,9 +74,9 @@ public class PropertiesDialog
         propertyObject.mouseRightClick(fileList);
         propertyObject.setWindowName("Context");
         propertyObject.selectMenuItem("Properties");
-        propertyObject.setWindowName("dlg" + fileWithoutExtension + ".*");
+        propertyObject.setWindowName(fileWithoutExtension + ".*");
         propertyObject.waitTillGuiExist();
-        propertyObject.activateWindow("dlg" + fileWithoutExtension + ".*");
+        propertyObject.activateWindow( fileWithoutExtension + ".*");
         return propertyObject;
     }
 
