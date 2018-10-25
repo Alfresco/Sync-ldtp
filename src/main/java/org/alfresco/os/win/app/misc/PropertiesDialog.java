@@ -75,6 +75,7 @@ public class PropertiesDialog
         propertyObject.selectMenuItem("Properties");
 
         propertyObject.setWindowName("dlg" + fileWithoutExtension + ".*");
+        propertyObject.activateWindow("dlg" + fileWithoutExtension + ".*");
         return propertyObject;
     }
 
