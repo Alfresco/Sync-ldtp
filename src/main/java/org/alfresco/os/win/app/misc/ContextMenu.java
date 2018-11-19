@@ -49,6 +49,7 @@ public abstract class ContextMenu extends GuiObject
     {
         open();
         setMenuItem(getContextMenuItem(itemName));
+        getLdtp().waitTillGuiExist(itemName);
         getLdtp().selectMenuItem(itemName);
         return menuItem;
     }

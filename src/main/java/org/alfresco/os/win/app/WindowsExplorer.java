@@ -135,6 +135,7 @@ public class WindowsExplorer extends Application
         }
         getLdtp().keyPress("<enter>");
         getLdtp().setWindowName(folderPath.getName());
+        getLdtp().waitTillGuiExist();
     }
 
     /**
