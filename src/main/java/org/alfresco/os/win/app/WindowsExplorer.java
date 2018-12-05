@@ -128,10 +128,8 @@ public class WindowsExplorer extends Application
             catch (Exception e)
             {
             }
-
-            getLdtp().generateKeyEvent("<alt>d"); // focu
-            // sing address editor
-            getLdtp().generateKeyEvent(folderPath.getPath());
+            getLdtp().generateKeyEvent("<alt>d");
+            pasteString(folderPath.getPath());
         }
         getLdtp().keyPress("<enter>");
         getLdtp().setWindowName(folderPath.getName());

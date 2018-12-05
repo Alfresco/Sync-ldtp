@@ -47,6 +47,7 @@ public abstract class ContextMenu extends GuiObject
 
     public ContextMenuItem openItem(String itemName) throws Exception
     {
+        logger.info("Open: " + itemName);
         open();
         setMenuItem(getContextMenuItem(itemName));
         getLdtp().waitTillGuiExist(itemName);
