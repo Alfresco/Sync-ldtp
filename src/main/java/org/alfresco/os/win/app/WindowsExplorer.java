@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2005-2012 Alfresco Software Limited.
+* Copyright (C) 2005-2019 Alfresco Software Limited.
  * This file is part of Alfresco
  * Alfresco is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.alfresco.os.win.app;
 
 import java.awt.Desktop;
@@ -79,6 +78,7 @@ public class WindowsExplorer extends Application
     public void focus(String windowName)
     {
         getLdtp().setWindowName(windowName);
+        getLdtp().waitTillGuiExist();
         getLdtp().activateWindow(windowName);
     }
 
@@ -134,6 +134,11 @@ public class WindowsExplorer extends Application
         getLdtp().keyPress("<enter>");
         getLdtp().setWindowName(folderPath.getName());
         getLdtp().waitTillGuiExist();
+    }
+
+    public boolean isWindowDisplayed(String windowName)
+    {
+        return getLdtp().getWindowName().equals(windowName);
     }
 
     /**
@@ -629,5 +634,10 @@ public class WindowsExplorer extends Application
     {
         getLdtp().mouseRightClick(objectName);
         onContextMenuPerform("Delete");
+    }
+
+    public boolean isContentDisplayed(String contentName)
+    {
+        return getLdtp().objectExist(contentName) == 1;
     }
 }
