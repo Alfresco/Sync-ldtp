@@ -287,6 +287,11 @@ public class FinderExplorer extends KeyboardShortcut
         openFolder(file);
     }
 
+    public boolean isContentDisplayed(File file)
+    {
+        return getLdtp().objectExist(file.getName()) == 1;
+    }
+
     /**
      * Delete a file
      * 
