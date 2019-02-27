@@ -101,18 +101,14 @@ public class FinderExplorer extends KeyboardShortcut
     public void closeExplorer()
     {
         logger.info("Close Explorer Window.");
-        LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<command>w");
         setWaitWindow("frmDocuments");
     }
 
-    public void closeExplorer(String windowName) throws Exception
+    public void closeExplorer(String windowName)
     {
         logger.info(String.format("Close Explorer Window of %s.", windowName));
-        waitForWindow(windowName);
-        getLdtp().setWindowName(windowName);
         getLdtp().activateWindow(windowName);
-        waitForWindow(windowName);
         getLdtp().generateKeyEvent("<option><command>w");
     }
 
