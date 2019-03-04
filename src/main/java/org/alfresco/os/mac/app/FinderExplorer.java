@@ -7,6 +7,7 @@
  */
 package org.alfresco.os.mac.app;
 
+import com.cobra.ldtp.Ldtp;
 import org.alfresco.exceptions.WindowNotOpenedException;
 import org.alfresco.os.mac.utils.AlertDialog;
 import org.alfresco.os.mac.utils.KeyboardShortcut;
@@ -14,6 +15,7 @@ import org.alfresco.utilities.LdtpUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * This class will handle Finder based action over Files (CRUD) and Folder (CRUD).
@@ -108,7 +110,10 @@ public class FinderExplorer extends KeyboardShortcut
     public void closeExplorer(String windowName)
     {
         logger.info(String.format("Close Explorer Window of %s.", windowName));
+        getLdtp().setWindowName(windowName);
+        getLdtp().grabFocus(windowName);
         getLdtp().activateWindow(windowName);
+        LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<option><command>w");
     }
 
@@ -133,6 +138,25 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info("Open Folder: " + folderPath.getPath());
         getLdtp().generateKeyEvent("<shift><command>g");
         pasteString(folderPath.getPath());
+        getLdtp().generateKeyEvent("<enter>");
+        focus(folderPath);
+        if(folderPath.isFile())
+        {
+            waitForWindow(folderPath.getParentFile().getName());
+            getLdtp().setWindowName(folderPath.getParentFile().getName());
+        }
+        else
+        {
+            waitForWindow(folderPath.getName());
+            getLdtp().setWindowName(folderPath.getName());
+        }
+    }
+
+    public void openFolderByTypingPath(File folderPath) throws Exception
+    {
+        logger.info("Open Folder: " + folderPath.getPath());
+        getLdtp().generateKeyEvent("<shift><command>g");
+        getLdtp().generateKeyEvent(folderPath.getPath());
         getLdtp().generateKeyEvent("<enter>");
         focus(folderPath);
         if(folderPath.isFile())
@@ -213,9 +237,9 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info("Move Folder[" + source.getPath() + "] to:" + destination.getPath());
         openFolder(source);
         goToEnclosingFolder();
-        LdtpUtils.waitToLoopTime(2);
+        LdtpUtils.waitToLoopTime(1);
         cmdCopy();
-        openFolder(destination);
+        openFolderByTypingPath(destination);
         cmdMove();
     }
 
@@ -311,8 +335,14 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info("Move File[" + source.getPath() + "] to folder:" + destinationFolder.getPath());
         selectFile(source);
         cmdCopy();
-        openFolder(destinationFolder);
+        openFolderByTypingPath(destinationFolder);
         cmdMove();
+    }
+
+    public void replaceIfExists()
+    {
+        Ldtp replaceDialog = new Ldtp("frmCopy");
+        replaceDialog.click("btnReplace");
     }
 
     /**
@@ -393,7 +423,7 @@ public class FinderExplorer extends KeyboardShortcut
         {
             moveFolder(contentToMove, newLocation);
         }
-
+        getLdtp().setWindowName(newLocation.getName());
     }
 
     /**
@@ -438,7 +468,6 @@ public class FinderExplorer extends KeyboardShortcut
         }
         else
         {
-            logger.info("this is for folder");
             deleteFolder(orginialContent);
         }
     }
