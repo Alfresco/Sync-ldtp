@@ -223,6 +223,7 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info("Deleting folder:" + folderPath.getPath());
         openFolder(folderPath);
         goToEnclosingFolder();
+        getLdtp().setWindowName(folderPath.getParentFile().getName());
         cmdDelete();
     }
 
@@ -248,10 +249,8 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info(String.format("Copy folder [%s] to [%s]", source.getPath(), destination.getPath()));
         openFolder(source);
         goToEnclosingFolder();
-        LdtpUtils.waitToLoopTime(1);
         cmdCopy();
-        openFolder(destination);
-        LdtpUtils.waitToLoopTime(1);
+        openFolderByTypingPath(destination);
         cmdPaste();
     }
 
@@ -356,7 +355,7 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info(String.format("Copy file {%s} to {%s}.", source.getPath(), destinationFolder.getPath()));
         selectFile(source);
         cmdCopy();
-        openFolder(destinationFolder);
+        openFolderByTypingPath(destinationFolder);
         cmdPaste();
     }
 
@@ -439,7 +438,7 @@ public class FinderExplorer extends KeyboardShortcut
         {
             copyFolder(contentToMove, newLocation);
         }
-
+        getLdtp().setWindowName(newLocation.getName());
     }
 
     /**
