@@ -93,6 +93,15 @@ public class FinderExplorer extends KeyboardShortcut
         return this;
     }
 
+    public FinderExplorer openFinder(String path) throws Exception
+    {
+        setWaitWindow(new File(path).getName());
+        LdtpUtils.executeOnMac("open " + path);
+        waitForApplicationWindow(getWaitWindow(), true);
+        setViewLayout(LayoutView.LIST);
+        return this;
+    }
+
     @Override
     public void exitApplication()
     {
@@ -111,7 +120,7 @@ public class FinderExplorer extends KeyboardShortcut
     {
         logger.info(String.format("Close Explorer Window of %s.", windowName));
         getLdtp().setWindowName(windowName);
-        getLdtp().grabFocus(windowName);
+        //getLdtp().grabFocus(windowName);
         getLdtp().activateWindow(windowName);
         LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<option><command>w");

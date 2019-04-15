@@ -615,7 +615,6 @@ public class WindowsExplorer extends Application
     {
         Desktop.getDesktop().open(location);
         focus(location.getName());
-        //getLdtp().grabFocus(location.getName());
         getLdtp().waitTillGuiExist();
     }
     
