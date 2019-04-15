@@ -76,7 +76,8 @@ public class Application extends ApplicationBase
         return this;
     }
 
-    public void closeWindow(){
+    public void closeWindow()
+    {
         logger.info("Closing the window, clicking the 'Close' button");
         getLdtp().click("Close");
     }

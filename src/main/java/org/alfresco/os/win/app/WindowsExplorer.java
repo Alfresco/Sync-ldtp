@@ -94,6 +94,14 @@ public class WindowsExplorer extends Application
         return this;
     }
 
+    public ApplicationBase openApplication(String pathToFolder) throws Exception
+    {
+        setWaitWindow(new File(pathToFolder).getName());
+        LdtpUtils.executeOnWin("start " + pathToFolder);
+        waitForApplicationWindow(getWaitWindow(), true);
+        return this;
+    }
+
     /**
      * Method to open a particular folder in windows explorer
      * 

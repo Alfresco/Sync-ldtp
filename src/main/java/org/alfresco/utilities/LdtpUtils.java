@@ -242,6 +242,7 @@ public class LdtpUtils
      */
     public static List<String> executeOnWin(String command)
     {
+        logger.info("Execute command: " + command);
         ArrayList<String> lines = new ArrayList<String>();
         try
         {
