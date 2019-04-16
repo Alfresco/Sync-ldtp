@@ -88,6 +88,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public FinderExplorer openApplication()
     {
+        setWaitWindow("frmDocuments");
         super.openApplication();
         setViewLayout(LayoutView.LIST);
         return this;
