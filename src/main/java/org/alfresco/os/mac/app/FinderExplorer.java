@@ -348,10 +348,12 @@ public class FinderExplorer extends KeyboardShortcut
         cmdMove();
     }
 
-    public void replaceIfExists()
+    public void replaceIfExists() throws Exception
     {
         Ldtp replaceDialog = new Ldtp("frmCopy");
+        LdtpUtils.waitForWindowPartialName(replaceDialog, "frmCopy");
         replaceDialog.click("btnReplace");
+        waitUntilWindowIsClosed("frmCopy");
     }
 
     /**
