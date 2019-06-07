@@ -23,6 +23,8 @@ import java.util.Arrays;
 public class FinderExplorer extends KeyboardShortcut
 {
     private static Logger logger = Logger.getLogger(FinderExplorer.class);
+    private final String syncExtension = "cbo2";
+    private final String syncNowMenu = "mnuSyncNow";
 
     /**
      * Initialize the FinderExplorer window for Mac Opening first the Documents folder of the current user
@@ -482,15 +484,11 @@ public class FinderExplorer extends KeyboardShortcut
             deleteFolder(orginialContent);
         }
     }
-    /**
-     * move when file is open 
-     * 
-     */
-    public void moveFileWhenFolderOpen(File contentToMove, File newLocation) throws Exception
+
+    public void clickSyncNow()
     {
-        cmdAll();
-        cmdCopy();
-        openFolder(newLocation);
-        cmdMove();
+        getLdtp().waitTillGuiExist(syncExtension);
+        getLdtp().click(syncExtension);
+        getLdtp().click(syncNowMenu);
     }
 }
