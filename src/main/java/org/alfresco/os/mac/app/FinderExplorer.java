@@ -25,6 +25,7 @@ public class FinderExplorer extends KeyboardShortcut
     private static Logger logger = Logger.getLogger(FinderExplorer.class);
     private final String syncExtension = "cbo2";
     private final String syncNowMenu = "mnuSyncNow";
+    private final String ALFRESCO_EXTENSION = "com.alfresco.AlfrescoDesktopSync.AlfrescoSyncExtension";
 
     /**
      * Initialize the FinderExplorer window for Mac Opening first the Documents folder of the current user
@@ -487,6 +488,10 @@ public class FinderExplorer extends KeyboardShortcut
 
     public void clickSyncNow()
     {
+        if(getLdtp().objectExist(syncExtension) == 0)
+        {
+            LdtpUtils.executeOnMac(String.format("pluginkit -e use -i %s", ALFRESCO_EXTENSION));
+        }
         getLdtp().waitTillGuiExist(syncExtension);
         getLdtp().click(syncExtension);
         getLdtp().click(syncNowMenu);
