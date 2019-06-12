@@ -273,16 +273,15 @@ public class LdtpUtils
         ArrayList<String> lines = new ArrayList<String>();
         try
         {
-            System.out.println("command " + command);
+            logger.info("command " + command);
             String[] com = {"/bin/sh", "-c" , command};
             Process p = Runtime.getRuntime().exec(com);
             p.waitFor();
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
             String line;
             while ((line = reader.readLine()) != null)
             {
-                    lines.add(line);
+                lines.add(line);
             }
         }
         catch (IOException e1)
@@ -360,7 +359,6 @@ public class LdtpUtils
                 results += c;
             }
         }
-
         return results;
     }
 
@@ -384,15 +382,15 @@ public class LdtpUtils
     /**
      * We will wait until the <seconds> are passed from current run
      * 
-     * @param millseconds
+     * @param seconds to wait
      * @throws Exception 
      */
-    public static void waitForElement(long millseconds) 
+    public static void waitForElement(int seconds)
     {
         try
         {
-        logInfo("Waiting (in loops) for: " + millseconds/1000 + " second(s).");
-        Thread.sleep(millseconds);
+            logInfo("Waiting (in loops) for: " + seconds + " second(s).");
+            waitToLoopTime(seconds);
         }
         catch (Exception e)
         {
@@ -425,8 +423,8 @@ public class LdtpUtils
             {
              	return new File(getHomeFolder(), "Documents");
             }
-           	else
-          	{
+            else
+            {
                 return new File(getHomeFolder(), "Documents");
             }
         }
@@ -870,6 +868,6 @@ public class LdtpUtils
      */
     public static void openFile(File file)
     {
-        LdtpUtils.executeOnWin("start " + file.getPath());       
+        LdtpUtils.executeOnWin("start " + file.getPath());
     }
 }

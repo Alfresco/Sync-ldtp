@@ -12,6 +12,7 @@ import org.alfresco.exceptions.WindowNotOpenedException;
 import org.alfresco.os.mac.utils.AlertDialog;
 import org.alfresco.os.mac.utils.KeyboardShortcut;
 import org.alfresco.utilities.LdtpUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -99,7 +100,12 @@ public class FinderExplorer extends KeyboardShortcut
 
     public FinderExplorer openFinder(String path) throws Exception
     {
-        setWaitWindow(new File(path).getName());
+        String name = new File(path).getName();
+        if(name.startsWith("."))
+        {
+            name = name.replaceFirst(".", "");
+        }
+        setWaitWindow("frm" + name);
         LdtpUtils.executeOnMac("open " + path);
         waitForApplicationWindow(getWaitWindow(), true);
         setViewLayout(LayoutView.LIST);
@@ -288,6 +294,7 @@ public class FinderExplorer extends KeyboardShortcut
      * Restore any deleted Folder
      * 
      * @param folder
+     * @deprecated
      */
     public void restoreDeletedFolder(File folder) throws Exception
     {
@@ -333,7 +340,7 @@ public class FinderExplorer extends KeyboardShortcut
     {
         logger.info("Delete File: " + file.getPath());
         selectFile(file);
-        cmdDelete();
+
     }
 
     /**
@@ -394,6 +401,7 @@ public class FinderExplorer extends KeyboardShortcut
      * Restore any deleted files
      * 
      * @param filename
+     * @deprecated
      */
     public void restoreDeletedFile(File filename) throws Exception
     {
@@ -473,17 +481,19 @@ public class FinderExplorer extends KeyboardShortcut
     /**
      * delete content
      */
-    public void deleteContent(File orginialContent) throws Exception
+    public void deleteContent(File content) throws Exception
     {
-        
-        if (orginialContent.isFile())
+        getLdtp().waitTillGuiExist(content.getName());
+        getLdtp().click(content.getName());
+        cmdDelete();
+        /*if (orginialContent.isFile())
         {
             deleteFile(orginialContent);
         }
         else
         {
             deleteFolder(orginialContent);
-        }
+        }*/
     }
 
     public void clickSyncNow()
