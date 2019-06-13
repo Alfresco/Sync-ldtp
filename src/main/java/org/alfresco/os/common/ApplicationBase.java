@@ -279,7 +279,7 @@ public abstract class ApplicationBase
      * @throws IOException
      * @author Paul Brodner
      */
-    public Ldtp waitForApplicationWindow(String windowName, boolean defineGetLDTP) throws Exception
+    public Ldtp waitForApplicationWindow(String windowName, boolean defineGetLDTP)
     {
         Ldtp _ldtp = initializeLdtp();
         int retries = 0;

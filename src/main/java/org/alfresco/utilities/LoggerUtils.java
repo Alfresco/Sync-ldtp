@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 public class LoggerUtils
 {
     /**
-     * Dynamically get the classs logger
+     * Dynamically get the class logger
      * 
      * @return
      */

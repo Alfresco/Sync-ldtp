@@ -846,13 +846,12 @@ public class LdtpUtils
      */
     public static boolean isWindowOpened(Ldtp ldtp, String windowName)
     {
-        String[] windows = null;
         boolean isOpened = false;
-        windows = ldtp.getWindowList();
+        String[] windows = ldtp.getWindowList();
         windowName = windowName.toLowerCase();
-        for (int i = 0; i < windows.length; i++)
+        for (String window : windows)
         {
-            if (windows[i].toLowerCase().contains(windowName))
+            if (window.toLowerCase().contains(windowName))
             {
                 isOpened = true;
                 break;

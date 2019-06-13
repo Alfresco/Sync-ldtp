@@ -15,16 +15,6 @@ public class WindowsExplorerTest extends AbstractTestClass
     WindowsExplorer app = new WindowsExplorer();
 
     @Test
-    public void testOpenFolder() throws Exception
-    {
-        File myDocs = LdtpUtils.getDocumentsFolder();
-        app.openApplication();
-        app.openFolder(myDocs);
-        app.rightClickCreate(myDocs.getName(), "test1.txt", type.TEXTFILE);        
-        app.exitApplication();
-    }
-
-    @Test
     public void testGoBack() throws Exception
     {
     	File myDocs = LdtpUtils.getDocumentsFolder();
@@ -36,31 +26,6 @@ public class WindowsExplorerTest extends AbstractTestClass
 //        }
         	app.goBack("This PC");
         app.exitApplication();
-    }
-
-    @Test
-    public void testCreateNewFolderMenu() throws Exception
-    {
-        File createFolder = new File(LdtpUtils.getDocumentsFolder(), "TestCreateNewFolder");
-
-        app.openApplication();
-        app.openFolder(createFolder.getParentFile());
-        app.createNewFolderMenu(createFolder.getName());
-        Assert.assertTrue(createFolder.exists(), "Folder was successfuly created");
-        createFolder.delete();
-        app.closeExplorer();
-       // app.exitApplication();
-    }
-
-    @Test
-    public void testCreateAndOpenFolder() throws Exception
-    {
-        File createFolder = new File(LdtpUtils.getDocumentsFolder(), "TestCreateAndOpen");
-        app.openApplication();
-        app.openFolder(createFolder.getParentFile());
-        app.createAndOpenFolder(createFolder.getName());
-        app.exitApplication();
-        createFolder.delete();
     }
 
     @Test
@@ -122,32 +87,6 @@ public class WindowsExplorerTest extends AbstractTestClass
     }
 
     @Test
-    public void testDeleteFile() throws Exception
-    {
-        File file = new File(LdtpUtils.getDocumentsFolder(), "testDeleteFile.txt");
-        file.createNewFile();
-        LdtpUtils.waitUntilFileExistsOnDisk(file);
-        app.openApplication();
-        app.deleteFile(file, false);
-        app.getLdtp().waitTime(3);
-        Assert.assertTrue(file.exists(), "File was not successfully deleted");
-        app.exitApplication();
-    }
-    @Test
-    public void testDeleteFolder() throws Exception
-    {
-    	File createFolder = new File(LdtpUtils.getDocumentsFolder(), "Testdelete");
-
-        app.openApplication();
-        app.openFolder(createFolder.getParentFile());
-        app.createNewFolderMenu(createFolder.getName());
-        Assert.assertTrue(createFolder.exists(), "Folder was successfuly created");
-        app.deleteFolder(createFolder);
-        app.closeExplorer();
-    }
-    		
-
-    @Test
     public void testMoveFolderInCurrent() throws Exception
     {
         File folderSource = new File(LdtpUtils.getDocumentsFolder(), "folderSource");
@@ -190,13 +129,4 @@ public class WindowsExplorerTest extends AbstractTestClass
         f.delete();
         folderSource.delete();
      }
-    @Test
-    public void  closeall()
-    {
-    	WindowsExplorer e = new WindowsExplorer();
-    	System.out.println("iside test");
-    	e.closeAllWindowForms();
-    }
-    
-    
 }

@@ -486,14 +486,6 @@ public class FinderExplorer extends KeyboardShortcut
         getLdtp().waitTillGuiExist(content.getName());
         getLdtp().click(content.getName());
         cmdDelete();
-        /*if (orginialContent.isFile())
-        {
-            deleteFile(orginialContent);
-        }
-        else
-        {
-            deleteFolder(orginialContent);
-        }*/
     }
 
     public void clickSyncNow()
