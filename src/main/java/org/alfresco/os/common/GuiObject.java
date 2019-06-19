@@ -1,6 +1,8 @@
 package org.alfresco.os.common;
 
+import org.alfresco.utilities.LdtpUtils;
 import org.alfresco.utilities.LoggerUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
@@ -52,6 +54,13 @@ public abstract class GuiObject
         StringSelection stringSelection = new StringSelection(value);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
-        getLdtp().generateKeyEvent("<ctrl>v");
+        if(SystemUtils.IS_OS_MAC)
+        {
+            getLdtp().generateKeyEvent("<command>v");
+        }
+        else
+        {
+            getLdtp().generateKeyEvent("<ctrl>v");
+        }
     }
 }
