@@ -83,7 +83,7 @@ public abstract class ApplicationBase
     {
         LdtpUtils.logInfo("Opening Application: " + Arrays.asList(command));
         runProcess(command);
-        waitForApplicationWindow(getWaitWindow(), true);
+        //waitForApplicationWindow(getWaitWindow(), true);
         return this;
     }
 

@@ -133,23 +133,19 @@ public class LdtpUtils
     public static void waitForObject(Ldtp ldtp, String objectName)
     {
         int counter = 0;
-        int exists = 0;
+        int exists;
 
         while (counter < RETRY_COUNT)
         {
             exists = ldtp.objectExist(objectName);
             if (exists == 1)
+            {
                 break;
+            }
             else
             {
                 counter++;
-                try
-                {
-                    ldtp.wait(1);
-                }
-                catch (InterruptedException e)
-                {
-                }
+                waitToLoopTime(1);
             }
         }
     }
