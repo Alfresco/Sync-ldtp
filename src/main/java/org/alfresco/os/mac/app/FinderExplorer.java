@@ -12,11 +12,9 @@ import org.alfresco.exceptions.WindowNotOpenedException;
 import org.alfresco.os.mac.utils.AlertDialog;
 import org.alfresco.os.mac.utils.KeyboardShortcut;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.util.Arrays;
 
 /**
  * This class will handle Finder based action over Files (CRUD) and Folder (CRUD).
@@ -94,11 +92,12 @@ public class FinderExplorer extends KeyboardShortcut
     {
         setWaitWindow("frmDocuments");
         super.openApplication();
+        waitForApplicationWindow(getWaitWindow(), true);
         setViewLayout(LayoutView.LIST);
         return this;
     }
 
-    public FinderExplorer openFinder(String path) throws Exception
+    public FinderExplorer openFinder(String path)
     {
         String name = new File(path).getName();
         if(name.startsWith("."))
@@ -130,7 +129,6 @@ public class FinderExplorer extends KeyboardShortcut
     {
         logger.info(String.format("Close Explorer Window of %s.", windowName));
         getLdtp().setWindowName(windowName);
-        //getLdtp().grabFocus(windowName);
         getLdtp().activateWindow(windowName);
         LdtpUtils.waitToLoopTime(1);
         getLdtp().generateKeyEvent("<option><command>w");
@@ -481,7 +479,7 @@ public class FinderExplorer extends KeyboardShortcut
     /**
      * delete content
      */
-    public void deleteContent(File content) throws Exception
+    public void deleteContent(File content)
     {
         getLdtp().waitTillGuiExist(content.getName());
         getLdtp().click(content.getName());
@@ -490,12 +488,14 @@ public class FinderExplorer extends KeyboardShortcut
 
     public void clickSyncNow()
     {
+        getLdtp().activateWindow(getWaitWindow());
         if(getLdtp().objectExist(syncExtension) == 0)
         {
             LdtpUtils.executeOnMac(String.format("pluginkit -e use -i %s", ALFRESCO_EXTENSION));
         }
         getLdtp().waitTillGuiExist(syncExtension);
         getLdtp().click(syncExtension);
+        getLdtp().waitTillGuiExist(syncNowMenu);
         getLdtp().click(syncNowMenu);
     }
 }
