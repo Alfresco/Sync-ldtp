@@ -111,12 +111,10 @@ public class WindowsExplorer extends Application
 
     public ApplicationBase replaceIfExits()
     {
-        if(LdtpUtils.isWindowOpened(getLdtp(), replaceIfExitsDialog))
-        {
-            Ldtp replaceDialog = new Ldtp(replaceIfExitsDialog);
-            replaceDialog.click(btnReplaceFile);
-            LdtpUtils.waitForWindowToDisappear(getLdtp(), replaceIfExitsDialog);
-        }
+        LdtpUtils.waitForWindowPartialName(getLdtp(), replaceIfExitsDialog);
+        Ldtp replaceDialog = new Ldtp(replaceIfExitsDialog);
+        replaceDialog.click(btnReplaceFile);
+        LdtpUtils.waitForWindowToDisappear(getLdtp(), replaceIfExitsDialog);
         return this;
     }
 
