@@ -724,6 +724,32 @@ public class LdtpUtils
     }
 
     /**
+     * Waits for an object to have a certain value
+     *
+     * @param ldtp
+     * @param objectName
+     * @param valueToWait
+     */
+    public static void waitObjectContainsLabel(Ldtp ldtp, String objectName, String valueToWait)
+    {
+        int counter = 0;
+        while (counter < LdtpUtils.RETRY_COUNT)
+        {
+            String fileNameContent = ldtp.getObjectProperty(objectName, "label");
+            if (fileNameContent.contains(valueToWait))
+            {
+                break;
+            }
+            else
+            {
+                logger.info(String.format("Wait until object '%s' contains label '%s'", objectName, valueToWait));
+                waitToLoopTime(1);
+                counter++;
+            }
+        }
+    }
+
+    /**
      * Capture screenshot
      * 
      * @return
