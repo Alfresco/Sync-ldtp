@@ -98,6 +98,7 @@ public class WindowsExplorer extends Application
         setWaitWindow(new File(pathToFolder).getName());
         LdtpUtils.executeOnWin("start " + pathToFolder);
         waitForApplicationWindow(getWaitWindow(), true);
+        focus(getWaitWindow());
         return this;
     }
 
@@ -213,6 +214,15 @@ public class WindowsExplorer extends Application
     public void closeExplorer()
     {
         logger.info("close the explorer");
+        getLdtp().waitTillGuiExist("Close");
+        getLdtp().click("Close");
+        setLdtp(null);
+    }
+
+    public void closeExplorer(String windowName)
+    {
+        logger.info("close the explorer");
+        getLdtp().setWindowName(windowName);
         getLdtp().waitTillGuiExist("Close");
         getLdtp().click("Close");
         setLdtp(null);
