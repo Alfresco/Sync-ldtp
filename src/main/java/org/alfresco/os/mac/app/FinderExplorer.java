@@ -104,6 +104,12 @@ public class FinderExplorer extends KeyboardShortcut
         {
             name = name.replaceFirst(".", "");
         }
+        // only for trash - macOs Catalina
+        if(name.equals("Trash") && System.getProperty("os.version").equals("10.15")) //TODO: temporary fix
+        {
+            logger.info("Set Trash window to Bin -> macOS-Catalina");
+            name = "Bin";
+        }
         setWaitWindow("frm" + name);
         LdtpUtils.executeOnMac("open " + path);
         waitForApplicationWindow(getWaitWindow(), true);
