@@ -105,7 +105,7 @@ public class FinderExplorer extends KeyboardShortcut
             name = name.replaceFirst(".", "");
         }
         // only for trash - macOs Catalina
-        if(name.equals("Trash") && System.getProperty("os.version").equals("10.15")) //TODO: temporary fix
+        if(name.equals("Trash"))
         {
             logger.info("Set Trash window to Bin -> macOS-Catalina");
             name = "Bin";
