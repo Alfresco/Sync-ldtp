@@ -15,16 +15,12 @@
 
 package org.alfresco.os.win;
 
-import org.alfresco.os.common.ApplicationBase;
-import org.alfresco.utilities.LdtpUtils;
-import org.apache.log4j.Logger;
-
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
-
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
+import org.alfresco.os.common.ApplicationBase;
+import org.alfresco.utilities.LdtpUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Abstract class that will cover only Windows based application
@@ -32,7 +28,7 @@ import java.awt.datatransfer.StringSelection;
  */
 public class Application extends ApplicationBase
 {
-	private static Logger logger = Logger.getLogger(Application.class);
+	private static Logger logger = LogManager.getLogger(Application.class);
 
     @Override
     public void exitApplication()

@@ -1,11 +1,9 @@
 package org.alfresco.os.common;
 
-import org.alfresco.utilities.LdtpUtils;
+import com.cobra.ldtp.Ldtp;
 import org.alfresco.utilities.LoggerUtils;
 import org.apache.commons.lang.SystemUtils;
-import org.apache.log4j.Logger;
-
-import com.cobra.ldtp.Ldtp;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;

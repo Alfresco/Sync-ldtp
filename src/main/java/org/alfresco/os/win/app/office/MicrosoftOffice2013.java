@@ -15,15 +15,15 @@
 
 package org.alfresco.os.win.app.office;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.alfresco.os.common.ApplicationBase;
-import org.alfresco.utilities.LdtpUtils;
-import org.apache.log4j.Logger;
-
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
+import org.alfresco.os.common.ApplicationBase;
+import org.alfresco.utilities.LdtpUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * This class has all the method involved in using the actions in office 2010
@@ -32,7 +32,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class MicrosoftOffice2013 extends MicrosoftOfficeBase
 {
-    private static Logger logger = Logger.getLogger(MicrosoftOffice2013.class);
+    private static Logger logger = LogManager.getLogger(MicrosoftOffice2013.class);
 
     public MicrosoftOffice2013(VersionDetails officeApplication)
     {

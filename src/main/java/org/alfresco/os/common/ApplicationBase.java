@@ -27,7 +27,8 @@ import java.util.Properties;
 
 import org.alfresco.utilities.LdtpUtils;
 import org.apache.commons.lang.SystemUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 
@@ -38,7 +39,7 @@ public abstract class ApplicationBase
 {
     private Ldtp ldtp;
 
-    private static Logger logger = Logger.getLogger(ApplicationBase.class);
+    private static Logger logger = LogManager.getLogger(ApplicationBase.class);
     protected String applicationPath;
     protected String applicationName;
     protected String applicationVersion;

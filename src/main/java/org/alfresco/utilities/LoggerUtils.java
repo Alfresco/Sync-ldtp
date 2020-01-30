@@ -1,6 +1,7 @@
 package org.alfresco.utilities;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class LoggerUtils
 {
@@ -12,6 +13,6 @@ public class LoggerUtils
     public static Logger getLogger()
     {
         StackTraceElement myCaller = Thread.currentThread().getStackTrace()[2];
-        return Logger.getLogger(myCaller.getClassName());
+        return LogManager.getLogger(myCaller.getClassName());
     }
 }

@@ -20,7 +20,8 @@ import com.google.common.io.Files;
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.File;
@@ -35,7 +36,7 @@ import java.io.IOException;
  */
 public class WindowsExplorer extends Application
 {
-    private static Logger logger = Logger.getLogger(WindowsExplorer.class);
+    private static Logger logger = LogManager.getLogger(WindowsExplorer.class);
     private final String replaceIfExitsDialog = "frmReplace or Skip Files";
     private final String btnReplaceFile = "btnReplacethefileinthedestination";
 

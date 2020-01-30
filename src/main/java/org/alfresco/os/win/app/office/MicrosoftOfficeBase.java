@@ -21,7 +21,8 @@ import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.os.win.app.WindowsExplorer;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;;
 
 import com.cobra.ldtp.LdtpExecutionError;
 import com.google.common.io.Files;
@@ -38,7 +39,7 @@ import com.google.common.io.Files;
  */
 public class MicrosoftOfficeBase extends Application
 {
-    private static Logger logger = Logger.getLogger(MicrosoftOfficeBase.class);
+    private static Logger logger = LogManager.getLogger(MicrosoftOfficeBase.class);
     public String OFFICE_PATH = "C:\\Program Files (x86)\\Microsoft Office\\Office14";
     protected VersionDetails applicationDetails;
     protected String fileMenuPage = "File";

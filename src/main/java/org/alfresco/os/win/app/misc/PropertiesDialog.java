@@ -1,12 +1,11 @@
 package org.alfresco.os.win.app.misc;
 
-import java.io.File;
-import java.util.Arrays;
-
-import org.apache.log4j.Logger;
-
 import com.cobra.ldtp.Ldtp;
 import com.google.common.io.Files;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.File;
 
 /**
  * Covers Properties Dialog of a File or Folder
@@ -21,7 +20,7 @@ public class PropertiesDialog
         this.filename = fileName;
     }
 
-    protected static Logger logger = Logger.getLogger(PropertiesDialog.class);
+    protected static Logger logger = LogManager.getLogger(PropertiesDialog.class);
     private File filename;
     private Ldtp propertyObject;
 

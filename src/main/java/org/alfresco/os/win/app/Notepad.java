@@ -19,7 +19,8 @@ import java.io.File;
 
 import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.cobra.ldtp.LdtpExecutionError;
 import com.google.common.io.Files;
@@ -32,7 +33,7 @@ import com.google.common.io.Files;
  */
 public class Notepad extends Application
 {
-	private static Logger logger = Logger.getLogger(Notepad.class);
+	private static Logger logger = LogManager.getLogger(Notepad.class);
     String applicationWindowName = "Notepad";
 
     public Notepad()
