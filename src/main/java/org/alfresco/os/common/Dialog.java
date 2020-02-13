@@ -1,16 +1,13 @@
 package org.alfresco.os.common;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-
+import com.cobra.ldtp.Ldtp;
 import org.alfresco.utilities.LdtpUtils;
-import org.alfresco.utilities.LoggerUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cobra.ldtp.Ldtp;
-import org.apache.logging.log4j.LogManager;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * Map a simple Dialog window
