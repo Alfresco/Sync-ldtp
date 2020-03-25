@@ -319,7 +319,7 @@ public class LdtpUtils
      */
     public static Process runProcess(String... command) throws Exception
     {
-        logger.info("Running Process:" + command.toString());
+        logger.info("Running Process:" + Arrays.asList(command));
         ProcessBuilder pb = new ProcessBuilder(command);
         Process process;
         process = pb.start();
