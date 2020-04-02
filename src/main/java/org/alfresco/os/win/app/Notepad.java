@@ -15,15 +15,12 @@
 
 package org.alfresco.os.win.app;
 
-import java.io.File;
-
-import org.alfresco.os.win.Application;
-import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.cobra.ldtp.LdtpExecutionError;
 import com.google.common.io.Files;
+import org.alfresco.os.win.Application;
+import org.alfresco.utilities.LdtpUtils;
+
+import java.io.File;
 
 /**
  * This class has all the method involved in using the actions in Notepad application 2013
@@ -33,7 +30,6 @@ import com.google.common.io.Files;
  */
 public class Notepad extends Application
 {
-	private static Logger logger = LogManager.getLogger(Notepad.class);
     String applicationWindowName = "Notepad";
 
     public Notepad()

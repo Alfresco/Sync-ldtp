@@ -1,9 +1,11 @@
 package org.alfresco.os.common;
 
 import com.cobra.ldtp.Ldtp;
+import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +19,7 @@ public class Dialog extends GuiObject
 {   
     private String dialogName;
 
-    protected static Logger logger = LogManager.getLogger(Dialog.class);
+    public static Logger logger = LoggerFactory.getLogger(Dialog.class);
 
     public Dialog(String dialogName)
     {

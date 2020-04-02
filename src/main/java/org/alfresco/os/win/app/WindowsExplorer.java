@@ -18,10 +18,11 @@ import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
 import com.google.common.io.Files;
 import org.alfresco.os.common.ApplicationBase;
+import org.alfresco.os.mac.app.office.MicrosoftOfficeBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.io.File;
@@ -36,7 +37,7 @@ import java.io.IOException;
  */
 public class WindowsExplorer extends Application
 {
-    private static Logger logger = LogManager.getLogger(WindowsExplorer.class);
+    private static Logger logger = LoggerFactory.getLogger(WindowsExplorer.class);
     private final String replaceIfExitsDialog = "frmReplace or Skip Files";
     private final String btnReplaceFile = "btnReplacethefileinthedestination";
 

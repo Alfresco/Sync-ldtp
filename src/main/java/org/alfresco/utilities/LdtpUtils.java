@@ -15,27 +15,21 @@
 
 package org.alfresco.utilities;
 
-import java.awt.Image;
-import java.awt.Toolkit;
+import com.cobra.ldtp.Ldtp;
+import com.cobra.ldtp.LdtpExecutionError;
+import com.google.common.io.Files;
+import org.apache.commons.lang.SystemUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.*;
 import java.awt.image.PixelGrabber;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang.SystemUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.cobra.ldtp.Ldtp;
-import com.cobra.ldtp.LdtpExecutionError;
-import com.google.common.io.Files;
 
 /**
  * LDTP Utility class.
@@ -46,7 +40,7 @@ import com.google.common.io.Files;
  */
 public class LdtpUtils
 {
-    private static Logger logger = LogManager.getLogger(LdtpUtils.class);
+    public static Logger logger = LoggerFactory.getLogger(LdtpUtils.class);
     private static boolean isInfoEnabled = logger.isInfoEnabled();
     private static boolean isDebugEnabled = logger.isDebugEnabled();
 
@@ -765,7 +759,7 @@ public class LdtpUtils
         }
         catch (LdtpExecutionError e)
         {
-            logger.error(e);
+            logger.error(e.getMessage());
         }
         return screen;
     }

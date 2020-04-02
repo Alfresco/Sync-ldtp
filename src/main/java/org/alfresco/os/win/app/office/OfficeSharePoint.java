@@ -16,15 +16,17 @@ package org.alfresco.os.win.app.office;
 
 import java.io.File;
 
+import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OfficeSharePoint extends MicrosoftOfficeBase
 {
-    private static Logger logger = LogManager.getLogger(OfficeSharePoint.class);
+    public static Logger logger = LoggerFactory.getLogger(OfficeSharePoint.class);
+
     public OfficeSharePoint(VersionDetails officeApplication, String version)
     {
         super(officeApplication, version);

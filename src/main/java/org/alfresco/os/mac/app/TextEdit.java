@@ -15,16 +15,15 @@
 
 package org.alfresco.os.mac.app;
 
-import java.io.File;
-import java.io.IOException;
-
+import com.cobra.ldtp.LdtpExecutionError;
 import org.alfresco.os.mac.Editor;
 import org.alfresco.os.mac.utils.AppleScript;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.cobra.ldtp.LdtpExecutionError;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * This class will handle operations related to TextEditor application on MAC operating system.
@@ -32,7 +31,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class TextEdit extends Editor
 {
-	private static Logger logger = LogManager.getLogger(TextEdit.class);
+    private static Logger logger = LoggerFactory.getLogger(TextEdit.class);
 	/**
      * @param version
      * @param application 'Microsoft Word.app' or 'Microsoft Outlook.app'

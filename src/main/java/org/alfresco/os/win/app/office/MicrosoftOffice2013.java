@@ -19,8 +19,8 @@ import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
 import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +32,7 @@ import java.io.IOException;
  */
 public class MicrosoftOffice2013 extends MicrosoftOfficeBase
 {
-    private static Logger logger = LogManager.getLogger(MicrosoftOffice2013.class);
-
+    private static Logger logger = LoggerFactory.getLogger(MicrosoftOffice2013.class);
     public MicrosoftOffice2013(VersionDetails officeApplication)
     {
         super(officeApplication, "2013");
@@ -101,8 +100,7 @@ public class MicrosoftOffice2013 extends MicrosoftOfficeBase
 
     /**
      * Operates on Save As dialog
-     * 
-     * @param ldtp1
+     *
      * @param path
      * @throws Exception 
      */

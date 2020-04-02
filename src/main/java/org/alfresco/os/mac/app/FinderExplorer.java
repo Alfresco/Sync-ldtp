@@ -12,8 +12,8 @@ import org.alfresco.exceptions.WindowNotOpenedException;
 import org.alfresco.os.mac.utils.AlertDialog;
 import org.alfresco.os.mac.utils.KeyboardShortcut;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -22,7 +22,7 @@ import java.io.File;
  */
 public class FinderExplorer extends KeyboardShortcut
 {
-    private static Logger logger = LogManager.getLogger(FinderExplorer.class);
+    public static Logger logger = LoggerFactory.getLogger(FinderExplorer.class);
     private final String syncExtension = "cbo2";
     private final String syncNowMenu = "mnuSyncNow";
     private final String ALFRESCO_EXTENSION = "com.alfresco.AlfrescoDesktopSync.AlfrescoSyncExtension";

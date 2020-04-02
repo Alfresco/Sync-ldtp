@@ -15,18 +15,17 @@
 
 package org.alfresco.os.mac;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-
+import com.cobra.ldtp.Ldtp;
+import com.cobra.ldtp.LdtpExecutionError;
 import org.alfresco.exceptions.OfficeCrashException;
 import org.alfresco.os.mac.utils.AppleMenuBar;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.cobra.ldtp.Ldtp;
-import com.cobra.ldtp.LdtpExecutionError;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * This class will add a mix of methods used on Editors applications,like Edit document, save it, close it.
@@ -36,7 +35,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public abstract class Editor extends Application
 {
-	private static Logger logger = LogManager.getLogger(Editor.class);
+    private static Logger logger = LoggerFactory.getLogger(Editor.class);
 	protected String fileName = "NOT DEFINED"; // this is the filename from Editor
     private AppleMenuBar appleMenu;
 

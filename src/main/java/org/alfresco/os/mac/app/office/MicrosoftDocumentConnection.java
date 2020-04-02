@@ -32,8 +32,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.alfresco.os.mac.Application;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -47,7 +47,7 @@ import org.w3c.dom.NodeList;
  */
 public class MicrosoftDocumentConnection extends Application
 {
-	private static Logger logger = LogManager.getLogger(MicrosoftDocumentConnection.class);
+    private static Logger logger = LoggerFactory.getLogger(MicrosoftDocumentConnection.class);
     public MicrosoftDocumentConnection(String version)
     {
         setApplicationPath("/Applications/Microsoft Office " + version.toString() + "/Microsoft Document Connection.app");

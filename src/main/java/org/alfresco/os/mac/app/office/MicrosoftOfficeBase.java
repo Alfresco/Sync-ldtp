@@ -18,15 +18,16 @@ package org.alfresco.os.mac.app.office;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.alfresco.os.common.ApplicationBase;
 import org.alfresco.os.mac.Application;
 import org.alfresco.os.mac.Editor;
 import org.alfresco.os.mac.utils.AppleMenuBar.Menu;
 import org.alfresco.utilities.LdtpUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handle general MAC Office actions used between multiple versions of Office suite (i.e. Office 2011, Office 2010, etc.).
@@ -34,7 +35,7 @@ import com.cobra.ldtp.LdtpExecutionError;
  */
 public class MicrosoftOfficeBase extends Editor
 {
-	private static Logger logger = LogManager.getLogger(MicrosoftOfficeBase.class);
+    private static Logger logger = LoggerFactory.getLogger(MicrosoftOfficeBase.class);
 	private MicrosoftDocumentConnection mdc;
 
     /**

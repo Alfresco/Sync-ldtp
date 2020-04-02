@@ -2,8 +2,9 @@ package org.alfresco.os.win.app.misc;
 
 import com.cobra.ldtp.Ldtp;
 import com.google.common.io.Files;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.alfresco.os.mac.app.office.MicrosoftOfficeBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -20,7 +21,7 @@ public class PropertiesDialog
         this.filename = fileName;
     }
 
-    protected static Logger logger = LogManager.getLogger(PropertiesDialog.class);
+    protected static Logger logger = LoggerFactory.getLogger(PropertiesDialog.class);
     private File filename;
     private Ldtp propertyObject;
 

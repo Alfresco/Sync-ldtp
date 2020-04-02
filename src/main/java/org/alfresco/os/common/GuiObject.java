@@ -1,9 +1,10 @@
 package org.alfresco.os.common;
 
 import com.cobra.ldtp.Ldtp;
+import org.alfresco.os.win.Application;
 import org.apache.commons.lang.SystemUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -11,11 +12,11 @@ import java.awt.datatransfer.StringSelection;
 
 /**
  * Generic GUI object that is using LDTP
- * 
+ *
  */
 public abstract class GuiObject
 {
-    protected static Logger logger = LogManager.getLogger(GuiObject.class);
+    public static Logger logger = LoggerFactory.getLogger(GuiObject.class);
     private Ldtp ldtp;
 
     public Ldtp getLdtp()
@@ -38,7 +39,7 @@ public abstract class GuiObject
 
     /**
      * Return the String label value of a label
-     * 
+     *
      * @param label
      * @return
      */
