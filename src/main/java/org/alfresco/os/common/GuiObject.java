@@ -62,4 +62,9 @@ public abstract class GuiObject
             getLdtp().generateKeyEvent("<ctrl>v");
         }
     }
+
+    public void clearTextValue(String textField)
+    {
+        getLdtp().deleteText(textField, 0);
+    }
 }

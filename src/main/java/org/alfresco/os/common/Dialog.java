@@ -68,10 +68,14 @@ public class Dialog extends GuiObject
     {
         getLdtp().waitTillGuiExist("Close");
         getLdtp().click("Close");
-        getLdtp().waitTillGuiNotExist();
     }
     
     public void waitForDialogToAppear()
+    {
+        getLdtp().waitTillGuiExist();
+    }
+
+    public void waitForDialogToDisappear()
     {
         getLdtp().waitTillGuiExist();
     }
