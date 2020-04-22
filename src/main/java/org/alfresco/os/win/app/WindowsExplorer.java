@@ -18,7 +18,6 @@ import com.cobra.ldtp.Ldtp;
 import com.cobra.ldtp.LdtpExecutionError;
 import com.google.common.io.Files;
 import org.alfresco.os.common.ApplicationBase;
-import org.alfresco.os.mac.app.office.MicrosoftOfficeBase;
 import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
 import org.slf4j.Logger;
@@ -27,6 +26,9 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * * This class will handle Windows based operation over Windows Explorer
@@ -484,5 +486,18 @@ public class WindowsExplorer extends Application
     public boolean isContentDisplayed(String contentName)
     {
         return getLdtp().objectExist(contentName) == 1;
+    }
+
+    public void selectContents(String[] contentNames)
+    {
+        getLdtp().mouseLeftClick(contentNames[0]);
+        List<String> myList = new ArrayList<>(Arrays.asList(contentNames));
+        myList.remove(contentNames[0]);
+        getLdtp().keyPress("<ctrl>");
+        for(String content : myList)
+        {
+            getLdtp().mouseLeftClick(content);
+        }
+        getLdtp().keyRelease("<ctrl>");
     }
 }

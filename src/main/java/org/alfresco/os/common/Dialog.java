@@ -77,7 +77,7 @@ public class Dialog extends GuiObject
 
     public void waitForDialogToDisappear()
     {
-        getLdtp().waitTillGuiExist();
+        getLdtp().waitTillGuiNotExist();
     }
 
     public String getDialogName()
