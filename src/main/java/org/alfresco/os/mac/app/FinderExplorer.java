@@ -138,7 +138,7 @@ public class FinderExplorer extends KeyboardShortcut
         getLdtp().setWindowName(windowName);
         getLdtp().activateWindow(windowName);
         LdtpUtils.waitToLoopTime(1);
-        getLdtp().generateKeyEvent("<option><command>w");
+        getLdtp().generateKeyEvent("<command>w");
     }
 
     /**

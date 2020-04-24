@@ -18,6 +18,7 @@ import java.util.Iterator;
 public class Dialog extends GuiObject
 {   
     private String dialogName;
+    private String cancelButton = "btnCancel";
 
     public static Logger logger = LoggerFactory.getLogger(Dialog.class);
 
@@ -69,6 +70,11 @@ public class Dialog extends GuiObject
         getLdtp().waitTillGuiExist("Close");
         getLdtp().click("Close");
     }
+
+    public void clickCancel()
+    {
+        getLdtp().click(cancelButton);
+    }
     
     public void waitForDialogToAppear()
     {
@@ -96,5 +102,15 @@ public class Dialog extends GuiObject
         getLdtp().setWindowName(getDialogName());
         getLdtp().waitTillGuiExist();
         getLdtp().activateWindow(getDialogName());
+    }
+
+    public void arrowsNavigate(String arrow, int times)
+    {
+        int i = 0;
+        while(i < times)
+        {
+            getLdtp().generateKeyEvent(arrow);
+            i++;
+        }
     }
 }
