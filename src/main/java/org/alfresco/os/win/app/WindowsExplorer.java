@@ -73,6 +73,11 @@ public class WindowsExplorer extends Application
         }
     }
 
+    public WindowsExplorer(String windowName)
+    {
+        focus(windowName);
+    }
+
     /**
      * Focus a file name using <windowName> passes as parameter
      * 
@@ -168,6 +173,11 @@ public class WindowsExplorer extends Application
     public boolean isWindowDisplayed(String windowName)
     {
         return getLdtp().getWindowName().equals(windowName);
+    }
+
+    public boolean isWindowOpened()
+    {
+        return getLdtp().guiExist() == 1;
     }
 
     /**
