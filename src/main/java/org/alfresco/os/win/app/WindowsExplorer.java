@@ -75,6 +75,7 @@ public class WindowsExplorer extends Application
 
     public WindowsExplorer(String windowName)
     {
+        setLdtp(new Ldtp(windowName));
         focus(windowName);
     }
 
