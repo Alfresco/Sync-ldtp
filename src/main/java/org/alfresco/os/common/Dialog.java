@@ -7,9 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Map a simple Dialog window
@@ -112,5 +111,24 @@ public class Dialog extends GuiObject
             getLdtp().generateKeyEvent(arrow);
             i++;
         }
+    }
+
+    public String macGetValueControlFromTable(String tableObject, String labelObject)
+    {
+        String propertyLabel = "lbl" + labelObject;
+        getLdtp().waitTillGuiExist(propertyLabel);
+        String[] table = getLdtp().getObjectProperty(tableObject, "children").split(" ");
+        List<String> propertyRows = Arrays.stream(table).filter(
+                row -> row.startsWith("tblctablerow")).collect(Collectors.toList());
+        for(int i = 0; i < propertyRows.size(); i++)
+        {
+            String[] firstCell = getLdtp().getObjectProperty(propertyRows.get(i), "children").split(" ");
+            if(getLdtp().getObjectProperty(firstCell[0], "children")
+                    .equals(propertyLabel.replace(" ", "")))
+            {
+                return getLdtp().getObjectProperty(firstCell[1], "children").split( " ")[0];
+            }
+        }
+        return "";
     }
 }

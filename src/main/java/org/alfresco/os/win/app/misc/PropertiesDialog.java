@@ -2,7 +2,6 @@ package org.alfresco.os.win.app.misc;
 
 import com.cobra.ldtp.Ldtp;
 import com.google.common.io.Files;
-import org.alfresco.os.mac.app.office.MicrosoftOfficeBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

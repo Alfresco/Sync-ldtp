@@ -87,6 +87,13 @@
 			<artifactId>xmlrpc-client</artifactId>
 			<version>3.1.3</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>29.0-jre</version>
+		</dependency>
+
 	</dependencies>
 	<description>Alfresco GUI Automation Testing using LDTP(Linux Desktop Testing Project)</description>
 	<organization>
