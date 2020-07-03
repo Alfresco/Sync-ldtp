@@ -1,7 +1,6 @@
 package org.alfresco.os.common;
 
 import com.cobra.ldtp.Ldtp;
-import org.alfresco.os.win.Application;
 import org.alfresco.utilities.LdtpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +17,8 @@ public class Dialog extends GuiObject
 {   
     private String dialogName;
     private String cancelButton = "btnCancel";
+    private String closeMacButton = "btnclosebutton";
+    private String closeButton = "Close";
 
     public static Logger logger = LoggerFactory.getLogger(Dialog.class);
 
@@ -66,8 +67,13 @@ public class Dialog extends GuiObject
 
     public void closeDialog()
     {
-        getLdtp().waitTillGuiExist("Close");
-        getLdtp().click("Close");
+        closeDialog(closeButton);
+    }
+
+    public void closeDialog(String btnName)
+    {
+        getLdtp().waitTillGuiExist(btnName);
+        getLdtp().click(btnName);
     }
 
     public void clickCancel()
