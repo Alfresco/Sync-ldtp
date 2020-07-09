@@ -13,7 +13,6 @@ before_cache:
 branches:
   only: 
     - master
-    - feature/DESKTOPAPP-207-ltdpToTravis
 
 stages:
   - release
@@ -32,7 +31,7 @@ jobs:
         - echo "Running mvn install..."
         - travis_retry mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       if:
-        fork = false AND (branch = master OR branch =~ /feature\/.*/ OR branch =~ /.*DESKTOPAPP-.*$/) and type != pull_request
+        fork = false AND branch = master and type != pull_request
       script:
         - echo "Deploy to nexus"
         - # Use full history for release

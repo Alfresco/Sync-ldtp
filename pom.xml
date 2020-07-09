@@ -19,17 +19,18 @@
 		<connection>scm:git:https://github.com/AlfrescoTestAutomation/alfresco-ldtp.git</connection>
 		<url>https://github.com/Alfresco/Sync-ldtp.git</url>
 		<developerConnection>scm:git:https://github.com/AlfrescoTestAutomation/alfresco-ldtp.git</developerConnection>
+		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
 		<repository>
 			<id>alfresco-internal</id>
 			<name>Alfresco Releases Repository</name>
-			<url>https://artifacts.alfresco.com/nexus/content/repositories/internal-releases</url>
+			<url>https://artifacts.alfresco.com/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>alfresco-internal-snapshots</id>
 			<name>Alfresco Snapshots Repository</name>
-			<url>https://artifacts.alfresco.com/nexus/content/repositories/internal-snapshots</url>
+			<url>https://artifacts.alfresco.com/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<repositories>
