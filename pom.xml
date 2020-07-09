@@ -16,9 +16,9 @@
 		<slf4j.version>1.7.30</slf4j.version>
 	</properties>
 	<scm>
-		<connection>scm:git:https://github.com/AlfrescoTestAutomation/alfresco-ldtp.git</connection>
-		<url>https://github.com/Alfresco/Sync-ldtp.git</url>
-		<developerConnection>scm:git:https://github.com/AlfrescoTestAutomation/alfresco-ldtp.git</developerConnection>
+		<connection>scm:git:https://github.com/Alfresco/Sync-ldtp.git</connection>
+		<url>https://github.com/Alfresco/Sync-ldtp</url>
+		<developerConnection>scm:git:https://github.com/Alfresco/Sync-ldtp.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
