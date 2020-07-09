@@ -16,7 +16,6 @@ branches:
     - feature/DESKTOPAPP-207-ltdpToTravis
 
 stages:
-  - build
   - release
 
 # This should not be required on community build
@@ -26,15 +25,14 @@ before_install:
 jobs:
   include:
     - name:
-        "Build stage:"
+        "Build and release:"
       stage:
-        build
-      if:
-        fork = false AND (branch = master OR branch =~ /feature\/.*/ OR branch =~ /.*DESKTOPAPP-.*$/) and type != pull_request
-        # fork = false and type != pull_request
+        release
       install:
         - echo "Running mvn install..."
         - travis_retry mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      if:
+        fork = false AND (branch = master OR branch =~ /feature\/.*/ OR branch =~ /.*DESKTOPAPP-.*$/) and type != pull_request
       script:
         - echo "Deploy to nexus"
         - # Use full history for release
