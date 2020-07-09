@@ -1,0 +1,45 @@
+language: java
+jdk:
+  - oraclejdk11
+
+cache:
+  directories:
+    - $HOME/.m2
+  
+# the cache can grow constantly
+before_cache:
+  - rm -rf $HOME/.m2/repository/org/alfresco/ldtp
+
+branches:
+  only: 
+    - master
+    - feature/DESKTOPAPP-207-ltdpToTravis
+
+stages:
+  - build
+  - release
+
+# This should not be required on community build
+before_install:
+  - "cp .travis.settings.xml $HOME/.m2/settings.xml"
+
+jobs:
+  include:
+    - name:
+        "Build stage:"
+      stage:
+        build
+      if:
+        fork = false AND (branch = master OR branch =~ /feature\/.*/ OR branch =~ /.*DESKTOPAPP-.*$/) and type != pull_request
+        # fork = false and type != pull_request
+      install:
+        - echo "Running mvn install..."
+        - travis_retry mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      script:
+        - echo "Deploy to nexus"
+        - # Use full history for release
+        - git checkout -B "${TRAVIS_BRANCH}"
+        # Add email to link commits to user
+        - git config user.email "${GIT_EMAIL}"
+        # Skip building of release commits
+        - mvn --batch-mode -q -DscmCommentPrefix="[maven-release-plugin][skip ci] " -Dusername="${GIT_USERNAME}" -Dpassword="${GIT_PASSWORD}" -DskipTests -Darguments="-DskipTests" release:clean release:prepare release:perform
