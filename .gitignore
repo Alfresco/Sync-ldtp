@@ -1,20 +1,27 @@
 *.class
 
 # Mobile Tools for Java (J2ME)
-.mtj.tmp/
+.mtj
+.tmp/
 
 # Package Files #
 *.jar
 *.war
 *.ear
 
+# Maven
+target
+*.log
+*.log.*
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /target
 
+# Eclipse
 .classpath
-
 .project
+.settings
 
 *.prefs
 test-output/
@@ -25,4 +32,7 @@ test-output/
 
 ldtp.iml
 
-.idea
+# Intellij
+.idea/
+*.iml
+*.iws
