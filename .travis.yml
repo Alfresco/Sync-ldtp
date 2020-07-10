@@ -13,6 +13,7 @@ before_cache:
 branches:
   only: 
     - master
+    - feature/DESKTOPAPP-207-ltdpToTravis
 
 stages:
   - release
@@ -24,13 +25,14 @@ jobs:
     - stage: release
       name: "Push to Nexus"
       if:
-        fork = false AND branch = master and type != pull_request
+        fork = false AND branch = feature/DESKTOPAPP-207-ltdpToTravis and type != pull_request
       before_install:
         - "cp .travis.settings.xml $HOME/.m2/settings.xml"
       script:
         # Use full history for release
         - git checkout -B "${TRAVIS_BRANCH}"
+        - git status
         # Add email to link commits to user
         - git config user.email "${GIT_EMAIL}"
         # Skip building of release commits
-        - mvn --batch-mode -q -DscmCommentPrefix="[maven-release-plugin][skip ci] " -Dusername="${GIT_USERNAME}" -Dpassword="${GIT_PASSWORD}" -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
+        - mvn -X --batch-mode -q -DscmCommentPrefix="[maven-release-plugin][skip ci] " -Dusername="${GIT_USERNAME}" -Dpassword="${GIT_PASSWORD}" -DskipTests -Darguments=-DskipTests -DreleaseVersion=desktopapp-207-1 -DdevelopmentVersion=0.0.2-SNAPSHOT release:clean release:prepare release:perform
