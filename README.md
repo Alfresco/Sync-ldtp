@@ -27,6 +27,29 @@ For Windows you will need:
 
 Please take a look on [LDTP User Manual](http://ldtp.freedesktop.org/user-doc/)
 
+# Build
+The `Sync-ldtp` project uses _Travis CI_. \
+The `.travis.yml` config file can be found in the root of the repository.
+
+
+#### Stages and Jobs
+1. **Build**: Build project
+2. **Deploy**: Deployment by publishing a snapshot to Nexus
+3. **Release**: If required to make a release, add the following text to the commit message `[trigger release]`.
+Releases are made only from master branch.
+
+#### Branches
+Travis CI builds differ by branch:
+* `master` branch:
+  - regular builds which in a _Build_ stages;
+  - deploying the artifact on nexus with the version mentioned in `pom.xml` on the _Deploy_ stage.
+  - if needed, a release version can be done by adding `[trigger release]` to the commit message.
+* `feature/*` / `fix/*` branches:
+  - regular builds which include only the _Build_ stage;
+
+All other branches are ignored.
+In order to trigger a new build for other branch name, update the working copy of `.travis.yml` with your branch name.
+
 ## Getting Started
 
 * Checkout the code and install all dependencies:
@@ -34,7 +57,8 @@ Please take a look on [LDTP User Manual](http://ldtp.freedesktop.org/user-doc/)
 $ git clone https://github.com/Alfresco/Sync-ldtp
 $ mvn clean install -DskipTests 
 ```
-* Run MAC OS X related tests:
+
+#### Run MAC OS X related tests:
 ```cmd
 $ mvn clean test -Dgroups=MacOnly -DexcludedGroups=Office
 ```
@@ -44,7 +68,7 @@ If you have Office 2011 installed on your MAC you can run the Office unit tests 
 $ mvn clean test -Dtest=org.alfresco.os.mac.app.office.v2011.Excel2011Test
 ```
 
-## Usage
+### Usage
 
 Please take a look on the unit tests already implemented for our classes.
 Bellow you will find also a snipet of how to create a simple folder as a End User will do in Finder:

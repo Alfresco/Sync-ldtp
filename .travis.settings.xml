@@ -1,38 +1,15 @@
 <settings>
-    <profiles>
-        <profile>
-            <id>alfresco-internal</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>alfresco-internal</id>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <name>Alfresco Internal Repository</name>
-                    <url>https://artifacts.alfresco.com/nexus/content/groups/internal</url>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>alfresco-internal</id>
-                    <name>Alfresco Internal Repository</name>
-                    <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-    </profiles>
     <!-- required to push artifacts to repositories -->
     <servers>
         <server>
-            <id>alfresco-internal</id>
-            <username>${env.MAVEN_USERNAME}</username>
-            <password>${env.MAVEN_PASSWORD}</password>
+            <id>alfresco-public</id>
+            <username>${env.NEXUS_USERNAME}</username>
+            <password>${env.NEXUS_PASSWORD}</password>
+        </server>
+        <server>
+            <id>thirdparty</id>
+            <username>${env.NEXUS_USERNAME}</username>
+            <password>${env.NEXUS_PASSWORD}</password>
         </server>
     </servers>
 </settings>
