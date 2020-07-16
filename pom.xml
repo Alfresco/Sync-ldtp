@@ -24,12 +24,12 @@
 	</scm>
 	<distributionManagement>
 		<repository>
-			<id>alfresco-public</id>
-			<url>https://artifacts.alfresco.com/nexus/content/repositories/releases</url>
+			<id>alfresco-internal</id>
+			<url>https://artifacts.alfresco.com/nexus/content/repositories/internal-releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>alfresco-public</id>
-			<url>https://artifacts.alfresco.com/nexus/content/repositories/snapshots</url>
+			<id>alfresco-internal-snapshots</id>
+			<url>https://artifacts.alfresco.com/nexus/content/repositories/internal-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<repositories>

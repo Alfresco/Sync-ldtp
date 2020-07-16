@@ -2,7 +2,12 @@
     <!-- required to push artifacts to repositories -->
     <servers>
         <server>
-            <id>alfresco-public</id>
+            <id>alfresco-internal</id>
+            <username>${env.NEXUS_USERNAME}</username>
+            <password>${env.NEXUS_PASSWORD}</password>
+        </server>
+        <server>
+            <id>alfresco-internal-snapshots</id>
             <username>${env.NEXUS_USERNAME}</username>
             <password>${env.NEXUS_PASSWORD}</password>
         </server>
