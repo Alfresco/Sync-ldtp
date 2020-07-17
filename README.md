@@ -35,15 +35,12 @@ The `.travis.yml` config file can be found in the root of the repository.
 #### Stages and Jobs
 1. **Build**: Build project
 2. **Deploy**: Deployment by publishing a snapshot to Nexus
-3. **Release**: If required to make a release, add the following text to the commit message `[trigger release]`.
-Releases are made only from master branch.
 
 #### Branches
 Travis CI builds differ by branch:
 * `master` branch:
   - regular builds which in a _Build_ stages;
   - deploying the artifact on nexus with the version mentioned in `pom.xml` on the _Deploy_ stage.
-  - if needed, a release version can be done by adding `[trigger release]` to the commit message.
 * `feature/*` / `fix/*` branches:
   - regular builds which include only the _Build_ stage;
 
