@@ -32,6 +32,6 @@ jobs:
 
     - name: "Deploy snapshot on nexus"
       stage: deploy
-      if: fork = false AND branch = feature/DESKTOPAPP-207 and type != pull_request
+      if: fork = false AND branch = master and type != pull_request
       script:
         - mvn --batch-mode -U clean deploy -DskipTests
