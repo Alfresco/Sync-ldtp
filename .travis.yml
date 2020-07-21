@@ -19,7 +19,6 @@ branches:
 stages:
   - build
   - deploy
-  - release
 
 before_install: "cp .travis.settings.xml $HOME/.m2/settings.xml"
 install: travis_retry mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
@@ -36,15 +35,3 @@ jobs:
       if: fork = false AND branch = master and type != pull_request
       script:
         - mvn --batch-mode -U clean deploy -DskipTests
-
-    - name: "Release on nexus"
-      stage: release
-      if: fork = false AND commit_message ~= /\[trigger release\]/  AND branch = master and type != pull_request
-      script:
-        # Use full history for release
-        - git checkout -B "${TRAVIS_BRANCH}"
-        - git status
-        # Add email to link commits to user
-        - git config user.email "${GIT_EMAIL}"
-        # Skip building of release commits
-        - mvn --batch-mode -q -DscmCommentPrefix="[maven-release-plugin][skip ci] " -Dusername="${GIT_USERNAME}" -Dpassword="${GIT_PASSWORD}" -DskipTests -Darguments=-DskipTests release:clean release:prepare release:perform
