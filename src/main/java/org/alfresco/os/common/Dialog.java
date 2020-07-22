@@ -79,6 +79,19 @@ public class Dialog extends GuiObject
     public void clickCancel()
     {
         getLdtp().click(cancelButton);
+        logger.info("Clicking 'Cancel' on  '" + getDialogName() + "' dialog");
+    }
+
+    public void clickYes()
+    {
+        getLdtp().click("Yes");
+        logger.info("Clicking 'Yes' on  '" + getDialogName() + "' dialog");
+    }
+
+    public void clickNo()
+    {
+        getLdtp().click("No");
+        logger.info("Clicking 'No' on  '" + getDialogName() + "' dialog");
     }
     
     public void waitForDialogToAppear()
