@@ -34,4 +34,4 @@ jobs:
       stage: deploy
       if: fork = false AND branch = fix/DESKTOPAPP-171-version and type != pull_request
       script:
-        - mvn --batch-mode -U clean deploy -DskipTests
+        - mvn --batch-mode -U clean deploy -DskipTests -DuniqueVersion=false
