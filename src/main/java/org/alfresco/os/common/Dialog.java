@@ -70,6 +70,11 @@ public class Dialog extends GuiObject
         closeDialog(closeButton);
     }
 
+    public void closeMacDialog()
+    {
+        closeDialog(closeMacButton);
+    }
+
     public void closeDialog(String btnName)
     {
         getLdtp().waitTillGuiExist(btnName);
@@ -82,18 +87,6 @@ public class Dialog extends GuiObject
         logger.info("Clicking 'Cancel' on  '" + getDialogName() + "' dialog");
     }
 
-    public void clickYes()
-    {
-        getLdtp().click("Yes");
-        logger.info("Clicking 'Yes' on  '" + getDialogName() + "' dialog");
-    }
-
-    public void clickNo()
-    {
-        getLdtp().click("No");
-        logger.info("Clicking 'No' on  '" + getDialogName() + "' dialog");
-    }
-    
     public void waitForDialogToAppear()
     {
         getLdtp().waitTillGuiExist();
