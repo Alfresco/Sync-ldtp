@@ -24,4 +24,12 @@ public class ContextMenuItem extends GuiObject
         getLdtp().click(value);
         return this;
     }
+
+    public boolean isSubMenuDisplayed(String value)
+    {
+        if (getLdtp().doesMenuItemExist(value) == 1)
+            return true;
+        return false;
+    }
+
 }
