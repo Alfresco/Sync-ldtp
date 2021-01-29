@@ -106,7 +106,7 @@ public class WindowsExplorer extends Application
     public ApplicationBase openApplication(String pathToFolder)
     {
         setWaitWindow(new File(pathToFolder).getName());
-        LdtpUtils.executeOnWin("start " + pathToFolder);
+        LdtpUtils.executeOnWin("start \"\" \"" + pathToFolder + "\"");
         waitForApplicationWindow(getWaitWindow(), true);
         focus(getWaitWindow());
         return this;

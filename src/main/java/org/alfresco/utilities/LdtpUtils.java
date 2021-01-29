@@ -505,6 +505,7 @@ public class LdtpUtils
             retries++;
             waitToLoopTime(1);
         }
+        logger.info(String.format("File %s exists on disk: %s (expected false)", filePath.getPath(), filePath.exists()));
     }
 
     public static void waitUntilFileHasContent(File filePath, String expectedContent) throws Exception
@@ -576,6 +577,7 @@ public class LdtpUtils
             waitToLoopTime(1);
             isRunning = isProcessRunning(processName);
         }
+        logger.info(String.format("Desktop Sync application started: %s", isRunning));
     }
 
     /**
@@ -593,8 +595,9 @@ public class LdtpUtils
             retry++;
             waitToLoopTime(1);
             isRunning = isProcessRunning(processName);
-            logger.info(String.format("Wait until process %s is not working", processName));
+            logger.info(String.format("Wait until process %s is not running", processName));
         }
+        logger.info(String.format("Desktop Sync application is running: %s (expected false)", isRunning));
     }
 
     /*
