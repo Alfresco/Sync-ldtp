@@ -108,6 +108,7 @@ public class FinderExplorer extends KeyboardShortcut
         if(name.contains(" "))
         {
             name = name.replace(" ", "");
+            path = "\"" + path + "\"";
         }
         // only for trash - macOs Catalina
         if(name.equals("Trash"))
@@ -116,7 +117,7 @@ public class FinderExplorer extends KeyboardShortcut
             name = "Bin";
         }
         setWaitWindow("frm" + name);
-        LdtpUtils.executeOnMac("open \"" + path + "\"");
+        LdtpUtils.executeOnMac("open " + path + "");
         waitForApplicationWindow(getWaitWindow(), true);
         setViewLayout(LayoutView.LIST);
         return this;
