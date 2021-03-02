@@ -45,7 +45,7 @@ public class LdtpUtils
     private static boolean isDebugEnabled = logger.isDebugEnabled();
 
     // CONSTANTS
-    public static final int RETRY_COUNT = 45;
+    public static final int RETRY_COUNT = 30;
     public static final String PROPERTIES_FILE = "alfresco-ldtp.properties";
 
     /**
