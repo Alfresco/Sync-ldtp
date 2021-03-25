@@ -574,10 +574,11 @@ public class LdtpUtils
         while (!isRunning && retry <= RETRY_COUNT)
         {
             retry++;
+            logger.info(String.format("%d: wait until Desktop Sync application starts", retry));
             waitToLoopTime(1);
             isRunning = isProcessRunning(processName);
         }
-        logger.info(String.format("Desktop Sync application started: %s", isRunning));
+        logger.info(String.format("%d: Desktop Sync application started: %s", retry, isRunning));
     }
 
     /**
@@ -595,7 +596,7 @@ public class LdtpUtils
             retry++;
             waitToLoopTime(1);
             isRunning = isProcessRunning(processName);
-            logger.info(String.format("Wait until process %s is not running", processName));
+            logger.info(String.format("%d: Wait until process %s is not running", retry, processName));
         }
         logger.info(String.format("Desktop Sync application is running: %s (expected false)", isRunning));
     }
@@ -666,7 +667,7 @@ public class LdtpUtils
         String[] windowList = ldtp.getWindowList();
         while (retries <= LdtpUtils.RETRY_COUNT && Arrays.asList(windowList).contains(windowName))
         {
-            logger.info(String.format("Wait for window '%s' to disappear", windowName));
+            logger.info(String.format("%d: Wait for window '%s' to disappear", retries, windowName));
             retries++;
             waitToLoopTime(1);
             windowList = ldtp.getWindowList();
@@ -740,7 +741,7 @@ public class LdtpUtils
             }
             else
             {
-                logger.info(String.format("Wait until object '%s' contains label '%s'", objectName, valueToWait));
+                logger.info(String.format("%d: Wait until object '%s' contains label '%s'", counter, objectName, valueToWait));
                 waitToLoopTime(1);
                 counter++;
             }
@@ -854,6 +855,7 @@ public class LdtpUtils
         while (retries <= LdtpUtils.RETRY_COUNT && LdtpUtils.getFullWindowList(ldtp, partialWindowName) == null)
         {
             LdtpUtils.waitToLoopTime(1);
+            logger.info(String.format("%d: Wait for %s to be displayed", retries, partialWindowName));
             retries++;
         }
     }
