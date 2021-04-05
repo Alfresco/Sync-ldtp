@@ -313,7 +313,7 @@ public abstract class ApplicationBase
                     return _ldtp;
                 }
             }
-            LdtpUtils.waitToLoopTime(1);
+            LdtpUtils.waitToLoopTime(1, "wait for application window");
             retries += 1;
         }
         return null;

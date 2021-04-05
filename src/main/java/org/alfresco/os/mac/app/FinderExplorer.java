@@ -142,7 +142,7 @@ public class FinderExplorer extends KeyboardShortcut
         logger.info(String.format("Close Explorer Window of %s.", windowName));
         getLdtp().setWindowName(windowName);
         getLdtp().activateWindow(windowName);
-        LdtpUtils.waitToLoopTime(1);
+        LdtpUtils.waitToLoopTime(1, "wait to close explorer");
         getLdtp().generateKeyEvent("<command>w");
     }
 
@@ -224,7 +224,7 @@ public class FinderExplorer extends KeyboardShortcut
     {
         logger.info("Creating Folder: " + folderPath.getPath());
         getLdtp().generateKeyEvent("<shift><command>n");
-        LdtpUtils.waitToLoopTime(2);
+        LdtpUtils.waitToLoopTime(2, "wait to create folder");
         getLdtp().generateKeyEvent(folderPath.getName());
         getLdtp().generateKeyEvent("<enter>");
     }

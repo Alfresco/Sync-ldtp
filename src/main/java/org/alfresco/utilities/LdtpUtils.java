@@ -140,6 +140,7 @@ public class LdtpUtils
             else
             {
                 counter++;
+                logger.info(String.format("%d: Wait for object %s", counter, objectName));
                 waitToLoopTime(1);
             }
         }
@@ -151,6 +152,7 @@ public class LdtpUtils
         while (retry < RETRY_COUNT && ldtp.stateEnabled(objName) != 1)
         {
             retry++;
+            logger.info(String.format("%d: Wait for %s to be enabled", retry, objName));
             waitToLoopTime(1);
         }
     }
@@ -353,14 +355,9 @@ public class LdtpUtils
         return results;
     }
 
-    /**
-     * We will wait until the <seconds> are passed from current run
-     * 
-     * @param seconds
-     */
     public static void waitToLoopTime(int seconds)
     {
-        logInfo("Waiting (in loops) for: " + seconds + " second(s).");
+        logInfo(String.format("Waiting in loop of %d seconds", seconds));
         long currentTime;
         long endTime;
         currentTime = System.currentTimeMillis();
@@ -370,21 +367,32 @@ public class LdtpUtils
         }
         while (endTime - currentTime < (seconds * 1000));
     }
+
+    /**
+     *
+     * @param seconds to wait
+     * @param message displayed while waiting
+     */
+    public static void waitToLoopTime(int seconds, String message)
+    {
+        logInfo(String.format("Waiting in loop: %s", message));
+        waitToLoopTime(seconds);
+    }
+
     /**
      * We will wait until the <seconds> are passed from current run
-     * 
-     * @param seconds to wait
-     * @throws Exception 
+     * @param seconds
+     * @param message
      */
-    public static void waitForElement(int seconds)
+    public static void waitForElement(int seconds, String message)
     {
         try
         {
-            logInfo("Waiting (in loops) for: " + seconds + " second(s).");
-            waitToLoopTime(seconds);
+            waitToLoopTime(seconds, message);
         }
         catch (Exception e)
         {
+            logger.error(String.format("Exception %s was thrwon", e.getMessage()));
         }
     }
 
@@ -655,7 +663,7 @@ public class LdtpUtils
                     return window;
                 }
             }
-            waitToLoopTime(1);
+            waitToLoopTime(1, String.format("get window '%s'", partialWindowList));
             retries += 1;
         }
         return null;
