@@ -501,7 +501,7 @@ public class LdtpUtils
         while (retries <= 60 && !filePath.exists())
         {
             retries++;
-            waitToLoopTime(1);
+            waitToLoopTime(1, String.format("%d: Wait until file exists on Disk", retries));
         }
     }
     public static void waitUntilFileDoesNotExistsOnDisk(File filePath)
@@ -511,7 +511,7 @@ public class LdtpUtils
         while (retries <= 60 && filePath.exists())
         {
             retries++;
-            waitToLoopTime(1);
+            waitToLoopTime(1, String.format("%d: Wait until file does not exists on Disk", retries));
         }
         logger.info(String.format("File %s exists on disk: %s (expected false)", filePath.getPath(), filePath.exists()));
     }
@@ -525,7 +525,7 @@ public class LdtpUtils
         {
             actualContent = new String(java.nio.file.Files.readAllBytes(Paths.get(filePath.getPath())));
             retries++;
-            waitToLoopTime(1);
+            waitToLoopTime(1, String.format("%d: Wait until file '%s' has expected content", retries, filePath.getPath()));
         }
     }
     /**
@@ -663,7 +663,7 @@ public class LdtpUtils
                     return window;
                 }
             }
-            waitToLoopTime(1, String.format("get window '%s'", partialWindowList));
+            waitToLoopTime(1, String.format("%d: get window '%s'", retries, partialWindowList));
             retries += 1;
         }
         return null;
