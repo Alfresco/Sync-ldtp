@@ -140,10 +140,16 @@ public class FinderExplorer extends KeyboardShortcut
     public void closeExplorer(String windowName)
     {
         logger.info(String.format("Close Explorer Window of %s.", windowName));
-        getLdtp().setWindowName(windowName);
-        getLdtp().activateWindow(windowName);
-        LdtpUtils.waitToLoopTime(1, "wait to close explorer");
-        getLdtp().generateKeyEvent("<command>w");
+        for(String s: getLdtp().getWindowList())
+            if(s.contains(windowName))
+            {
+                int count = 1;
+                getLdtp().setWindowName(windowName);
+                getLdtp().activateWindow(windowName);
+                LdtpUtils.waitToLoopTime(1, String.format("%d: wait to close explorer: %s", count, windowName));
+                getLdtp().generateKeyEvent("<command>w");
+                count ++;
+            }
     }
 
     /**
@@ -153,6 +159,7 @@ public class FinderExplorer extends KeyboardShortcut
      */
     public void setViewLayout(LayoutView layoutView)
     {
+        LdtpUtils.waitToLoopTime(1, "Wait to load layouts");
         logger.info("Set view layout to:" + layoutView.name());
         getLdtp().click(layoutView.getIdentifiler());
     }

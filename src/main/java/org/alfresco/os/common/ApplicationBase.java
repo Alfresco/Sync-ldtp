@@ -290,7 +290,7 @@ public abstract class ApplicationBase
         int retries = 0;
         windowName = windowName.replaceAll("\\*", "");
         // here we will wait until the window is visible
-        LdtpUtils.logInfo("WaitForApplicationWindow '" + windowName + "' between all windows...");
+        LdtpUtils.logInfo("Wait For Application Window '" + windowName + "' between all windows...");
         while (retries <= LdtpUtils.RETRY_COUNT)
         {
             String[] windowList = _ldtp.getWindowList();
