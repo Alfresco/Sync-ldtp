@@ -496,7 +496,7 @@ public class LdtpUtils
      */
     public static void waitUntilFileExistsOnDisk(File filePath)
     {
-        logger.info(String.format("Waiting until file [%s] exists on Disk", filePath.getPath()));
+        logger.info(String.format("Waiting until content [%s] exists on Disk", filePath.getPath()));
         int retries = 1;
         while (retries <= 60 && !filePath.exists())
         {
@@ -858,14 +858,8 @@ public class LdtpUtils
      */
     public static void waitForWindowPartialName(Ldtp ldtp, String partialWindowName)
     {
-        int retries = 1;
         logger.info(String.format("Waiting for window:  %s", partialWindowName));
-        while (retries <= LdtpUtils.RETRY_COUNT && LdtpUtils.getFullWindowList(ldtp, partialWindowName) == null)
-        {
-            LdtpUtils.waitToLoopTime(1);
-            logger.info(String.format("%d: Wait for %s to be displayed", retries, partialWindowName));
-            retries++;
-        }
+        LdtpUtils.getFullWindowList(ldtp, partialWindowName);
     }
     
     /**

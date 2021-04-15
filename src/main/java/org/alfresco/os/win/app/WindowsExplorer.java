@@ -237,6 +237,10 @@ public class WindowsExplorer extends Application
     public void closeExplorer(String windowName)
     {
         logger.info("close the explorer");
+        if(windowName.contains(" "))
+        {
+            windowName = windowName.replace(" ", "");
+        }
         getLdtp().setWindowName(windowName);
         getLdtp().waitTillGuiExist("Close");
         getLdtp().click("Close");
