@@ -228,7 +228,7 @@ public class WindowsExplorer extends Application
      */
     public void closeExplorer()
     {
-        logger.info("close the explorer");
+        logger.info("close File Explorer");
         getLdtp().waitTillGuiExist("Close");
         getLdtp().click("Close");
         setLdtp(null);
@@ -236,11 +236,11 @@ public class WindowsExplorer extends Application
 
     public void closeExplorer(String windowName)
     {
-        logger.info("close the explorer");
         if(windowName.contains(" "))
         {
             windowName = windowName.replace(" ", "");
         }
+        logger.info(String.format("Close File Explorer %s", windowName));
         getLdtp().setWindowName(windowName);
         getLdtp().waitTillGuiExist("Close");
         getLdtp().click("Close");
