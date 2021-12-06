@@ -167,7 +167,7 @@ public class FinderExplorer extends KeyboardShortcut
     {
         LdtpUtils.waitToLoopTime(1, "Wait to load layouts");
         logger.info("Set view layout to:" + layoutView.name());
-        getLdtp().click(layoutView.getIdentifiler());
+        //this.getLdtp().click(layoutView.getIdentifiler());
     }
 
     /**
