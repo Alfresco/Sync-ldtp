@@ -15,20 +15,24 @@ branches:
     - master
     - /feature\/.*/
     - /fix\/.*/
+import:
+  - source: Alfresco/alfresco-build-tools:.travis.maven_config.yml@v1.1.5
+  - source: Alfresco/alfresco-build-tools:.travis.java_config.yml@v1.1.5
+  - source: Alfresco/alfresco-build-tools:.travis.common.yml@v1.1.5
 
 stages:
   - build
   - deploy
 
-before_install: "cp .travis.settings.xml $HOME/.m2/settings.xml"
+#before_install: "cp settings.xml $HOME/.m2/settings.xml"
 install: travis_retry mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 jobs:
   include:
-    - name: "Build"
-      stage: build
-      script:
-        - echo "The tests are skipped as it requires different OS settings"
+    #- name: "Build"
+    #  stage: build
+     # script:
+       # - echo "The tests are skipped as it requires different OS settings"
 
     - name: "Deploy snapshot on nexus"
       stage: deploy
