@@ -29,7 +29,7 @@ jobs:
         shell: bash
         run: |
           [ -d ${HOME}/.m2/ ] || mkdir -p ${HOME}/.m2/
-          cp -v /settings.xml ${HOME}/.m2/ 
+          cp -v settings.xml ${HOME}/.m2/ 
 
       - name: Cache the Maven packages to speed up build
         uses: actions/cache@v1
@@ -63,7 +63,7 @@ jobs:
         shell: bash
         run: |
           [ -d ${HOME}/.m2/ ] || mkdir -p ${HOME}/.m2/
-          cp -v /settings.xml ${HOME}/.m2/
+          cp -v settings.xml ${HOME}/.m2/
 
       - name: Cache the Maven packages to speed up build
         uses: actions/cache@v1
