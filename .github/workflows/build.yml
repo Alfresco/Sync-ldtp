@@ -1,0 +1,77 @@
+name: Alfresco LDTP github workflow
+
+on:
+  push:
+    branches:
+      - master
+      - 'feature/**'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        env:
+          JAVA_VERSION: 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: 11
+
+      - name: Setup maven
+        shell: bash
+        run: |
+          [ -d ${HOME}/.m2/ ] || mkdir -p ${HOME}/.m2/
+          cp -v _ci/settings.xml ${HOME}/.m2/ || cp -v .travis.settings.xml ${HOME}/.m2/settings.xml
+
+      - name: Cache the Maven packages to speed up build
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: "build"
+        run: |
+             mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+             bash echo "The tests are skipped as it requires different OS settings"
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        env:
+          JAVA_VERSION: 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: 11
+
+      - name: Setup maven
+        shell: bash
+        run: |
+          [ -d ${HOME}/.m2/ ] || mkdir -p ${HOME}/.m2/
+          cp -v _ci/settings.xml ${HOME}/.m2/ || cp -v .travis.settings.xml ${HOME}/.m2/settings.xml
+
+      - name: Cache the Maven packages to speed up build
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: "deploy"
+        run: |
+             mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+             mvn --batch-mode -U clean deploy -DskipTests
