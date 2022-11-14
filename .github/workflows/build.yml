@@ -41,7 +41,7 @@ jobs:
       - name: "build"
         run: |
              mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-             bash echo "The tests are skipped as it requires different OS settings"
+             echo "The tests are skipped as it requires different OS settings"
 
   deploy:
     runs-on: ubuntu-latest
